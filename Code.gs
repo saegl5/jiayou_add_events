@@ -43,7 +43,7 @@ function createEventOnDaysWithJ() {
     var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 11, 0, 0);   // **MODIFY**
 
     // Create the new event
-    calendar.createEvent("New Event at 10 AM", startTime, endTime); **MODIFY**
+    calendar.createEvent("New Event at 10 AM", startTime, endTime); // **MODIFY**
     Logger.log("Created a new event on " + startTime);
   }
 }
