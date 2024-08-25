@@ -1,12 +1,12 @@
 function createEventOnDaysWithJ() {
-  var calendarName = "JIA YOU";  // The name of the calendar you are looking for
+  var calendarName = "JIA YOU";
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
       Logger.log('Calendar ID for "' + calendarName + '": ' + calendars[i].getId());
-      var calendarID = String(calendars[i].getId());  // Return the calendar ID
+      var calendarID = String(calendars[i].getId());  // Assign the calendar ID
     }
   }
 
