@@ -10,7 +10,7 @@ function createEventOnDaysWithJ() {
     }
   }
 
-  // Access the user's calendar
+  // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarID);
 
   // Set the search parameters
@@ -40,10 +40,10 @@ function createEventOnDaysWithJ() {
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr);
     var startTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 10, 0, 0); // **MODIFY**
-    var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 11, 0, 0);   // **MODIFY**
+    var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 11, 0, 0); // **MODIFY**
 
     // Create the new event
-    calendar.createEvent("New Event at 10 AM", startTime, endTime); // **MODIFY**
+    calendar.createEvent("New Meeting", startTime, endTime, {description: 'Agenda'}); // **MODIFY**
     Logger.log("Created a new event on " + startTime);
   }
 }
