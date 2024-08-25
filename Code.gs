@@ -1,4 +1,4 @@
-function createEventOnDaysWithJ() {
+function createEventOnDaysWithJDay() {
   var calendarName = "JIA YOU";
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
