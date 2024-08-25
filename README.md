@@ -1,4 +1,4 @@
-# 加油 ("jiayou") Events
+# 加油 ("jia you") Events
 
 Google Apps Script for creating events on only certain days (e.g., on only "J Day's"). Modify as needed.
 
