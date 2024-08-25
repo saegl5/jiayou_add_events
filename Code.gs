@@ -14,15 +14,15 @@ function createEventOnDaysWithJ() {
   var calendar = CalendarApp.getCalendarById(calendarID);
 
   // Set the search parameters
-  var query = "J";
+  var query = "J &nbsp; Day"; // Don't remove "&nbsp;"! Added extra spacing.
   var now = new Date();
   var oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(now.getFullYear() + 1);
   
-  // Search for events with title "J" between now and one year from now
+  // Search for events with title "J Day" between now and one year from now
   var events = calendar.getEvents(now, oneYearFromNow, {search: query});
   
-  // Track dates when events with title "J" occur
+  // Track dates when events with title "J Day" occur
   var datesWithJ = {};
 
   // Loop through each event found
@@ -36,7 +36,7 @@ function createEventOnDaysWithJ() {
     datesWithJ[dateKey] = true;
   });
 
-  // Iterate over the dates with events titled "J" and create a new event at 10 am
+  // Iterate over the dates with events titled "J Day" and create a new event at 10 am
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr);
     var startTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 10, 0, 0); // **MODIFY**
