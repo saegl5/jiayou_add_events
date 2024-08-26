@@ -14,7 +14,7 @@ function createEvents() {
   var calendar = CalendarApp.getCalendarById(calendarID);
 
   // Set the search parameters
-  var query = "J Day"; // Query ignores any extra spacing
+  var query = "J Day"; // **MODIFY** (Query ignores any extra spacing)
   var now = new Date();
   var oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(now.getFullYear() + 1);
