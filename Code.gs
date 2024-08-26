@@ -1,6 +1,16 @@
+// Modify the search query, event title, description, start time, and end time as desired
+
+var myQuery = "J Day"; // Query ignores any extra spacing
+var myTitle = "New Meeting";
+var myDescription = "Agenda";
+var myStartTime = [10, 0]; // Means 10:00
+var myEndTime = [11, 0]; // Means 11:00
+
+
+
 // ** WARNING **
-// If this script is modified improperly, running it may cause irrevocable damage.
-// This script comes with absolutely no warranty. Use it at your own risk.
+// If the script below is modified improperly, running it may cause irrevocable damage.
+// The script below comes with absolutely no warranty. Use it at your own risk.
 
 function createEvents() {
   var calendarName = "JIA YOU";
@@ -18,7 +28,7 @@ function createEvents() {
   var calendar = CalendarApp.getCalendarById(calendarID);
 
   // Set the search parameters
-  var query = "J Day"; // **MODIFY** (Query ignores any extra spacing)
+  var query = myQuery;
   var now = new Date();
   var oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(now.getFullYear() + 1);
@@ -43,11 +53,11 @@ function createEvents() {
   // Iterate over the dates with events titled "J Day" and create a new event at 10 am
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr);
-    var startTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 10, 0, 0); // **MODIFY**
-    var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), 11, 0, 0); // **MODIFY**
+    var startTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myStartTime[0], myStartTime[1]);
+    var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myEndTime[0], myEndTime[1]);
 
     // Create the new event
-    calendar.createEvent("New Meeting", startTime, endTime, {description: 'Agenda'}); // **MODIFY**
+    calendar.createEvent(myTitle, startTime, endTime, {description: myDescription});
     Logger.log("Created a new event on " + startTime);
   }
 }
