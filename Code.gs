@@ -1,3 +1,7 @@
+// ** WARNING **
+// If this script is modified improperly, running it may cause irrevocable damage.
+// This script comes with absolutely no warranty. Use it at your own risk.
+
 function createEvents() {
   var calendarName = "JIA YOU";
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
