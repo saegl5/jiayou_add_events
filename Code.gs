@@ -1,5 +1,7 @@
 // Modify the search query, event title, description, start time, and end time as desired
 
+var myCalendarName = "JIA YOU";
+var myCalendarNameAlt = "JIA YOU"; // change name to create events on an alternate calendar
 var myQuery = "J Day"; // Query ignores any extra spacing
 var myTitle = "New Meeting";
 var myLocation = "Location";
@@ -14,8 +16,8 @@ var myEndTime = [11, 0]; // Means 11:00, use 24-hour time format
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
 function createEvents() {
-  var calendarName = "JIA YOU";
-  var calendarNameAlt = "JIA YOU"; // change name to create events on an alternate calendar
+  var calendarName = myCalendarName;
+  var calendarNameAlt = myCalendarNameAlt;
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
   // Loop through all calendars and find the one with the matching name
