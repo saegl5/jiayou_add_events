@@ -1,7 +1,7 @@
 // Modify the search query, event title, description, start time, and end time as desired
 
-var myCalendarName = "JIA YOU";
-var myCalendarNameAlt = "JIA YOU"; // change name to create events on an alternate calendar
+var myCalendarName = "JIA YOU"; // Must name it differently from the owner name
+var myCalendarNameAlt = "JIA YOU"; // change name to create events on an alternate calendar, same naming convention applies
 var myQuery = "J Day"; // Query ignores any extra spacing
 var myTitle = "New Meeting";
 var myLocation = "Location";

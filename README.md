@@ -6,8 +6,8 @@ Google Apps Script for batch creating events on only certain days (e.g., on only
 
 1. Go to [Google Apps Script](https://script.google.com/), and create a new project.
 2. Copy and paste [the script](./Code.gs) into the editor.
-3. Modify the calendar name. (By default, it is "JIA YOU.")
-4. If you want to create events on an alternate calendar, modify the alternate calendar name.
+3. Modify the calendar name. (By default, it is "JIA YOU." ***Must name it differently from the owner name, otherwise the script will not create events.***)
+4. If you want to create events on an alternate calendar, modify the alternate calendar name. (***Same naming convention applies.***)
 5. Modify the search query. (By default, it is "J Day." Specifically, `myQuery = "J Day";`)
 6. Modify the events' title, location, description, start time, and end time. (By default, events are titled "New Meeting," located at "Location," described as "Agenda," start at 10am, and end at 11am.)
 7. Save and run the script. (Requires authorization.)
