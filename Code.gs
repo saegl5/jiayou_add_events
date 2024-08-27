@@ -15,6 +15,7 @@ var myEndTime = [11, 0]; // Means 11:00, use 24-hour time format
 
 function createEvents() {
   var calendarName = "JIA YOU";
+  var calendarNameAlt = "JIA YOU"; // change name to create events on an alternate calendar
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
   // Loop through all calendars and find the one with the matching name
@@ -25,8 +26,21 @@ function createEvents() {
     }
   }
 
+  // Repeat loop for alternate calendar (if one exists)
+  if (calendarName !== calendarNameAlt) {
+    for (var j = 0; j < calendars.length; j++) {
+      if (calendars[j].getName() === calendarNameAlt) {
+        Logger.log('Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId());
+        var calendarIdAlt = String(calendars[j].getId());  // Assign the calendar ID
+      }
+    }
+  }
+
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
+  if (calendarName !== calendarNameAlt) {
+    var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
+  }
 
   // Set the search parameters
   var query = myQuery;
@@ -58,7 +72,12 @@ function createEvents() {
     var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myEndTime[0], myEndTime[1]);
 
     // Create the new event
-    calendar.createEvent(myTitle, startTime, endTime, {location: myLocation, description: myDescription});
+    if (calendarName !== calendarNameAlt) {
+      calendarAlt.createEvent(myTitle, startTime, endTime, {location: myLocation, description: myDescription});
+    }
+    else {
+      calendar.createEvent(myTitle, startTime, endTime, {location: myLocation, description: myDescription});
+    }
     Logger.log("Created a new event on " + startTime);
   }
 }
