@@ -2,6 +2,7 @@
 
 var myQuery = "J Day"; // Query ignores any extra spacing
 var myTitle = "New Meeting";
+var myLocation = "Location";
 var myDescription = "Agenda";
 var myStartTime = [10, 0]; // Means 10:00
 var myEndTime = [11, 0]; // Means 11:00
@@ -57,7 +58,7 @@ function createEvents() {
     var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myEndTime[0], myEndTime[1]);
 
     // Create the new event
-    calendar.createEvent(myTitle, startTime, endTime, {description: myDescription});
+    calendar.createEvent(myTitle, startTime, endTime, {location: myLocation, description: myDescription});
     Logger.log("Created a new event on " + startTime);
   }
 }
