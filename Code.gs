@@ -21,12 +21,12 @@ function createEvents() {
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
       Logger.log('Calendar ID for "' + calendarName + '": ' + calendars[i].getId());
-      var calendarID = String(calendars[i].getId());  // Assign the calendar ID
+      var calendarId = String(calendars[i].getId());  // Assign the calendar ID
     }
   }
 
   // Access the calendar
-  var calendar = CalendarApp.getCalendarById(calendarID);
+  var calendar = CalendarApp.getCalendarById(calendarId);
 
   // Set the search parameters
   var query = myQuery;
