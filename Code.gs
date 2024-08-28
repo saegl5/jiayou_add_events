@@ -23,7 +23,7 @@ function createEvents() {
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      Logger.log('Calendar ID for "' + calendarName + '": ' + calendars[i].getId());
+      Logger.log("Calendar ID for \"" + calendarName + "\": " + calendars[i].getId());
       var calendarId = String(calendars[i].getId());  // Assign the calendar ID
     }
   }
@@ -32,7 +32,7 @@ function createEvents() {
   if (calendarName !== calendarNameAlt) {
     for (var j = 0; j < calendars.length; j++) {
       if (calendars[j].getName() === calendarNameAlt) {
-        Logger.log('Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId());
+        Logger.log("Calendar ID for \"" + calendarNameAlt + "\": " + calendars[j].getId());
         var calendarIdAlt = String(calendars[j].getId());  // Assign the calendar ID
       }
     }
