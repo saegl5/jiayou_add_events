@@ -4,7 +4,7 @@ Google Apps Script for batch creating events on only certain days (e.g., on only
 
 ## Visual Example
 
-<img src="screenshots/calendar.png" alt="screenshot of calendar" width="800">
+<img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Additional events on only "J Day's" were created.
 
 ## Getting Started
 
