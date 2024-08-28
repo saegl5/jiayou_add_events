@@ -2,6 +2,10 @@
 
 Google Apps Script for batch creating events on only certain days (e.g., on only "J Day's"). Modify as needed.
 
+## Visual Example
+
+<img src="screenshots/calendar.png" alt="screenshot of calendar" width="800">
+
 ## Getting Started
 
 1. Go to [Google Apps Script](https://script.google.com/), and create a new project.
