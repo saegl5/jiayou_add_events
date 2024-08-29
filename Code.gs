@@ -1,4 +1,5 @@
-// Modify the search query, event title, description, start time, and end time as desired
+// Modify the calendar name, search query, event title, location, description, start time, and end time as desired
+// Add any alternate calendar name as desired too
 
 var myCalendarName = "JIA YOU"; // Must name it differently from the owner name
 var myCalendarNameAlt = "JIA YOU"; // change name to create events on an alternate calendar, same naming convention applies
