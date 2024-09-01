@@ -8,16 +8,16 @@ Google Apps Script for batch creating additional events on only certain letter d
 
 <img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Additional events on only "J Day's" were created.
 
-## Getting Started <-- NEEDS EDITED
+## Getting Started
 
 1. Go to [Google Apps Script](https://script.google.com/), and create a new project.
-2. Copy and paste [the script](./Code.gs) into the editor.
-3. Modify the calendar name. (By default, it is "JIA YOU." ***Must name it differently from the owner name, otherwise the script will not create events.***)
-4. If you want to create events on an alternate calendar, name an alternate calendar. (***Same naming convention applies.***)
-5. Modify the search query. (By default, it is "J Day." Specifically, `myQuery = "J Day";`)
-6. Modify the events' title, location, description, start time, and end time. (By default, events are titled "New Meeting," located at "Location," described as "Agenda," start at 10 AM, and end at 11 AM.)
-7. Confine the date range by inputting a start date and end date.
-8. Save and run the script. (Requires authorization. ***Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
+2. Copy and paste [the script](./Code.gs) into the editor, and save the file.
+3. Create an HTML file, and name it "Index."
+4. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
+5. Deploy the project as a Web app, and open the assigned URL.
+6. Modify the calendar name, search query, events' title, location, description, start time, and end time. (***Must name the calendar differently from the owner name, otherwise the script will not create events.***)
+7. Name an alternate calendar to create events on the alternate calendar. (***Same naming convention applies.***)
+8. Press submit. (Requires authorization. ***Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
