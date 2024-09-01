@@ -1,28 +1,12 @@
-// Modify the calendar name, search query, event title, location, description, start time, and end time as desired
-// Add any alternate calendar name as desired too
-
-var myCalendarName = "JIA YOU"; // Must name it differently from the owner name
-var myCalendarNameAlt = ""; // Input name to create events on an alternate calendar, same naming convention applies
-var myQuery = "J Day"; // Query ignores any extra spacing
-var myTitle = "New Meeting";
-var myLocation = "Location";
-var myDescription = "Agenda";
-var myStart = ""; // Confine date range
-var myEnd = ""; // Confine date range
-var myStartTime = "10:00";
-var myEndTime = "11:00";
-// Accepted date formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY
-// Accepted time format: 24-hour
-
-
-
 // ** WARNING **
 // If the script below is modified improperly, running it may cause irrevocable damage.
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
-function addEvents() {
-  var calendarName = myCalendarName;
-  var calendarNameAlt = myCalendarNameAlt;
+function doGet() {
+  return HtmlService.createHtmlOutputFromFile('Index')
+}
+
+function addEvents(calendarName, calendarNameAlt, query, title, location, description, startTime, endTime) {
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
   // Loop through all calendars and find the one with the matching name
@@ -49,27 +33,13 @@ function addEvents() {
     var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
   }
 
-  // Check for null dates
-  if (myStart !== "" && myEnd !== "") {
-    // Set the search parameters
-    var query = myQuery;
-    myStart = new Date(myStart);
-    myEnd = new Date(myEnd); // excluded from search
-    myEnd.setDate(myEnd.getDate() + 1); // include end date in search
-
-    // Search for events with title "J Day" between start and end dates
-    var events = calendar.getEvents(myStart, myEnd, {search: query});
-  }
-  else {
-    // Set the search parameters
-    var query = myQuery;
-    var now = new Date();
-    var oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(now.getFullYear() + 1);
-    
-    // Search for events with title "J Day" between now and one year from now
-    var events = calendar.getEvents(now, oneYearFromNow, {search: query});
-  }  
+  // Set the search parameters
+  var now = new Date();
+  var oneYearFromNow = new Date();
+  oneYearFromNow.setFullYear(now.getFullYear() + 1);
+  
+  // Search for events with title "J Day" between now and one year from now
+  var events = calendar.getEvents(now, oneYearFromNow, {search: query});
   
   // Track dates when events with title "J Day" occur
   var datesWithJ = {};
@@ -92,27 +62,28 @@ function addEvents() {
   }
 
   // Split strings into lists of hours and minutes
-  myStartTime = myStartTime.split(':');
-  myStartTime[0] = parseInt(myStartTime[0]);
-  myStartTime[1] = parseInt(myStartTime[1]);
+  startTime = startTime.split(':');
+  startTime[0] = parseInt(startTime[0]);
+  startTime[1] = parseInt(startTime[1]);
 
-  myEndTime = myEndTime.split(':');
-  myEndTime[0] = parseInt(myEndTime[0]);
-  myEndTime[1] = parseInt(myEndTime[1]);  
+  endTime = endTime.split(':');
+  endTime[0] = parseInt(endTime[0]);
+  endTime[1] = parseInt(endTime[1]);
 
   // Iterate over the dates with events titled "J Day" and create a new event at 10 am
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr); // Cast "eventDate" as a function
-    var startTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myStartTime[0], myStartTime[1]);
-    var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myEndTime[0], myEndTime[1]);
+    var dateStartTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), startTime[0], startTime[1]);
+    var dateEndTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), endTime[0], endTime[1]);
 
     // Create the new event
     if (calendarNameAlt !== "") {
-      calendarAlt.createEvent(myTitle, startTime, endTime, {location: myLocation, description: myDescription});
+      calendarAlt.createEvent(title, dateStartTime, dateEndTime, {location: location, description: description});
     }
     else {
-      calendar.createEvent(myTitle, startTime, endTime, {location: myLocation, description: myDescription});
+      calendar.createEvent(title, dateStartTime, dateEndTime, {location: location, description: description});
     }
-    Logger.log("Created a new event on " + startTime);
+    Logger.log("Created a new event on " + dateStartTime);
   }
+  return "Events created!";
 }

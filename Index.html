@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      /* Basic styling for the form */
+      form {
+        max-width: 550px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+      }
+      label, select, input, textarea {
+        display: block;
+        margin-bottom: 0px;
+        width: 100%;
+      }
+      input[type="submit"] {
+        margin-top: 20px;
+      }
+      select, input, textarea {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: medium;
+      }
+      h1, label, input[type="submit"] {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <h1><center>Create 加油 ("jiā yóu") Events</center></h1>
+    <form id="calendarForm">
+      <label for="calendarName">Calendar name:</label>
+      <input type="text" id="calendarName" name="calendarName" required>
+      <!-- Must name it differently from the owner name -->
+      </br>
+
+      <label for="calendarNameAlt">Alternate calendar name:</label>
+      <input type="text" id="calendarNameAlt" name="calendarNameAlt" required>
+      <!-- Change name to create events on an alternate calendar, same naming convention applies -->
+      </br>
+
+      <label for="query">Query:</label>
+      <input type="text" id="query" name="query" required>
+      <!-- Query ignores any extra spacing -->
+      </br>
+
+      <label for="title">Title:</label>
+      <input type="text" id="title" name="title" required>
+      </br>
+
+      <label for="location">Location:</label>
+      <input type="text" id="location" name="location" required>
+      </br>
+
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description">
+      </br>
+
+      <label for="startTime">Start time:</label>
+      <textarea type="text" id="startTime" name="startTime" rows="1">10:00</textarea>
+      <!-- Use 24-hour time format -->
+      </br>
+
+      <label for="endTime">End time:</label>
+      <textarea type="text" id="endTime" name="endTime" rows="1">11:00</textarea>
+      <!-- Use 24-hour time format -->
+      </br>
+
+      <input type="submit" value="Submit">
+    </form>
+    
+    <script>
+      // JavaScript handles form submission and sends data to the Google Apps Script
+      document.getElementById('calendarForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevents the form from submitting the traditional way
+
+        var calendarName = document.getElementById('calendarName').value;
+        var calendarNameAlt = document.getElementById('calendarNameAlt').value;
+        var query = document.getElementById('query').value;
+        var title = document.getElementById('title').value;
+        var location = document.getElementById('location').value;
+        var description = document.getElementById('description').value;
+        var startTime = document.getElementById('startTime').value;
+        var endTime = document.getElementById('endTime').value;
+
+        google.script.run.withSuccessHandler(function(response) {
+          alert(response); // Displays a success message
+        }).createCalendar(calendarName, calendarNameAlt, query, title, location, description, startTime, endTime);
+      });
+    </script>
+  </body>
+</html>
