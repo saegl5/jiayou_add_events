@@ -16,5 +16,9 @@ Google Apps Script for batch creating additional events on only certain days (e.
 6. Modify the events' title, location, description, start time, and end time. (By default, events are titled "New Meeting," located at "Location," described as "Agenda," start at 10am, and end at 11am.)
 7. Save and run the script. (Requires permission to make changes to events and authorization. ***Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
+### Web App
+
+To deploy the project as a web app, please consult the [development branch](https://github.com/saegl5/jiayou_create_events/tree/development).
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
