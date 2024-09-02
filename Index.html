@@ -11,7 +11,7 @@
         border: 1px solid #ddd;
         border-radius: 5px;
       }
-      label, select, input, textarea {
+      label, select, input {
         display: block;
         margin-bottom: 0px;
         width: 100%;
@@ -19,7 +19,7 @@
       input[type="submit"] {
         margin-top: 20px;
       }
-      select, input, textarea {
+      select, input {
         font-family: 'Courier New', Courier, monospace;
         font-size: medium;
       }
@@ -59,12 +59,12 @@
       </br>
 
       <label for="startTime">Start time:</label>
-      <textarea type="text" id="startTime" name="startTime" rows="1">10:00</textarea>
+      <input type="text" id="startTime" name="startTime" value="10:00"></input>
       <!-- Use 24-hour time format -->
       </br>
 
       <label for="endTime">End time:</label>
-      <textarea type="text" id="endTime" name="endTime" rows="1">11:00</textarea>
+      <input type="text" id="endTime" name="endTime" value="11:00"></input>
       <!-- Use 24-hour time format -->
       </br>
 
