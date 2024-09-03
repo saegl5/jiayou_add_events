@@ -16,7 +16,7 @@ var myEndTime = "11:00"; // Use 24-hour time format
 // If the script below is modified improperly, running it may cause irrevocable damage.
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
-function createEvents() {
+function addEvents() {
   var calendarName = myCalendarName;
   var calendarNameAlt = myCalendarNameAlt;
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars

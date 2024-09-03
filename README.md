@@ -1,4 +1,4 @@
-# Create 加油 ("jiā yóu") Events
+# Add 加油 ("jiā yóu") Events
 
 Google Apps Script for batch creating additional events on only certain days (e.g., on only "J Day's"). Modify as needed.
 
@@ -18,7 +18,7 @@ Google Apps Script for batch creating additional events on only certain days (e.
 
 ### Web App
 
-To deploy the project as a web app, please consult the [development branch](https://github.com/saegl5/jiayou_create_events/tree/development).
+To deploy the project as a web app, please consult the [development branch](https://github.com/saegl5/jiayou_add_events/tree/development).
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
