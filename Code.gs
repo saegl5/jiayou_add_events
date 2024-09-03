@@ -56,9 +56,9 @@ function addEvents(calendarName, calendarNameAlt, query, title, location, descri
   });
 
   // Check if times are null
-  if (myStartTime === "" && myEndTime === "") {
-    myStartTime = "00:00";
-    myEndTime = "24:00";
+  if (startTime === "" && endTime === "") {
+    startTime = "00:00";
+    endTime = "24:00";
   }
 
   // Split strings into lists of hours and minutes
