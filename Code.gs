@@ -6,7 +6,7 @@ function doGet() {
   return HtmlService.createHtmlOutputFromFile('Index')
 }
 
-function addEvents(calendarName, calendarNameAlt, query, title, location, description, startTime, endTime) {
+function addEvents(calendarName, calendarNameAlt, query, title, location, description, start, end, startTime, endTime) {
   var calendars = CalendarApp.getAllCalendars();  // Get all calendars
   
   // Loop through all calendars and find the one with the matching name
@@ -33,13 +33,24 @@ function addEvents(calendarName, calendarNameAlt, query, title, location, descri
     var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
   }
 
-  // Set the search parameters
-  var now = new Date();
-  var oneYearFromNow = new Date();
-  oneYearFromNow.setFullYear(now.getFullYear() + 1);
-  
-  // Search for events with title "J Day" between now and one year from now
-  var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  // Check for null dates
+  if (start !== "" && end !== "") {
+    start = new Date(start);
+    end = new Date(end); // excluded from search
+    end.setDate(end.getDate() + 1); // include end date in search
+
+    // Search for events with title "J Day" between start and end dates
+    var events = calendar.getEvents(start, end, {search: query});
+  }
+  else {
+    // Set the search parameters
+    var now = new Date();
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1);
+    
+    // Search for events with title "J Day" between now and one year from now
+    var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  }
   
   // Track dates when events with title "J Day" occur
   var datesWithJ = {};

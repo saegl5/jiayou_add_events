@@ -58,6 +58,16 @@
       <input type="text" id="description" name="description" value="Agenda">
       </br>
 
+      <label for="start">Start date:</label>
+      <input type="text" id="start" name="start"></input>
+      <!-- Confine date range -->
+      </br>
+
+      <label for="end">End date:</label>
+      <input type="text" id="end" name="end"></input>
+      <!-- Confine date range -->
+      </br>
+
       <label for="startTime">Start time:</label>
       <input type="text" id="startTime" name="startTime" value="10:00"></input>
       <!-- Use 24-hour time format -->
@@ -82,12 +92,14 @@
         var title = document.getElementById('title').value;
         var location = document.getElementById('location').value;
         var description = document.getElementById('description').value;
+        var start = document.getElementById('start').value;
+        var end = document.getElementById('end').value;
         var startTime = document.getElementById('startTime').value;
         var endTime = document.getElementById('endTime').value;
 
         google.script.run.withSuccessHandler(function(response) {
           alert(response); // Displays a success message
-        }).addEvents(calendarName, calendarNameAlt, query, title, location, description, startTime, endTime);
+        }).addEvents(calendarName, calendarNameAlt, query, title, location, description, start, end, startTime, endTime);
       });
     </script>
   </body>

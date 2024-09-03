@@ -18,11 +18,8 @@ Google Apps Script for batch creating additional events on only certain letter d
 6. Deploy the project as a Web app, and open the assigned URL.
 7. Modify the calendar name, search query, events' title, location, description, start time, and end time. (***Must name the calendar differently from the owner name, otherwise the script will not create events.***)
 8. Name an alternate calendar to create events on the alternate calendar. (***Same naming convention applies.***)
-9. Press submit. (Requires another authorization. ***Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
-
-## Known Issue
-
-- [ ] Does not address some events that occur for several weeks and then change (e.g., art and music classes) **(considering to add feature, maybe even allow users to confine a date range, would backport! for now, can only create such events manually)**
+9. Confine the date range by inputting a start date and end date.
+10. Press submit. (Requires another authorization. ***Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
