@@ -7,6 +7,8 @@ var myQuery = "J Day"; // Query ignores any extra spacing
 var myTitle = "New Meeting";
 var myLocation = "Location";
 var myDescription = "Agenda";
+var myStart = ""; // Confine date range
+var myEnd = ""; // Confine date range
 var myStartTime = "10:00"; // Use 24-hour time format
 var myEndTime = "11:00"; // Use 24-hour time format
 
@@ -45,14 +47,27 @@ function addEvents() {
     var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
   }
 
-  // Set the search parameters
-  var query = myQuery;
-  var now = new Date();
-  var oneYearFromNow = new Date();
-  oneYearFromNow.setFullYear(now.getFullYear() + 1);
-  
-  // Search for events with title "J Day" between now and one year from now
-  var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  // Check for null dates
+  if (myStart !== "" && myEnd !== "") {
+    // Set the search parameters
+    var query = myQuery;
+    myStart = new Date(myStart);
+    myEnd = new Date(myEnd); // excluded from search
+    myEnd.setDate(myEnd.getDate() + 1); // include end date in search
+
+    // Search for events with title "J Day" between start and end dates
+    var events = calendar.getEvents(myStart, myEnd, {search: query});
+  }
+  else {
+    // Set the search parameters
+    var query = myQuery;
+    var now = new Date();
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1);
+    
+    // Search for events with title "J Day" between now and one year from now
+    var events = calendar.getEvents(now, oneYearFromNow, {search: query});
+  }  
   
   // Track dates when events with title "J Day" occur
   var datesWithJ = {};
