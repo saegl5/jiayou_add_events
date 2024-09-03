@@ -19,9 +19,10 @@ Google Apps Script for batch creating additional events on only certain letter d
 7. Name an alternate calendar to create events on the alternate calendar. (***Same naming convention applies.***)
 8. Press submit. (Requires authorization. ***Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en).***)
 
-## Known Issue
+## Known Issues
 
-Deploying the project as a Web app should, but does not always, grant the app authorization. You may need to run the script manually, then re-open the assigned URL.
+- [ ] Deploying the project as a Web app should, but does not always, grant the app authorization. You may need to run the script manually, then re-open the assigned URL. **(still investigating)**
+- [ ] Does not address some events that occur for several weeks and then change (e.g., art and music classes) **(considering to add feature, maybe even allow users to confine a date range, would backport! for now, can only create such events manually)**
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
