@@ -7,8 +7,8 @@ var myQuery = "J Day"; // Query ignores any extra spacing
 var myTitle = "New Meeting";
 var myLocation = "Location";
 var myDescription = "Agenda";
-var myStartTime = [10, 0]; // Means 10:00, use 24-hour time format
-var myEndTime = [11, 0]; // Means 11:00, use 24-hour time format
+var myStartTime = "10:00"; // Use 24-hour time format
+var myEndTime = "11:00"; // Use 24-hour time format
 
 
 
@@ -67,6 +67,15 @@ function createEvents() {
     // Store the date in the dictionary
     datesWithJ[dateKey] = true;
   });
+
+  // Split strings into lists of hours and minutes
+  myStartTime = myStartTime.split(':');
+  myStartTime[0] = parseInt(myStartTime[0]);
+  myStartTime[1] = parseInt(myStartTime[1]);
+
+  myEndTime = myEndTime.split(':');
+  myEndTime[0] = parseInt(myEndTime[0]);
+  myEndTime[1] = parseInt(myEndTime[1]);  
 
   // Iterate over the dates with events titled "J Day" and create a new event at 10 am
   for (var dateStr in datesWithJ) {
