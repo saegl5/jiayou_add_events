@@ -68,6 +68,12 @@ function addEvents() {
     datesWithJ[dateKey] = true;
   });
 
+  // Check if times are null
+  if (myStartTime === "" && myEndTime === "") {
+    myStartTime = "00:00";
+    myEndTime = "24:00";
+  }
+
   // Split strings into lists of hours and minutes
   myStartTime = myStartTime.split(':');
   myStartTime[0] = parseInt(myStartTime[0]);
