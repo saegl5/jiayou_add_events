@@ -2,7 +2,7 @@
 // Add any alternate calendar name as desired too
 
 var myCalendarName = "JIA YOU"; // Must name it differently from the owner name
-var myCalendarNameAlt = "JIA YOU"; // change name to create events on an alternate calendar, same naming convention applies
+var myCalendarNameAlt = ""; // Input name to create events on an alternate calendar, same naming convention applies
 var myQuery = "J Day"; // Query ignores any extra spacing
 var myTitle = "New Meeting";
 var myLocation = "Location";
@@ -30,7 +30,7 @@ function addEvents() {
   }
 
   // Repeat loop for alternate calendar (if one exists)
-  if (calendarName !== calendarNameAlt) {
+  if (calendarNameAlt !== "") {
     for (var j = 0; j < calendars.length; j++) {
       if (calendars[j].getName() === calendarNameAlt) {
         Logger.log("Calendar ID for \"" + calendarNameAlt + "\": " + calendars[j].getId());
@@ -41,7 +41,7 @@ function addEvents() {
 
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
-  if (calendarName !== calendarNameAlt) {
+  if (calendarNameAlt !== "") {
     var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
   }
 
@@ -84,7 +84,7 @@ function addEvents() {
     var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myEndTime[0], myEndTime[1]);
 
     // Create the new event
-    if (calendarName !== calendarNameAlt) {
+    if (calendarNameAlt !== "") {
       calendarAlt.createEvent(myTitle, startTime, endTime, {location: myLocation, description: myDescription});
     }
     else {
