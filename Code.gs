@@ -9,8 +9,10 @@ var myLocation = "Location";
 var myDescription = "Agenda";
 var myStart = ""; // Confine date range
 var myEnd = ""; // Confine date range
-var myStartTime = "10:00"; // Use 24-hour time format
-var myEndTime = "11:00"; // Use 24-hour time format
+var myStartTime = "10:00 AM";
+var myEndTime = "11:00 AM";
+// Accepted date formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY
+// Accepted time formats: 12-hour am/pm, 24-hour
 
 
 
