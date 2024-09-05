@@ -35,6 +35,7 @@ function addEvents(calendarName, calendarNameAlt, query, title, location, descri
 
   // Check for null dates
   if (start !== "" && end !== "") {
+    // Set the search parameters
     start = new Date(start);
     end = new Date(end); // excluded from search
     end.setDate(end.getDate() + 1); // include end date in search
