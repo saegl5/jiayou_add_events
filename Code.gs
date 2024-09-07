@@ -67,20 +67,6 @@ function addEvents(
     var events = calendar.getEvents(now, oneYearFromNow, { search: query });
   }
 
-  // Track dates when events with title "J Day" occur
-  var datesWithJ = {};
-
-  // Loop through each event found
-  events.forEach(function (event) {
-    var eventDate = event.getStartTime();
-
-    // Extract just the date part (YYYY-MM-DD) as a string
-    var dateKey = eventDate.toDateString();
-
-    // Store the date in the dictionary
-    datesWithJ[dateKey] = true;
-  });
-
   // Check if times are null
   if (startTime === "" && endTime === "") {
     startTime = "00:00";
@@ -96,7 +82,21 @@ function addEvents(
   endTime[0] = parseInt(endTime[0]);
   endTime[1] = parseInt(endTime[1]);
 
-  // Iterate over the dates with events titled "J Day" and create a new event at 10 am
+  // Track dates when events with title "J Day" occur
+  var datesWithJ = {};
+
+  // Loop through each event found
+  events.forEach(function (event) {
+    var eventDate = event.getStartTime();
+
+    // Extract just the date part as a string
+    var dateKey = eventDate.toDateString();
+
+    // Store the date in the dictionary
+    datesWithJ[dateKey] = true;
+  });
+
+  // Iterate over the dates with events titled "J Day" and create a new event at 10:00 AM
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr); // Cast "eventDate" as a function
     var dateStartTime = new Date(
@@ -126,6 +126,7 @@ function addEvents(
         description: description,
       });
     }
+    // Log which events were added
     Logger.log("Created a new event on " + dateStartTime);
   }
   return "Events created!";
