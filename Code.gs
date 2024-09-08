@@ -78,7 +78,7 @@ function addEvents() {
   events.forEach(function(event) {
     var eventDate = event.getStartTime();
     
-    // Extract just the date part (YYYY-MM-DD) as a string
+    // Extract just the date part as a string
     var dateKey = eventDate.toDateString();
     
     // Store the date in the dictionary
