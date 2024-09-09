@@ -102,7 +102,7 @@ function addEvents() {
 
   // Iterate over the dates with events titled "J Day" and create a new event at 10 am
   for (var dateStr in datesWithJ) {
-    var eventDate = new Date(dateStr);
+    var eventDate = new Date(dateStr); // Cast "eventDate" as a function
     var startTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myStartTime[0], myStartTime[1]);
     var endTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate(), myEndTime[0], myEndTime[1]);
 
