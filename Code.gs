@@ -86,7 +86,7 @@ function addEvents(
   var datesWithJ = {};
 
   // Loop through each event found
-  events.forEach(function (event) {
+  events.forEach(function(event) {
     var eventDate = event.getStartTime();
 
     // Extract just the date part as a string
