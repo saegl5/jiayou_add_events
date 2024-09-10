@@ -7,10 +7,10 @@
       form {
         max-width: 540px;
         margin: 0 auto;
-        padding: 20px;
-        border: 1px solid #ddd;
+        padding: 10px;
+        border: 1px solid Silver;
         border-radius: 5px;
-        background-color: #F8F8F8;
+        background-color: Gainsboro;
       }
       label, select, input {
         display: block;
@@ -31,64 +31,103 @@
       }
       div {
         text-align: center;
+        color: #000;
+      }
+      div[id="search"], div[id="settings"] {
+        text-align: left;
+        padding-top: 10px;
+        padding-left: 15px;
+        padding-right: 20px;
+        border: 1px solid Silver;
+        border-radius: 5px;
+        background-color: #F8F8F8;
+      }
+      text[id="search"], text[id="settings"] {
+        font-style: normal;
+      }
+      input[type="submit"] {
+        background-color: white;
+        border-color: Silver;
+        color: black;
+        border-radius: 5px;
       }
     </style>
   </head>
   <body>
     <h1><center>Add 加油 ("jiā yóu") Events</center></h1>
     <form id="calendarForm">
-      <label for="calendarName">Calendar name:</label>
-      <input type="text" id="calendarName" name="calendarName" value="JIA YOU" required>
-      <!-- Must name it differently from the owner name -->
+      
+      <div id="search">
+      
+        <text id="search"><center>Search Parameters</center></text>
+        </br>
+        
+        <label for="calendarName">Calendar name:</label>
+        <input type="text" id="calendarName" name="calendarName" value="JIA YOU" required>
+        <!-- Must name it differently from the owner name -->
+        </br>
+
+        <label for="query">Query:</label>
+        <input type="text" id="query" name="query" value="J Day" required>
+        <!-- Query ignores any extra spacing -->
+        <!-- prefilled for clarity -->
+        </br>
+
+      </div>
+
       </br>
 
-      <label for="calendarNameAlt">Alternate calendar name: (if any)</label>
-      <input type="text" id="calendarNameAlt" name="calendarNameAlt" placeholder="Optional">
-      <!-- Input name to create events on an alternate calendar, same naming convention applies -->
+      <div id="settings">
+
+        <text id="settings"><center>Event Settings</center></text>
+        </br>
+
+        <label for="calendarNameAlt">Alternate calendar name:</label>
+        <input type="text" id="calendarNameAlt" name="calendarNameAlt" placeholder="Optional">
+        <text>Create events on an alternate calendar on the same letter day</text>
+        <!-- Input name to create events on an alternate calendar, same naming convention applies -->
+        </br></br>
+
+        <label for="title">Title:</label>
+        <input type="text" id="title" name="title" value="New Meeting" required>
+        <!-- prefilled for convenience -->
+        </br>
+
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" placeholder="Optional">
+        </br>
+
+        <label for="description">Description:</label>
+        <input type="text" id="description" name="description" placeholder="Optional">
+        </br>
+
+        <label for="start">Start date:</label>
+        <input type="text" id="start" name="start" placeholder="Optional"></input>
+        <!-- Confine date range -->
+        <text>Accepted formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY</text>
+        </br></br>
+
+        <label for="end">End date:</label>
+        <input type="text" id="end" name="end" placeholder="Optional"></input>
+        <!-- Confine date range -->
+        <text>Accepted formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY</text>
+        </br></br>
+
+        <label for="startTime">Start time:</label>
+        <input type="text" id="startTime" name="startTime" value="10:00" required></input>
+        <!-- prefilled for clarity -->
+        <text>Accepted format: 24-hour</text>
+        </br></br>
+
+        <label for="endTime">End time:</label>
+        <input type="text" id="endTime" name="endTime" value="11:00" required></input>
+        <!-- prefilled for clarity -->
+        <text>Accepted format: 24-hour</text>
+        </br></br>
+
+      </div>
+
       </br>
-
-      <label for="query">Search query:</label>
-      <input type="text" id="query" name="query" value="J Day" required>
-      <!-- Query ignores any extra spacing -->
-      <!-- prefilled for clarity -->
-      </br>
-
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" value="New Meeting" required>
-      <!-- prefilled for convenience -->
-      </br>
-
-      <label for="location">Location:</label>
-      <input type="text" id="location" name="location" placeholder="Optional">
-      </br>
-
-      <label for="description">Description:</label>
-      <input type="text" id="description" name="description" placeholder="Optional">
-      </br>
-
-      <label for="start">Start date:</label>
-      <input type="text" id="start" name="start" placeholder="Optional"></input>
-      <!-- Confine date range -->
-      <text>Accepted formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY</text>
-      </br></br>
-
-      <label for="end">End date:</label>
-      <input type="text" id="end" name="end" placeholder="Optional"></input>
-      <!-- Confine date range -->
-      <text>Accepted formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY</text>
-      </br></br>
-
-      <label for="startTime">Start time:</label>
-      <input type="text" id="startTime" name="startTime" value="10:00" required></input>
-      <!-- prefilled for clarity -->
-      <text>Accepted format: 24-hour</text>
-      </br></br>
-
-      <label for="endTime">End time:</label>
-      <input type="text" id="endTime" name="endTime" value="11:00" required></input>
-      <!-- prefilled for clarity -->
-      <text>Accepted format: 24-hour</text>
-      </br></br>
 
       <input type="submit" value="Submit">
       <div id="wait">&nbsp;</div>
@@ -100,8 +139,9 @@
         event.preventDefault(); // Prevents the form from submitting the traditional way
 
         var calendarName = document.getElementById('calendarName').value;
-        var calendarNameAlt = document.getElementById('calendarNameAlt').value;
         var query = document.getElementById('query').value;
+        
+        var calendarNameAlt = document.getElementById('calendarNameAlt').value;
         var title = document.getElementById('title').value;
         var location = document.getElementById('location').value;
         var description = document.getElementById('description').value;
@@ -109,11 +149,12 @@
         var end = document.getElementById('end').value;
         var startTime = document.getElementById('startTime').value;
         var endTime = document.getElementById('endTime').value;
+        
         document.getElementById("wait").innerHTML = "Please wait...";
 
         google.script.run.withSuccessHandler(function(response) {
           document.getElementById('wait').innerHTML = response; // Displays a success message when completed
-        }).addEvents(calendarName, calendarNameAlt, query, title, location, description, start, end, startTime, endTime);
+        }).addEvents(calendarName, query, calendarNameAlt, title, location, description, start, end, startTime, endTime);
       });
     </script>
   </body>

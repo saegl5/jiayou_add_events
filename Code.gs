@@ -8,8 +8,8 @@ function doGet() {
 
 function addEvents(
   calendarName,
-  calendarNameAlt,
   query,
+  calendarNameAlt,
   title,
   location,
   description,
