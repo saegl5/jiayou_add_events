@@ -100,7 +100,6 @@ function addEvents(
   var first = true;
   // Iterate over the dates with events titled "J Day" and create a new event for the series at 10:00 AM
   for (var dateStr in datesWithJ) {
-    console.log(dateStr)
     var eventDate = new Date(dateStr); // Cast "eventDate" as a function
     var dateStartTime = new Date(
       eventDate.getFullYear(),
