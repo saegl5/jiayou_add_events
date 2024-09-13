@@ -67,6 +67,11 @@ function addEvents(
     var events = calendar.getEvents(now, oneYearFromNow, { search: query });
   }
 
+  // Check if query finds no events
+  if (events = []) {
+    return "No \"" + query + "\" events exist!";
+  }
+
   // Check if times are null
   if (startTime === "" && endTime === "") {
     startTime = "00:00";
