@@ -50,7 +50,7 @@ function addEvents(
   }
 
   // Check if loop finds no calendar
-  if (calendarIdAlt === "") {
+  if (calendarNameAlt !== "" && calendarIdAlt === "") {
     return "No \"" + calendarNameAlt + "\" calendar exists!";
   }
   
