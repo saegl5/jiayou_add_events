@@ -80,7 +80,7 @@ function addEvents(
   }
 
   // Check if query finds no events
-  if (events == []) {
+  if (events.length === 0) {
     return "No \"" + query + "\" events exist!";
   }
 
