@@ -131,18 +131,35 @@ function addEvents(
       endTime[1]
     );
 
-    // Create the new event
-    if (calendarNameAlt !== "") {
-      calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
-        location: location,
-        description: description,
-      });
+    // Check if description is a link
+    if (description.includes("http")) {
+        // Create the new event
+      if (calendarNameAlt !== "") {
+        calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
+          location: location,
+          description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
+        });
+      } else {
+        calendar.createEvent(title, dateStartTime, dateEndTime, {
+          location: location,
+          description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
+        });
+      }
     } else {
-      calendar.createEvent(title, dateStartTime, dateEndTime, {
-        location: location,
-        description: description,
-      });
+      // Create the new event
+      if (calendarNameAlt !== "") {
+        calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
+          location: location,
+          description: description,
+        });
+      } else {
+        calendar.createEvent(title, dateStartTime, dateEndTime, {
+          location: location,
+          description: description,
+        });
+      }
     }
+
     // Log which events were added
     Logger.log("Created a new event on " + dateStartTime);
   }
