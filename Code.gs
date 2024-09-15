@@ -16,7 +16,8 @@ function addEvents(
   start,
   end,
   startTime,
-  endTime
+  endTime,
+  dryRun
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
   var calendarId = ""; // Initially null
@@ -25,9 +26,9 @@ function addEvents(
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      Logger.log(
-        'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
-      );
+      // Logger.log(
+      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
+      // );
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
@@ -131,33 +132,37 @@ function addEvents(
       endTime[1]
     );
 
-    // Check if description is a link
-    if (description.includes("http")) {
+    if (!dryRun) {
+
+      // Check if description is a link
+      if (description.includes("http")) {
+          // Create the new event
+        if (calendarNameAlt !== "") {
+          calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
+            location: location,
+            description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
+          });
+        } else {
+          calendar.createEvent(title, dateStartTime, dateEndTime, {
+            location: location,
+            description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
+          });
+        }
+      } else {
         // Create the new event
-      if (calendarNameAlt !== "") {
-        calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
-          location: location,
-          description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
-        });
-      } else {
-        calendar.createEvent(title, dateStartTime, dateEndTime, {
-          location: location,
-          description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
-        });
+        if (calendarNameAlt !== "") {
+          calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
+            location: location,
+            description: description,
+          });
+        } else {
+          calendar.createEvent(title, dateStartTime, dateEndTime, {
+            location: location,
+            description: description,
+          });
+        }
       }
-    } else {
-      // Create the new event
-      if (calendarNameAlt !== "") {
-        calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
-          location: location,
-          description: description,
-        });
-      } else {
-        calendar.createEvent(title, dateStartTime, dateEndTime, {
-          location: location,
-          description: description,
-        });
-      }
+
     }
 
     // Log which events were added
