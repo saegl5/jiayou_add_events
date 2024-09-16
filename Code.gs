@@ -42,9 +42,9 @@ function addEvents(
   if (calendarNameAlt !== "") {
     for (var j = 0; j < calendars.length; j++) {
       if (calendars[j].getName() === calendarNameAlt) {
-        Logger.log(
-          'Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId()
-        );
+        // Logger.log(
+        //   'Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId()
+        // );
         calendarIdAlt = String(calendars[j].getId()); // Assign the calendar ID
       }
     }
