@@ -11,37 +11,51 @@ function addEvents(
   query,
   calendarNameAlt,
   title,
+  guests,
   location,
   description,
   start,
   end,
   startTime,
-  endTime
+  endTime,
+  dryRun
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
+  var calendarId = ""; // Initially null
+  var calendarIdAlt = ""; // Initially null
 
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      Logger.log(
-        'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
-      );
-      var calendarId = String(calendars[i].getId()); // Assign the calendar ID
+      // Logger.log(
+      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
+      // );
+      calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
 
+  // Check if loop finds no calendar
+  if (calendarId === "") {
+    return "No \"" + calendarName + "\" calendar exists!";
+  }
+  
   // Repeat loop for alternate calendar (if one exists)
   if (calendarNameAlt !== "") {
     for (var j = 0; j < calendars.length; j++) {
       if (calendars[j].getName() === calendarNameAlt) {
-        Logger.log(
-          'Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId()
-        );
-        var calendarIdAlt = String(calendars[j].getId()); // Assign the calendar ID
+        // Logger.log(
+        //   'Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId()
+        // );
+        calendarIdAlt = String(calendars[j].getId()); // Assign the calendar ID
       }
     }
   }
 
+  // Check if loop finds no calendar
+  if (calendarNameAlt !== "" && calendarIdAlt === "") {
+    return "No \"" + calendarNameAlt + "\" calendar exists!";
+  }
+  
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
   if (calendarNameAlt !== "") {
@@ -65,6 +79,11 @@ function addEvents(
 
     // Search for events with title "J Day" between now and one year from now
     var events = calendar.getEvents(now, oneYearFromNow, { search: query });
+  }
+
+  // Check if query finds no events
+  if (events.length === 0) {
+    return "No \"" + query + "\" events exist!";
   }
 
   // Check if times are null
@@ -116,32 +135,31 @@ function addEvents(
       endTime[1]
     );
 
+    // calendar = c
+    function setEvent(c, includesHttp) {
+      if (first) {
+        if (includesHttp) {
+          eventSeries = c.createEventSeries(title, dateStartTime, dateEndTime, CalendarApp.newRecurrence().addDate(eventDate), {
+            location: location,
+            description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
+            guests: guests,
+          });
+        }
+        else {
+          eventSeries = c.createEventSeries(title, dateStartTime, dateEndTime, CalendarApp.newRecurrence().addDate(eventDate), {
+            location: location,
+            description: description,
+            guests: guests,
+          });
+        }
+        first = false;
+      }
+      else eventSeries.setRecurrence(CalendarApp.newRecurrence().addDate(eventDate), dateStartTime, dateEndTime);
+    }
 
-    if (first) {
-      // Create the new event
-      if (calendarNameAlt !== "") {
-        eventSeries = calendar.createEventSeries(title, dateStartTime, dateEndTime, CalendarApp.newRecurrence().addDate(eventDate), {
-          location: location,
-          description: description,
-        });
-      } else {
-        eventSeries = calendar.createEventSeries(title, dateStartTime, dateEndTime, CalendarApp.newRecurrence().addDate(eventDate), {
-          location: location,
-          description: description,
-        });
-      }
-      first = false;
-    }
-    else {
-      // Add to event series
-      if (calendarNameAlt !== "") {
-        eventSeries.setRecurrence(CalendarApp.newRecurrence().addDate(eventDate), dateStartTime, dateEndTime);
-      } else {
-        eventSeries.setRecurrence(CalendarApp.newRecurrence().addDate(eventDate), dateStartTime, dateEndTime,);
-      }
-      // Log which events were added
-      Logger.log("Created a new event on " + dateStartTime);
-    }
+    let includesHttp = description.includes("http");
+    if (calendarNameAlt == "") setEvent(calendarAlt, includesHttp);
+    else setEvent(calendar, includesHttp);
   }
   return "Events created!";
 }

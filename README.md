@@ -16,10 +16,11 @@ Google Web app for batch creating additional events on only certain letter days 
 4. Create an HTML file, and name it "Index."
 5. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
 6. Deploy the project as a Web app, and open the assigned URL.
-7. Modify the calendar name, search query, events' title, location, description, start time, and end time. (**_Must name the calendar differently from the owner name, otherwise the app will not create events._**)
+7. Modify the calendar name, search query, events' title, guests, location, description, start time, and end time. (**_Must name the calendar differently from the owner name, otherwise the app will not create events._** If you input a URL for the description, text to display will be "Agenda.")
 8. Name an alternate calendar to create events on the alternate calendar. (**_Same naming convention applies._**)
 9. Confine the date range by inputting a start date and end date.
-10. Press submit. (Requires another authorization. **_Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
+10. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
+11. Press submit. (Requires another authorization. **_Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
 
 <hr>
 Made with &heartsuit; in Visual Studio Code

@@ -12,11 +12,12 @@
         border-radius: 5px;
         background-color: Gainsboro;
       }
-      label, select, input {
+      select, input[type="text"], input[type="submit"] {
         display: block;
         margin-bottom: 0px;
         width: 100%;
         -webkit-box-sizing: border-box;
+        box-sizing: border-box; /* compatibility */
       }
       select, input, div {
         font-family: 'Courier New', Courier, monospace;
@@ -45,6 +46,9 @@
       }
       text[id="search"], text[id="settings"] {
         font-style: normal;
+      }
+      input[type="checkbox"] {
+        vertical-align: bottom;
       }
       input[type="submit"] {
         background-color: white;
@@ -94,13 +98,19 @@
         <!-- prefilled for convenience -->
         </br>
 
+        <label for="guests">Guests:</label>
+        <input type="text" id="guests" name="guests" placeholder="Optional">
+        <text>Accepted format: comma-separated list of email addresses</text>
+        </br></br>
+
         <label for="location">Location:</label>
         <input type="text" id="location" name="location" placeholder="Optional">
         </br>
 
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" placeholder="Optional">
-        </br>
+        <text>Accepted formats: string or URL</text>
+        </br></br>
 
         <label for="start">Start date:</label>
         <input type="text" id="start" name="start" placeholder="Optional"></input>
@@ -130,6 +140,13 @@
 
       </br>
 
+      <div>
+        <input type="checkbox" id="dryRun" name="dryRun"/>
+        <label for="dryRun">Dry run</label>
+      </div>
+
+      </br>
+    
       <input type="submit" value="Submit">
       <div id="wait">&nbsp;</div>
     </form>
@@ -144,18 +161,20 @@
         
         var calendarNameAlt = document.getElementById('calendarNameAlt').value;
         var title = document.getElementById('title').value;
+        var guests = document.getElementById('guests').value;
         var location = document.getElementById('location').value;
         var description = document.getElementById('description').value;
         var start = document.getElementById('start').value;
         var end = document.getElementById('end').value;
         var startTime = document.getElementById('startTime').value;
         var endTime = document.getElementById('endTime').value;
+        var dryRun = document.getElementById('dryRun').checked;
         
         document.getElementById("wait").innerHTML = "Please wait...";
 
         google.script.run.withSuccessHandler(function(response) {
           document.getElementById('wait').innerHTML = response; // Displays a success message when completed
-        }).addEvents(calendarName, query, calendarNameAlt, title, location, description, start, end, startTime, endTime);
+        }).addEvents(calendarName, query, calendarNameAlt, title, guests, location, description, start, end, startTime, endTime, dryRun);
       });
     </script>
   </body>
