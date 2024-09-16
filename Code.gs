@@ -11,6 +11,7 @@ function addEvents(
   query,
   calendarNameAlt,
   title,
+  guests,
   location,
   description,
   start,
@@ -141,11 +142,13 @@ function addEvents(
           calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
             location: location,
             description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
+            guests: guests,
           });
         } else {
           calendar.createEvent(title, dateStartTime, dateEndTime, {
             location: location,
             description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
+            guests: guests,
           });
         }
       } else {
@@ -154,11 +157,13 @@ function addEvents(
           calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
             location: location,
             description: description,
+            guests: guests,
           });
         } else {
           calendar.createEvent(title, dateStartTime, dateEndTime, {
             location: location,
             description: description,
+            guests: guests,
           });
         }
       }
