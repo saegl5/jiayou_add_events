@@ -157,9 +157,13 @@ function addEvents(
       else eventSeries.setRecurrence(CalendarApp.newRecurrence().addDate(eventDate), dateStartTime, dateEndTime);
     }
 
-    let includesHttp = description.includes("http");
-    if (calendarNameAlt == "") setEvent(calendarAlt, includesHttp);
-    else setEvent(calendar, includesHttp);
+    if (!dryRun) {
+      let includesHttp = description.includes("http");
+      if (calendarNameAlt != "")
+        setEvent(calendarAlt, includesHttp);
+      else 
+        setEvent(calendar, includesHttp);
+    }
   }
   return "Events created!";
 }
