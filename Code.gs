@@ -1,4 +1,5 @@
 // Add 加油 ("jiā yóu") Events
+// Modify the following search parameters and event settings, then press |> Run
 
 // Search parameters
 var myCalendarName = "JIA YOU"; // Must name it differently from the owner name
@@ -22,6 +23,7 @@ var myDryRun = false; // test script before running it in production
 
 
 
+// -----------------------------------------------------------------------------------
 // ** WARNING **
 // If the script below is modified improperly, running it may cause irrevocable damage.
 // The script below comes with absolutely no warranty. Use it at your own risk.
