@@ -9,6 +9,7 @@ var myQuery = "J Day"; // Letter day on which you want to create an event, query
 var myCalendarNameAlt = ""; // Input name to create events on an alternate calendar on the same letter day, same naming convention applies
 var myTitle = "New Meeting";
 var myGuests = ""; // comma-separated list of email addresses
+// send invitation emails manually
 var myLocation = "Location";
 var myDescription = "Agenda"; // string or URL, if URL then text to display will be "Agenda"
 var myStart = ""; // Confine date range
