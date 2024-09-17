@@ -4,6 +4,8 @@
 // Search parameters
 var myCalendarName = "JIA YOU"; // Must name it differently from the owner name
 var myQuery = "J Day"; // Letter day on which you want to create an event, query ignores any extra spacing
+// personal observation: sometimes, queries find events that have details matching any word in the query
+// suggestion: specify queries as precisely as possible
 
 // Event settings
 var myCalendarNameAlt = ""; // Input name to create events on an alternate calendar on the same letter day, same naming convention applies
