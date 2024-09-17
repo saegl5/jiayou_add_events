@@ -49,7 +49,8 @@ function addEvents() {
 
   // Check if loop finds no calendar
   if (calendarId === "") {
-    return "No \"" + calendarName + "\" calendar exists!";
+    Logger.log("No \"" + calendarName + "\" calendar exists!");
+    return null;
   }
 
   // Repeat loop for alternate calendar (if one exists)
@@ -66,7 +67,8 @@ function addEvents() {
 
   // Check if loop finds no calendar
   if (calendarNameAlt !== "" && calendarIdAlt === "") {
-    return "No \"" + calendarNameAlt + "\" calendar exists!";
+    Logger.log("No \"" + calendarNameAlt + "\" calendar exists!");
+    return null;
   }
 
   // Access the calendar
@@ -98,7 +100,8 @@ function addEvents() {
 
   // Check if query finds no events
   if (events.length === 0) {
-    return "No \"" + query + "\" events exist!";
+    Logger.log("No \"" + query + "\" events exist!");
+    return null;
   }
 
   // Check if times are null
@@ -188,5 +191,6 @@ function addEvents() {
     // Log which events were added
     Logger.log("Created a new event on " + dateStartTime);
   }
-  return "Events created!";
+  Logger.log("Events created!");
+  return null;
 }
