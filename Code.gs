@@ -14,6 +14,7 @@ var myDescription = "Agenda"; // string or URL, if URL then text to display will
 var myStart = ""; // Confine date range
 var myEnd = ""; // Confine date range
 // Accepted date formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY
+// Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time
 var myStartTime = "10:00";
 var myEndTime = "11:00";
 // Accepted time format: 24-hour
