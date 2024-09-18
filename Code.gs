@@ -105,7 +105,7 @@ function addEvents(
   var datesWithJ = {};
 
   // Loop through each event found
-  events.forEach(function(event) {
+  events.forEach(function (event) {
     var eventDate = event.getStartTime();
 
     // Extract just the date part as a string
@@ -115,7 +115,9 @@ function addEvents(
     datesWithJ[dateKey] = true;
   });
 
-  // Iterate over the dates with events titled "J Day" and create a new event at 10:00 AM
+  var eventSeries = "";
+  var first = true;
+  // Iterate over the dates with events titled "J Day" and create a new event for the series at 10:00 AM
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr); // Cast "eventDate" as a function
     var dateStartTime = new Date(
@@ -133,45 +135,35 @@ function addEvents(
       endTime[1]
     );
 
-    if (!dryRun) {
-
-      // Check if description is a link
-      if (description.includes("http")) {
-          // Create the new event
-        if (calendarNameAlt !== "") {
-          calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
-            location: location,
-            description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
-            guests: guests,
-          });
-        } else {
-          calendar.createEvent(title, dateStartTime, dateEndTime, {
+    // calendar = c
+    function setEvent(c, includesHttp) {
+      if (first) {
+        if (includesHttp) {
+          eventSeries = c.createEventSeries(title, dateStartTime, dateEndTime, CalendarApp.newRecurrence().addDate(eventDate), {
             location: location,
             description: '<a href="' + (description) + '" target="_blank" >Agenda</a>',
             guests: guests,
           });
         }
-      } else {
-        // Create the new event
-        if (calendarNameAlt !== "") {
-          calendarAlt.createEvent(title, dateStartTime, dateEndTime, {
-            location: location,
-            description: description,
-            guests: guests,
-          });
-        } else {
-          calendar.createEvent(title, dateStartTime, dateEndTime, {
+        else {
+          eventSeries = c.createEventSeries(title, dateStartTime, dateEndTime, CalendarApp.newRecurrence().addDate(eventDate), {
             location: location,
             description: description,
             guests: guests,
           });
         }
+        first = false;
       }
-
+      else eventSeries.setRecurrence(CalendarApp.newRecurrence().addDate(eventDate), dateStartTime, dateEndTime);
     }
 
-    // Log which events were added
-    Logger.log("Created a new event on " + dateStartTime);
+    if (!dryRun) {
+      let includesHttp = description.includes("http");
+      if (calendarNameAlt != "")
+        setEvent(calendarAlt, includesHttp);
+      else 
+        setEvent(calendar, includesHttp);
+    }
   }
   return "Events created!";
 }
