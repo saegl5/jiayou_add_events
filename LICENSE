@@ -1,3 +1,14 @@
+Copyright (c) 2024 Ed Silkworth
+All codes except ones involving createEventSeries() and setRecurrence()
+License: MIT
+
+Copyright (c) 2024 James Armstrong
+Codes involving createEventSeries() and setRecurrence()
+No license
+
+
+
+
 MIT License
 
 Copyright (c) 2024 Ed Silkworth
