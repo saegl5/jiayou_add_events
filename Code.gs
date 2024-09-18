@@ -49,7 +49,7 @@ function addEvents() {
 
   // Check if loop finds no calendar
   if (calendarId === "") {
-    Logger.log("No \"" + calendarName + "\" calendar exists!");
+    Logger.log('No "' + calendarName + '" calendar exists!');
     return null;
   }
 
@@ -67,7 +67,7 @@ function addEvents() {
 
   // Check if loop finds no calendar
   if (calendarNameAlt !== "" && calendarIdAlt === "") {
-    Logger.log("No \"" + calendarNameAlt + "\" calendar exists!");
+    Logger.log('No "' + calendarNameAlt + '" calendar exists!');
     return null;
   }
 
@@ -90,7 +90,8 @@ function addEvents() {
     var events = [];
     for (var k = 0; k < eventsAll.length; k++) {
       var event = eventsAll[k];
-      if (event.getTitle() === query) { // MORE RELIABLE!
+      if (event.getTitle() === query) {
+        // MORE RELIABLE!
         events.push(event);
       }
     }
@@ -114,7 +115,7 @@ function addEvents() {
 
   // Check if query finds no events
   if (events.length === 0) {
-    Logger.log("No \"" + query + "\" events exist!");
+    Logger.log('No "' + query + '" events exist!');
     return null;
   }
 
@@ -137,7 +138,7 @@ function addEvents() {
   var datesWithJ = {};
 
   // Loop through each event found
-  events.forEach(function(event) {
+  events.forEach(function (event) {
     var eventDate = event.getStartTime();
 
     // Extract just the date part as a string
@@ -166,20 +167,21 @@ function addEvents() {
     );
 
     if (!myDryRun) {
-
       // Check if description is a link
       if (myDescription.includes("http")) {
-          // Create the new event
+        // Create the new event
         if (calendarNameAlt !== "") {
           calendarAlt.createEvent(myTitle, dateStartTime, dateEndTime, {
             location: myLocation,
-            description: '<a href="' + (myDescription) + '" target="_blank" >Agenda</a>',
+            description:
+              '<a href="' + myDescription + '" target="_blank" >Agenda</a>',
             guests: myGuests,
           });
         } else {
           calendar.createEvent(myTitle, dateStartTime, dateEndTime, {
             location: myLocation,
-            description: '<a href="' + (myDescription) + '" target="_blank" >Agenda</a>',
+            description:
+              '<a href="' + myDescription + '" target="_blank" >Agenda</a>',
             guests: myGuests,
           });
         }
@@ -199,7 +201,6 @@ function addEvents() {
           });
         }
       }
-
     }
 
     // Log which events were added
