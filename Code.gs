@@ -86,7 +86,14 @@ function addEvents() {
     myEnd.setDate(myEnd.getDate() + 1); // include end date in search
 
     // Search for events with title "J Day" between start and end dates
-    var events = calendar.getEvents(myStart, myEnd, { search: query });
+    var eventsAll = calendar.getEvents(myStart, myEnd);
+    var events = [];
+    for (var k = 0; k < eventsAll.length; k++) {
+      var event = eventsAll[k];
+      if (event.getTitle() === query) { // MORE RELIABLE!
+        events.push(event);
+      }
+    }
   } else {
     // Set the search parameters
     var query = myQuery;
@@ -95,7 +102,14 @@ function addEvents() {
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
 
     // Search for events with title "J Day" between now and one year from now
-    var events = calendar.getEvents(now, oneYearFromNow, { search: query });
+    var eventsAll = calendar.getEvents(now, oneYearFromNow);
+    var events = [];
+    for (var l = 0; l < eventsAll.length; l++) {
+      var event = eventsAll[l];
+      if (event.getTitle() === query) {
+        events.push(event);
+      }
+    }
   }
 
   // Check if query finds no events
