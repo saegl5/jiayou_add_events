@@ -40,9 +40,6 @@ function addEvents() {
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      // Logger.log(
-      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
-      // );
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
@@ -57,9 +54,6 @@ function addEvents() {
   if (calendarNameAlt !== "") {
     for (var j = 0; j < calendars.length; j++) {
       if (calendars[j].getName() === calendarNameAlt) {
-        // Logger.log(
-        //   'Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId()
-        // );
         calendarIdAlt = String(calendars[j].getId()); // Assign the calendar ID
       }
     }
@@ -85,7 +79,7 @@ function addEvents() {
     myEnd = new Date(myEnd); // excluded from search
     myEnd.setDate(myEnd.getDate() + 1); // include end date in search
 
-    // Search for events with title "J Day" between start and end dates
+    // Search for events with title between start and end dates
     var eventsAll = calendar.getEvents(myStart, myEnd);
     var events = [];
     for (var k = 0; k < eventsAll.length; k++) {
@@ -102,7 +96,7 @@ function addEvents() {
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
 
-    // Search for events with title "J Day" between now and one year from now
+    // Search for events with title between now and one year from now
     var eventsAll = calendar.getEvents(now, oneYearFromNow);
     var events = [];
     for (var l = 0; l < eventsAll.length; l++) {
@@ -134,7 +128,7 @@ function addEvents() {
   myEndTime[0] = parseInt(myEndTime[0]);
   myEndTime[1] = parseInt(myEndTime[1]);
 
-  // Track dates when events with title "J Day" occur
+  // Track dates when events with title occur
   var datesWithJ = {};
 
   // Loop through each event found
@@ -148,7 +142,7 @@ function addEvents() {
     datesWithJ[dateKey] = true;
   });
 
-  // Iterate over the dates with events titled "J Day" and create a new event at 10:00 AM
+  // Iterate over the dates with events titled query and create a new event at start time
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr); // Cast "eventDate" as a function
     var dateStartTime = new Date(
