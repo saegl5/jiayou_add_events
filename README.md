@@ -22,5 +22,11 @@ Google Web app for batch creating additional events on only certain letter days 
 10. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
 11. Press submit. (Requires another authorization. **_Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
 
+## Next Steps
+
+Edit or delete individual events, individual and subsequent events, or all events directly in [Google Calendar](https://calendar.google.com/calendar/).
+
+Additional scripts are no longer needed. ([Updating scripts](https://github.com/saegl5/jiayou_update_events) and [deleting scripts](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
