@@ -65,84 +65,84 @@
       <div id="search">
       
         <text id="search"><center>Search Parameters</center></text>
-        </br>
+        <br>
         
         <label for="calendarName">Calendar name:</label>
         <input type="text" id="calendarName" name="calendarName" value="JIA YOU" required>
         <text>Must name it differently from the owner name</text>
-        </br></br>
+        <br><br>
 
         <label for="query">Query:</label>
         <input type="text" id="query" name="query" value="J Day" required>
         <text>Letter day on which you want to create an event</text>
         <!-- prefilled for clarity -->
-        </br></br>
+        <br><br>
 
       </div>
 
-      </br>
+      <br>
 
       <div id="settings">
 
         <text id="settings"><center>Event Settings</center></text>
-        </br>
+        <br>
 
         <label for="calendarNameAlt">Alternate calendar name:</label>
         <input type="text" id="calendarNameAlt" name="calendarNameAlt" placeholder="Optional">
         <text>Create events on an alternate calendar on the same letter day</text><br>
         <text>Again, must name it differently from the owner name</text>
-        </br></br>
+        <br><br>
 
         <label for="title">Title:</label>
         <input type="text" id="title" name="title" value="New Meeting" required>
         <!-- prefilled for convenience -->
-        </br>
+        <br>
 
         <label for="guests">Guests:</label>
         <input type="text" id="guests" name="guests" placeholder="Optional">
         <text>Accepted format: comma-separated list of email addresses</text>
         <!-- send invitation emails manually -->
-        </br></br>
+        <br><br>
 
         <label for="location">Location:</label>
         <input type="text" id="location" name="location" placeholder="Optional">
-        </br>
+        <br>
 
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" placeholder="Optional">
         <text>Accepted formats: string or full URL</text>
         <!-- If full URL, then text to display will be "Agenda" -->
-        </br></br>
+        <br><br>
 
         <label for="start">Start date:</label>
         <input type="text" id="start" name="start" placeholder="Optional"></input>
         <!-- Confine date range -->
         <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
-        </br></br>
+        <br><br>
 
         <label for="end">End date:</label>
         <input type="text" id="end" name="end" placeholder="Optional"></input>
         <!-- Confine date range -->
         <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
-        </br></br>
+        <br><br>
 
         <label for="startTime">Start time:</label>
         <input type="text" id="startTime" name="startTime" value="10:00" required></input>
         <!-- prefilled for clarity -->
         <text>Accepted format: 24-hour</text>
-        </br></br>
+        <br><br>
 
         <label for="endTime">End time:</label>
         <input type="text" id="endTime" name="endTime" value="11:00" required></input>
         <!-- prefilled for clarity -->
         <text>Accepted format: 24-hour</text>
-        </br></br>
+        <br><br>
 
       </div>
 
-      </br>
+      <br>
 
       <div>
         <input type="checkbox" id="dryRun" name="dryRun" unchecked />
@@ -150,7 +150,7 @@
         <!-- test script before running it in production -->
       </div>
 
-      </br>
+      <br>
     
       <input type="submit" value="Submit">
       <div id="wait">&nbsp;</div>
