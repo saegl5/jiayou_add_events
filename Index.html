@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base target="_top">
+    <base target="_top" />
     <style>
       /* Basic styling for the form */
       form {
@@ -12,19 +12,28 @@
         border-radius: 5px;
         background-color: Gainsboro;
       }
-      select, input[type="text"], input[type="submit"] {
+      select,
+      input[type="text"],
+      input[type="submit"] {
         display: block;
         margin-bottom: 0px;
         width: 100%;
         -webkit-box-sizing: border-box;
         box-sizing: border-box; /* compatibility */
       }
-      select, input, div {
-        font-family: 'Courier New', Courier, monospace;
+      select,
+      input,
+      div {
+        font-family: "Courier New", Courier, monospace;
         font-size: medium;
       }
-      h1, label, input[type="submit"], text {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      h1,
+      label,
+      input[type="submit"],
+      text {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
       }
       text {
         font-size: smaller;
@@ -35,16 +44,18 @@
         text-align: center;
         color: #000;
       }
-      div[id="search"], div[id="settings"] {
+      div[id="search"],
+      div[id="settings"] {
         text-align: left;
         padding-top: 10px;
         padding-left: 15px;
         padding-right: 15px;
         border: 1px solid Silver;
         border-radius: 5px;
-        background-color: #F8F8F8;
+        background-color: #f8f8f8;
       }
-      text[id="search"], text[id="settings"] {
+      text[id="search"],
+      text[id="settings"] {
         font-style: normal;
       }
       input[type="checkbox"] {
@@ -61,88 +72,118 @@
   <body>
     <h1><center>Add 加油 ("jiā yóu") Events</center></h1>
     <form id="calendarForm">
-      
       <div id="search">
-      
         <text id="search"><center>Search Parameters</center></text>
-        <br>
-        
+        <br />
+
         <label for="calendarName">Calendar name:</label>
-        <input type="text" id="calendarName" name="calendarName" value="JIA YOU" required>
+        <input
+          type="text"
+          id="calendarName"
+          name="calendarName"
+          value="JIA YOU"
+          required
+        />
         <text>Must name it differently from the owner name</text>
-        <br><br>
+        <br /><br />
 
         <label for="query">Query:</label>
-        <input type="text" id="query" name="query" value="J Day" required>
+        <input type="text" id="query" name="query" value="J Day" required />
         <text>Letter day on which you want to create an event</text>
         <!-- prefilled for clarity -->
-        <br><br>
-
+        <br /><br />
       </div>
 
-      <br>
+      <br />
 
       <div id="settings">
-
         <text id="settings"><center>Event Settings</center></text>
-        <br>
+        <br />
 
         <label for="calendarNameAlt">Alternate calendar name:</label>
-        <input type="text" id="calendarNameAlt" name="calendarNameAlt" placeholder="Optional">
-        <text>Create events on an alternate calendar on the same letter day</text><br>
+        <input
+          type="text"
+          id="calendarNameAlt"
+          name="calendarNameAlt"
+          placeholder="Optional"
+        />
+        <text
+          >Create events on an alternate calendar on the same letter day</text
+        ><br />
         <text>Again, must name it differently from the owner name</text>
-        <br><br>
+        <br /><br />
 
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title" value="New Meeting" required>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          value="New Meeting"
+          required
+        />
         <!-- prefilled for convenience -->
-        <br>
+        <br />
 
         <label for="guests">Guests:</label>
-        <input type="text" id="guests" name="guests" placeholder="Optional">
+        <input type="text" id="guests" name="guests" placeholder="Optional" />
         <text>Accepted format: comma-separated list of email addresses</text>
         <!-- send invitation emails manually -->
-        <br><br>
+        <br /><br />
 
         <label for="location">Location:</label>
-        <input type="text" id="location" name="location" placeholder="Optional">
-        <br>
+        <input
+          type="text"
+          id="location"
+          name="location"
+          placeholder="Optional"
+        />
+        <br />
 
         <label for="description">Description:</label>
-        <input type="text" id="description" name="description" placeholder="Optional">
+        <input
+          type="text"
+          id="description"
+          name="description"
+          placeholder="Optional"
+        />
         <text>Accepted formats: string or full URL</text>
         <!-- If full URL, then text to display will be "Agenda" -->
-        <br><br>
+        <br /><br />
 
         <label for="start">Start date:</label>
-        <input type="text" id="start" name="start" placeholder="Optional"></input>
+        <input type="text" id="start" name="start" placeholder="Optional" />
         <!-- Confine date range -->
         <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
-        <br><br>
+        <br /><br />
 
         <label for="end">End date:</label>
-        <input type="text" id="end" name="end" placeholder="Optional"></input>
+        <input type="text" id="end" name="end" placeholder="Optional" />
         <!-- Confine date range -->
         <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
-        <br><br>
+        <br /><br />
 
         <label for="startTime">Start time:</label>
-        <input type="text" id="startTime" name="startTime" value="10:00" required></input>
+        <input
+          type="text"
+          id="startTime"
+          name="startTime"
+          value="10:00"
+          required
+        />
         <!-- prefilled for clarity -->
         <text>Accepted format: 24-hour</text>
-        <br><br>
+        <br /><br />
 
         <label for="endTime">End time:</label>
-        <input type="text" id="endTime" name="endTime" value="11:00" required></input>
+        <input type="text" id="endTime" name="endTime" value="11:00" required />
         <!-- prefilled for clarity -->
         <text>Accepted format: 24-hour</text>
-        <br><br>
-
+        <br /><br />
       </div>
 
-      <br>
+      <br />
 
       <div>
         <input type="checkbox" id="dryRun" name="dryRun" unchecked />
@@ -150,38 +191,56 @@
         <!-- test script before running it in production -->
       </div>
 
-      <br>
-    
-      <input type="submit" value="Submit">
+      <br />
+
+      <input type="submit" value="Submit" />
       <div id="wait">&nbsp;</div>
       <!-- id="wait" div displays function return messages -->
     </form>
-    
+
     <script>
       // JavaScript handles form submission and sends data to the Google Apps Script
-      document.getElementById('calendarForm').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevents the form from submitting the traditional way
+      document
+        .getElementById("calendarForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // Prevents the form from submitting the traditional way
 
-        var calendarName = document.getElementById('calendarName').value;
-        var query = document.getElementById('query').value;
-        
-        var calendarNameAlt = document.getElementById('calendarNameAlt').value;
-        var title = document.getElementById('title').value;
-        var guests = document.getElementById('guests').value;
-        var location = document.getElementById('location').value;
-        var description = document.getElementById('description').value;
-        var start = document.getElementById('start').value;
-        var end = document.getElementById('end').value;
-        var startTime = document.getElementById('startTime').value;
-        var endTime = document.getElementById('endTime').value;
-        var dryRun = document.getElementById('dryRun').checked; // by default, checkbox is unchecked, meaning .checked is false
-        
-        document.getElementById("wait").innerHTML = "Please wait...";
+          var calendarName = document.getElementById("calendarName").value;
+          var query = document.getElementById("query").value;
 
-        google.script.run.withSuccessHandler(function(response) {
-          document.getElementById('wait').innerHTML = response; // Displays a success message when completed
-        }).addEvents(calendarName, query, calendarNameAlt, title, guests, location, description, start, end, startTime, endTime, dryRun);
-      });
+          var calendarNameAlt =
+            document.getElementById("calendarNameAlt").value;
+          var title = document.getElementById("title").value;
+          var guests = document.getElementById("guests").value;
+          var location = document.getElementById("location").value;
+          var description = document.getElementById("description").value;
+          var start = document.getElementById("start").value;
+          var end = document.getElementById("end").value;
+          var startTime = document.getElementById("startTime").value;
+          var endTime = document.getElementById("endTime").value;
+          var dryRun = document.getElementById("dryRun").checked; // by default, checkbox is unchecked, meaning .checked is false
+
+          document.getElementById("wait").innerHTML = "Please wait...";
+
+          google.script.run
+            .withSuccessHandler(function (response) {
+              document.getElementById("wait").innerHTML = response; // Displays a success message when completed
+            })
+            .addEvents(
+              calendarName,
+              query,
+              calendarNameAlt,
+              title,
+              guests,
+              location,
+              description,
+              start,
+              end,
+              startTime,
+              endTime,
+              dryRun
+            );
+        });
     </script>
   </body>
 </html>
