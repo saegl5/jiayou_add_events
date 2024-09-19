@@ -14,7 +14,7 @@
       }
       select,
       input[type="text"],
-      input[type="submit"] {
+      input[type="submit"] textarea {
         display: block;
         margin-bottom: 0px;
         width: 100%;
@@ -23,6 +23,7 @@
       }
       select,
       input,
+      textarea,
       div {
         font-family: "Courier New", Courier, monospace;
         font-size: medium;
@@ -125,7 +126,12 @@
         <br />
 
         <label for="guests">Guests:</label>
-        <input type="text" id="guests" name="guests" placeholder="Optional" />
+        <textarea
+          type="text"
+          id="guests"
+          name="guests"
+          placeholder="Optional"
+        />
         <text>Accepted format: comma-separated list of email addresses</text>
         <!-- send invitation emails manually -->
         <br /><br />
