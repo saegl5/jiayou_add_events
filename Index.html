@@ -69,14 +69,14 @@
         
         <label for="calendarName">Calendar name:</label>
         <input type="text" id="calendarName" name="calendarName" value="JIA YOU" required>
-        <!-- Must name it differently from the owner name -->
-        </br>
+        <text>Must name it differently from the owner name</text>
+        </br></br>
 
         <label for="query">Query:</label>
         <input type="text" id="query" name="query" value="J Day" required>
-        <!-- Query ignores any extra spacing -->
+        <text>Letter day on which you want to create an event</text>
         <!-- prefilled for clarity -->
-        </br>
+        </br></br>
 
       </div>
 
@@ -89,8 +89,8 @@
 
         <label for="calendarNameAlt">Alternate calendar name:</label>
         <input type="text" id="calendarNameAlt" name="calendarNameAlt" placeholder="Optional">
-        <text>Create events on an alternate calendar on the same letter day</text>
-        <!-- Input name to create events on an alternate calendar, same naming convention applies -->
+        <text>Create events on an alternate calendar on the same letter day</text><br>
+        <text>Again, must name it differently from the owner name</text>
         </br></br>
 
         <label for="title">Title:</label>
@@ -101,6 +101,7 @@
         <label for="guests">Guests:</label>
         <input type="text" id="guests" name="guests" placeholder="Optional">
         <text>Accepted format: comma-separated list of email addresses</text>
+        <!-- send invitation emails manually -->
         </br></br>
 
         <label for="location">Location:</label>
@@ -109,19 +110,22 @@
 
         <label for="description">Description:</label>
         <input type="text" id="description" name="description" placeholder="Optional">
-        <text>Accepted formats: string or URL</text>
+        <text>Accepted formats: string or full URL</text>
+        <!-- If full URL, then text to display will be "Agenda" -->
         </br></br>
 
         <label for="start">Start date:</label>
         <input type="text" id="start" name="start" placeholder="Optional"></input>
         <!-- Confine date range -->
-        <text>Accepted formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY</text>
+        <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
+        <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
         </br></br>
 
         <label for="end">End date:</label>
         <input type="text" id="end" name="end" placeholder="Optional"></input>
         <!-- Confine date range -->
-        <text>Accepted formats: Mmm DD YYYY; MM/DD/YYYY; DD Mmm YYYY</text>
+        <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
+        <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
         </br></br>
 
         <label for="startTime">Start time:</label>
@@ -141,14 +145,16 @@
       </br>
 
       <div>
-        <input type="checkbox" id="dryRun" name="dryRun"/>
+        <input type="checkbox" id="dryRun" name="dryRun" unchecked />
         <label for="dryRun">Dry run</label>
+        <!-- test script before running it in production -->
       </div>
 
       </br>
     
       <input type="submit" value="Submit">
       <div id="wait">&nbsp;</div>
+      <!-- id="wait" div displays function return messages -->
     </form>
     
     <script>
@@ -168,7 +174,7 @@
         var end = document.getElementById('end').value;
         var startTime = document.getElementById('startTime').value;
         var endTime = document.getElementById('endTime').value;
-        var dryRun = document.getElementById('dryRun').checked;
+        var dryRun = document.getElementById('dryRun').checked; // by default, checkbox is unchecked, meaning .checked is false
         
         document.getElementById("wait").innerHTML = "Please wait...";
 

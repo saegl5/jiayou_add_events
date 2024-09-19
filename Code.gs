@@ -27,9 +27,6 @@ function addEvents(
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
-      // Logger.log(
-      //   'Calendar ID for "' + calendarName + '": ' + calendars[i].getId()
-      // );
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
@@ -43,9 +40,6 @@ function addEvents(
   if (calendarNameAlt !== "") {
     for (var j = 0; j < calendars.length; j++) {
       if (calendars[j].getName() === calendarNameAlt) {
-        // Logger.log(
-        //   'Calendar ID for "' + calendarNameAlt + '": ' + calendars[j].getId()
-        // );
         calendarIdAlt = String(calendars[j].getId()); // Assign the calendar ID
       }
     }
@@ -69,16 +63,31 @@ function addEvents(
     end = new Date(end); // excluded from search
     end.setDate(end.getDate() + 1); // include end date in search
 
-    // Search for events with title "J Day" between start and end dates
-    var events = calendar.getEvents(start, end, { search: query });
+    // Search for events with title between start and end dates
+    var eventsAll = calendar.getEvents(start, end);
+    var events = [];
+    for (var k = 0; k < eventsAll.length; k++) {
+      var event = eventsAll[k];
+      if (event.getTitle() === query) {
+        // MORE RELIABLE THAN `{ search: query }`!
+        events.push(event);
+      }
+    }
   } else {
     // Set the search parameters
     var now = new Date();
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(now.getFullYear() + 1);
 
-    // Search for events with title "J Day" between now and one year from now
-    var events = calendar.getEvents(now, oneYearFromNow, { search: query });
+    // Search for events with title between now and one year from now
+    var eventsAll = calendar.getEvents(now, oneYearFromNow);
+    var events = [];
+    for (var l = 0; l < eventsAll.length; l++) {
+      var event = eventsAll[l];
+      if (event.getTitle() === query) {
+        events.push(event);
+      }
+    }
   }
 
   // Check if query finds no events
@@ -101,7 +110,7 @@ function addEvents(
   endTime[0] = parseInt(endTime[0]);
   endTime[1] = parseInt(endTime[1]);
 
-  // Track dates when events with title "J Day" occur
+  // Track dates when events with title occur
   var datesWithJ = {};
 
   // Loop through each event found
@@ -118,7 +127,7 @@ function addEvents(
   var firstEvent = true; // for first event, to which subsequent events will be chained
   var eventSeries = ""; // for chaining events
 
-  // Iterate over the dates with events titled "J Day" and create a new event for the series at 10:00 AM
+  // Iterate over the dates with events titled query and create a new event for the series at start time
   for (var dateStr in datesWithJ) {
     var eventDate = new Date(dateStr); // Cast "eventDate" as a function
     var dateStartTime = new Date(
@@ -185,6 +194,7 @@ function addEvents(
         );
       return null;
     }
+
     // Log which events were added
     Logger.log("Created a new event on " + dateStartTime);
   }
