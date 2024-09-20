@@ -4,13 +4,20 @@
     <base target="_top" />
     <style>
       /* Basic styling for the form */
+      :root {
+        --border: silver;
+        --background: Gainsboro;
+        --foreground: #f8f8f8;
+        --title: darkgrey;
+        --description: darkgrey;
+      }
       form {
         max-width: 528px;
         margin: 0 auto;
         padding: 15px;
-        border: 1px solid Silver;
+        border: 1px solid var(--border);
         border-radius: 5px;
-        background-color: Gainsboro;
+        background-color: var(--background);
       }
       select,
       input[type="text"],
@@ -41,11 +48,11 @@
       text {
         font-size: smaller;
         font-style: italic;
-        color: darkgrey;
+        color: var(--description);
       }
       div {
         text-align: center;
-        color: #000;
+        /* color: #000; */
       }
       div[id="search"],
       div[id="settings"] {
@@ -53,22 +60,22 @@
         padding-top: 10px;
         padding-left: 15px;
         padding-right: 15px;
-        border: 1px solid Silver;
+        border: 1px solid var(--border);
         border-radius: 5px;
-        background-color: #f8f8f8;
+        background-color: var(--foreground);
       }
       div[id="title"] {
         font-weight: bold;
         font-size: smaller;
-        color: darkgrey;
+        color: var(--title);
       }
       input[type="checkbox"] {
         vertical-align: bottom;
       }
       input[type="submit"] {
-        background-color: white;
-        border-color: Silver;
-        color: black;
+        /* background-color: white; */
+        border-color: var(--border);
+        /* color: black; */
         border-radius: 5px;
       }
       h1 {
