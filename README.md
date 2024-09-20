@@ -4,7 +4,7 @@ Google Web app for batch creating additional events on only certain letter days 
 
 ## Visual Example
 
-<img src="screenshots/calendarForm.png" alt="screenshot of calendar form" width="800"><br>Form for creating additional "JIA YOU" events.
+<img src="screenshots/calendarForm.png" alt="screenshot of calendar form" width="500"><br>Form for creating additional "JIA YOU" events.
 
 <img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Additional events on only "J Day's" were created.
 
