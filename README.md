@@ -26,7 +26,7 @@ Google Web app for batch creating additional events on only certain letter days 
 
 Edit or delete individual events, individual and subsequent events, or all events directly in [Google Calendar](https://calendar.google.com/calendar/).
 
-Additional scripts are no longer needed. ([Updating scripts](https://github.com/saegl5/jiayou_update_events) and [deleting scripts](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
+Additional Web apps are no longer needed. ([Web app for updating events](https://github.com/saegl5/jiayou_update_events) and [Web app for deleting events](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
