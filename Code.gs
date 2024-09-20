@@ -111,7 +111,7 @@ function addEvents(
   endTime[1] = parseInt(endTime[1]);
 
   // Track dates when events with title occur
-  var datesWithJ = {};
+  var date = {};
 
   // Loop through each event found
   events.forEach(function (event) {
@@ -121,14 +121,14 @@ function addEvents(
     var dateKey = eventDate.toDateString();
 
     // Store the date in the dictionary
-    datesWithJ[dateKey] = true;
+    date[dateKey] = true;
   });
 
   var firstEvent = true; // for first event, to which subsequent events will be chained
   var eventSeries = ""; // for chaining events
 
   // Iterate over the dates with events titled query and create a new event for the series at start time
-  for (var dateStr in datesWithJ) {
+  for (var dateStr in date) {
     var eventDate = new Date(dateStr); // Cast "eventDate" as a function
     var dateStartTime = new Date(
       eventDate.getFullYear(),

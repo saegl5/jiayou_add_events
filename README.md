@@ -1,12 +1,17 @@
 # Add 加油 ("jiā yóu") Events
 
-Google Web app for batch creating additional events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the app. These events are not recurring events, so without a batch script one would need to add these events manually.
+Google Web app for creating recurring events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the app. Without an app script, one would need to add these events manually.
 
 ## Visual Example
 
-<img src="screenshots/calendarForm.png" alt="screenshot of calendar form" width="800"><br>Form for creating additional "JIA YOU" events.
+<img src="screenshots/calendarForm.png" alt="screenshot of calendar form" width="500"><br>Form for creating additional "JIA YOU" events.
 
 <img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Additional events on only "J Day's" were created.
+
+## Prerequisites
+
+1. Access to [Google Apps Script](https://script.google.com/)
+2. 加油 ("jiā yóu") calendar must already exist. If it doesn't, consult the [Web app for creating the calendar](https://github.com/saegl5/jiayou_create_calendar).
 
 ## Getting Started
 
@@ -26,7 +31,7 @@ Google Web app for batch creating additional events on only certain letter days 
 
 Edit or delete individual events, individual and subsequent events, or all events directly in [Google Calendar](https://calendar.google.com/calendar/).
 
-Additional scripts are no longer needed. ([Updating scripts](https://github.com/saegl5/jiayou_update_events) and [deleting scripts](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
+Additional Web apps are no longer needed. ([Web app for updating events](https://github.com/saegl5/jiayou_update_events) and [Web app for deleting events](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
