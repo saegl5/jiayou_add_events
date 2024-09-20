@@ -1,6 +1,6 @@
 # Add 加油 ("jiā yóu") Events
 
-Google Web app for batch creating additional events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the app. These events are not recurring events, so without a batch script one would need to add these events manually.
+Google Web app for creating recurring events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the app. Without an app script, one would need to add these events manually.
 
 ## Visual Example
 
