@@ -11,7 +11,7 @@ Google Web app for batch creating additional events on only certain letter days 
 ## Prerequisites
 
 1. Access to [Google Apps Script](https://script.google.com/)
-2. 加油 ("jiā yóu") calendar must already exist. If it doesn't, consult the [Web app for creating the calendar](https://github.com/saegl5/jiayou_add_events).
+2. 加油 ("jiā yóu") calendar must already exist. If it doesn't, consult the [Web app for creating the calendar](https://github.com/saegl5/jiayou_create_calendar).
 
 ## Getting Started
 
