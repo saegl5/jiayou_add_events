@@ -119,18 +119,44 @@ function addEvents(
 
   // Check if times are null
   if (startTime === "" && endTime === "") {
-    startTime = "00:00";
-    endTime = "24:00";
+    // essentially make all-day event
+    startTime = [];
+    startTime[0] = 0;
+    startTime[1] = 0;
+    endTime = [];
+    endTime[0] = 24;
+    endTime[1] = 0;
   }
+  else if (startTime !== "" && endTime === "") {
+    // Split strings into lists of hours and minutes
+    startTime = startTime.split(":");
+    startTime[0] = parseInt(startTime[0]);
+    startTime[1] = parseInt(startTime[1]);
 
-  // Split strings into lists of hours and minutes
-  startTime = startTime.split(":");
-  startTime[0] = parseInt(startTime[0]);
-  startTime[1] = parseInt(startTime[1]);
+    endTime = [];
+    endTime[0] = startTime[0]+1; // simply add 1 hour
+    endTime[1] = startTime[1];
+  }
+  else if (startTime === "" && endTime !== "") {
+    // Split strings into lists of hours and minutes
+    endTime = endTime.split(":");
+    endTime[0] = parseInt(endTime[0]);
+    endTime[1] = parseInt(endTime[1]);
 
-  endTime = endTime.split(":");
-  endTime[0] = parseInt(endTime[0]);
-  endTime[1] = parseInt(endTime[1]);
+    startTime = [];
+    startTime[0] = endTime[0]-1; // simply subtract 1 hour
+    startTime[1] = endTime[1];
+  }
+  else {
+    // Split strings into lists of hours and minutes
+    startTime = startTime.split(":");
+    startTime[0] = parseInt(startTime[0]);
+    startTime[1] = parseInt(startTime[1]);
+
+    endTime = endTime.split(":");
+    endTime[0] = parseInt(endTime[0]);
+    endTime[1] = parseInt(endTime[1]);
+  }
 
   // Track dates when events with title occur
   var date = {};
