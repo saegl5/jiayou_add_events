@@ -50,7 +50,7 @@
         font-style: italic;
         color: var(--description);
       }
-      div {
+      div[id="section"], div[id="dry"] {
         text-align: center;
         /* color: #000; */
       }
@@ -169,34 +169,64 @@
         <!-- If full URL, then text to display will be "Agenda" -->
         <br /><br />
 
-        <table width="100%">
-          <tr>
-            <td><label for="start">Start date:</label></td>
-            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
-            <td><label for="end">End date:</label></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="start" name="start" placeholder="Optional" /></td>
-            <td></td>
-            <td><input type="text" id="end" name="end" placeholder="Optional" /></td>
-          </tr>
-        </table>
+        <div style="display: table; width: 100%;">
+            <div style="display: table-row;">
+              <div style="display: table-cell;">
+                <label for="start">Start date:</label>
+              </div>
+              <div style="display: table-cell;">
+                &nbsp;&nbsp;-&nbsp;&nbsp;
+              </div>
+              <div style="display: table-cell;">
+                <label for="end">End date:</label>
+              </div>
+            </div>
+            <div style="display: table-row;">
+              <div style="display: table-cell;">
+                <input type="text" id="start" name="start" placeholder="Optional" />
+              </div>
+              <div style="display: table-cell;">
+                  <p></p>
+              </div>
+              <div style="display: table-cell;">
+                <input type="text" id="end" name="end" placeholder="Optional" />
+              </div>
+            </div>
+        </div>
         <!-- Confine date range -->
         <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
-        <!-- <br /><br /> -->
-
-        <!-- <label for="end">End date:</label>
-        <input type="text" id="end" name="end" placeholder="Optional" /> -->
-        <!-- Confine date range -->
-        <!-- <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text> -->
-        <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
         <br /><br />
+
+        <div style="display: table; width: 100%;">
+          <div style="display: table-row;">
+            <div style="display: table-cell;">
+              <label for="start">Start date:</label>
+            </div>
+            <div style="display: table-cell;">
+              &nbsp;&nbsp;-&nbsp;&nbsp;
+            </div>
+            <div style="display: table-cell;">
+              <label for="end">End date:</label>
+            </div>
+          </div>
+          <div style="display: table-row;">
+            <div style="display: table-cell;">
+              <input type="text" id="start" name="start" placeholder="Optional" />
+            </div>
+            <div style="display: table-cell;">
+                <p></p>
+            </div>
+            <div style="display: table-cell;">
+              <input type="text" id="end" name="end" placeholder="Optional" />
+            </div>
+          </div>
+      </div>
 
 
         <table width="100%">
           <tr>
-            <td><label for="startTime">Start time:</label></td>
+            <td></td>
               <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
               <td><label for="endTime">End time:</label></td>
           </tr>
@@ -247,7 +277,7 @@
 
       <br />
 
-      <div>
+      <div id="dry">
         <input type="checkbox" id="dryRun" name="dryRun" unchecked />
         <label for="dryRun">Dry run</label>
         <!-- test script before running it in production, hide for production -->
