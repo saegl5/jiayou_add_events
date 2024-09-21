@@ -169,43 +169,80 @@
         <!-- If full URL, then text to display will be "Agenda" -->
         <br /><br />
 
-        <label for="start">Start date:</label>
-        <input type="text" id="start" name="start" placeholder="Optional" />
+        <table width="100%">
+          <tr>
+            <td><label for="start">Start date:</label></td>
+            <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+            <td><label for="end">End date:</label></td>
+          </tr>
+          <tr>
+            <td><input type="text" id="start" name="start" placeholder="Optional" /></td>
+            <td></td>
+            <td><input type="text" id="end" name="end" placeholder="Optional" /></td>
+          </tr>
+        </table>
         <!-- Confine date range -->
         <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
-        <br /><br />
+        <!-- <br /><br /> -->
 
-        <label for="end">End date:</label>
-        <input type="text" id="end" name="end" placeholder="Optional" />
+        <!-- <label for="end">End date:</label>
+        <input type="text" id="end" name="end" placeholder="Optional" /> -->
         <!-- Confine date range -->
-        <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
+        <!-- <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text> -->
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
         <br /><br />
 
-        <label for="startTime">Start time:</label>
-        <input
+
+        <table width="100%">
+          <tr>
+            <td><label for="startTime">Start time:</label></td>
+              <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
+              <td><label for="endTime">End time:</label></td>
+          </tr>
+          <tr>
+            <td><input
+              type="text"
+              id="startTime"
+              name="startTime"
+              value="10:00"
+              placeholder="Optional"
+            /></td>
+            <td></td>
+            <td><input
+              type="text"
+              id="endTime"
+              name="endTime"
+              value="11:00"
+              placeholder="Optional"
+            /></td>
+          </tr>
+        </table>
+        <!-- prefilled for clarity -->
+        <text>Accepted format: 24-hour</text>
+        <br /><br />
+
+
+        <!-- <label for="startTime">Start time:</label> -->
+        <!-- <input
           type="text"
           id="startTime"
           name="startTime"
           value="10:00"
           placeholder="Optional"
-        />
-        <!-- prefilled for clarity -->
-        <text>Accepted format: 24-hour</text>
-        <br /><br />
+        /> -->
 
-        <label for="endTime">End time:</label>
-        <input
+        <!-- <label for="endTime">End time:</label> -->
+        <!-- <input
           type="text"
           id="endTime"
           name="endTime"
           value="11:00"
           placeholder="Optional"
-        />
+        /> -->
         <!-- prefilled for clarity -->
-        <text>Accepted format: 24-hour</text>
-        <br /><br />
+        <!-- <text>Accepted format: 24-hour</text>
+        <br /><br /> -->
       </div>
 
       <br />
