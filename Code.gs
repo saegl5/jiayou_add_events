@@ -62,32 +62,54 @@ function addEvents(
     start = new Date(start);
     end = new Date(end); // excluded from search
     end.setDate(end.getDate() + 1); // include end date in search
-
     // Search for events with title between start and end dates
-    var eventsAll = calendar.getEvents(start, end);
-    var events = [];
-    for (var k = 0; k < eventsAll.length; k++) {
-      var event = eventsAll[k];
-      if (event.getTitle() === query) {
-        // MORE RELIABLE THAN `{ search: query }`!
-        events.push(event);
-      }
-    }
+    search(start, end);
+  } else if (start === "" && end !== "") {
+    // Set the search parameters
+    var now = new Date();
+    end = new Date(end); // excluded from search
+    end.setDate(end.getDate() + 1); // include end date in search
+    // Search for events with title between now and end date
+    search(now, end);
+  } else if (start !== "" && end === "") {
+    // Set the search parameters
+    start = new Date(start);
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
+    // Search for events with title between start and one year from start
+    search(start, oneYearFromNow);
   } else {
     // Set the search parameters
     var now = new Date();
     var oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(now.getFullYear() + 1);
-
+    oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
     // Search for events with title between now and one year from now
-    var eventsAll = calendar.getEvents(now, oneYearFromNow);
-    var events = [];
-    for (var l = 0; l < eventsAll.length; l++) {
-      var event = eventsAll[l];
-      if (event.getTitle() === query) {
-        events.push(event);
+    search(now, oneYearFromNow);
+  }
+
+  // consolidated into nested function
+  var events;
+  function search(from, to) {
+    if (from > to) {
+      events = null;
+    }
+    else {
+      var eventsAll = calendar.getEvents(from, to);
+      events = [];
+      for (var k = 0; k < eventsAll.length; k++) {
+        var event = eventsAll[k];
+        if (event.getTitle() === query) {
+          // MORE RELIABLE THAN `{ search: query }`!
+          events.push(event);
+        }
       }
     }
+    return null;
+  }
+
+  // check invalid date range
+  if (events === null) {
+    return "Event start time must be before event end time"; // handle error
   }
 
   // Check if query finds no events
@@ -97,18 +119,44 @@ function addEvents(
 
   // Check if times are null
   if (startTime === "" && endTime === "") {
-    startTime = "00:00";
-    endTime = "24:00";
+    // essentially make all-day event
+    startTime = [];
+    startTime[0] = 0;
+    startTime[1] = 0;
+    endTime = [];
+    endTime[0] = 24;
+    endTime[1] = 0;
   }
+  else if (startTime !== "" && endTime === "") {
+    // Split strings into lists of hours and minutes
+    startTime = startTime.split(":");
+    startTime[0] = parseInt(startTime[0]);
+    startTime[1] = parseInt(startTime[1]);
 
-  // Split strings into lists of hours and minutes
-  startTime = startTime.split(":");
-  startTime[0] = parseInt(startTime[0]);
-  startTime[1] = parseInt(startTime[1]);
+    endTime = [];
+    endTime[0] = startTime[0]+1; // simply add 1 hour
+    endTime[1] = startTime[1];
+  }
+  else if (startTime === "" && endTime !== "") {
+    // Split strings into lists of hours and minutes
+    endTime = endTime.split(":");
+    endTime[0] = parseInt(endTime[0]);
+    endTime[1] = parseInt(endTime[1]);
 
-  endTime = endTime.split(":");
-  endTime[0] = parseInt(endTime[0]);
-  endTime[1] = parseInt(endTime[1]);
+    startTime = [];
+    startTime[0] = endTime[0]-1; // simply subtract 1 hour
+    startTime[1] = endTime[1];
+  }
+  else {
+    // Split strings into lists of hours and minutes
+    startTime = startTime.split(":");
+    startTime[0] = parseInt(startTime[0]);
+    startTime[1] = parseInt(startTime[1]);
+
+    endTime = endTime.split(":");
+    endTime[0] = parseInt(endTime[0]);
+    endTime[1] = parseInt(endTime[1]);
+  }
 
   // Track dates when events with title occur
   var date = {};
