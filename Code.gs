@@ -73,6 +73,36 @@ function addEvents(
         events.push(event);
       }
     }
+  } else if (start === "" && end !== "") {
+    // Set the search parameters
+    var now = new Date();
+    end = new Date(end); // excluded from search
+    end.setDate(end.getDate() + 1); // include end date in search
+
+    // Search for events with title between now and end date
+    var eventsAll = calendar.getEvents(now, end);
+    var events = [];
+    for (var l = 0; l < eventsAll.length; l++) {
+      var event = eventsAll[l];
+      if (event.getTitle() === query) {
+        events.push(event);
+      }
+    }
+  } else if (start !== "" && end === "") {
+    // Set the search parameters
+    start = new Date(start);
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
+
+    // Search for events with title between start and one year from start
+    var eventsAll = calendar.getEvents(start, oneYearFromNow);
+    var events = [];
+    for (var m = 0; m < eventsAll.length; m++) {
+      var event = eventsAll[m];
+      if (event.getTitle() === query) {
+        events.push(event);
+      }
+    }
   } else {
     // Set the search parameters
     var now = new Date();
@@ -82,8 +112,8 @@ function addEvents(
     // Search for events with title between now and one year from now
     var eventsAll = calendar.getEvents(now, oneYearFromNow);
     var events = [];
-    for (var l = 0; l < eventsAll.length; l++) {
-      var event = eventsAll[l];
+    for (var n = 0; n < eventsAll.length; n++) {
+      var event = eventsAll[n];
       if (event.getTitle() === query) {
         events.push(event);
       }
