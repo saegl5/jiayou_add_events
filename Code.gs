@@ -77,7 +77,7 @@ function addEvents(
     // Set the search parameters
     var now = new Date();
     var oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(now.getFullYear() + 1);
+    oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
 
     // Search for events with title between now and one year from now
     var eventsAll = calendar.getEvents(now, oneYearFromNow);
