@@ -90,16 +90,26 @@ function addEvents(
   // consolidated into nested function
   var events;
   function search(from, to) {
-    var eventsAll = calendar.getEvents(from, to);
-    events = [];
-    for (var k = 0; k < eventsAll.length; k++) {
-      var event = eventsAll[k];
-      if (event.getTitle() === query) {
-        // MORE RELIABLE THAN `{ search: query }`!
-        events.push(event);
+    if (from > to) {
+      events = null;
+    }
+    else {
+      var eventsAll = calendar.getEvents(from, to);
+      events = [];
+      for (var k = 0; k < eventsAll.length; k++) {
+        var event = eventsAll[k];
+        if (event.getTitle() === query) {
+          // MORE RELIABLE THAN `{ search: query }`!
+          events.push(event);
+        }
       }
     }
     return null;
+  }
+
+  // check invalid date range
+  if (events === null) {
+    return "Event start time must be before event end time"; // handle error
   }
 
   // Check if query finds no events
