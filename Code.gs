@@ -33,7 +33,8 @@ function addEvents(
 
   // Check if loop finds no calendar
   if (calendarId === "") {
-    return 'No "' + calendarName + '" calendar exists!';
+    var calendarDefault = CalendarApp.getDefaultCalendar();
+    return 'No "' + calendarName + '" calendar! But "' + calendarDefault.getName() + '" exists.'; // handle null
   }
 
   // Repeat loop for alternate calendar (if one exists)
@@ -45,15 +46,20 @@ function addEvents(
     }
   }
 
-  // Check if loop finds no calendar
-  if (calendarNameAlt !== "" && calendarIdAlt === "") {
-    return 'No "' + calendarNameAlt + '" calendar exists!';
-  }
+  // Check if loop finds no alt calendar, next
 
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
-  if (calendarNameAlt !== "") {
+  if (calendarNameAlt !== "" && calendarIdAlt !== "") {
     var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
+  } else if (calendarNameAlt !== "" && calendarIdAlt === "") {
+    // create the alternate calendar
+    if (!dryRun) {
+      var calendarAlt = CalendarApp.createCalendar(calendarNameAlt); // built-in function
+  
+      // Set its time zone the same as calendar's
+      calendarAlt.setTimeZone(calendar.getTimeZone());
+    }
   }
 
   // Check for null dates
@@ -119,13 +125,7 @@ function addEvents(
 
   // Check if times are null
   if (startTime === "" && endTime === "") {
-    // essentially make all-day event
-    startTime = [];
-    startTime[0] = 0;
-    startTime[1] = 0;
-    endTime = [];
-    endTime[0] = 24;
-    endTime[1] = 0;
+    // make all-day event, later
   }
   else if (startTime !== "" && endTime === "") {
     // Split strings into lists of hours and minutes
@@ -193,6 +193,11 @@ function addEvents(
       endTime[1]
     );
 
+    // check invalid time range
+    if (dateStartTime > dateEndTime) {
+      return "Event start time must be before event end time"; // handle error
+    }  
+
     if (!dryRun) {
       // Check if description is a link
       var includesHttp = description.includes("http"); // "let" is fine, using "var" for flexibility
@@ -207,30 +212,59 @@ function addEvents(
     function createEvent(calendar, includesHttp) {
       if (firstEvent) {
         if (includesHttp) {
-          eventSeries = calendar.createEventSeries(
-            title,
-            dateStartTime,
-            dateEndTime,
-            CalendarApp.newRecurrence().addDate(eventDate),
-            {
-              location: location,
-              description:
-                '<a href="' + description + '" target="_blank" >Agenda</a>',
-              guests: guests,
-            }
-          );
+          if (startTime === "" && endTime === "") { // make all-day event
+            eventSeries = calendar.createAllDayEventSeries(
+              title,
+              eventDate,
+              CalendarApp.newRecurrence().addDate(eventDate),
+              {
+                location: location,
+                description:
+                  '<a href="' + description + '" target="_blank" >Agenda</a>',
+                guests: guests,
+              }
+            );
+          }
+          else { // make regular event
+            eventSeries = calendar.createEventSeries(
+              title,
+              dateStartTime,
+              dateEndTime,
+              CalendarApp.newRecurrence().addDate(eventDate),
+              {
+                location: location,
+                description:
+                  '<a href="' + description + '" target="_blank" >Agenda</a>',
+                guests: guests,
+              }
+            );
+          }
         } else {
-          eventSeries = calendar.createEventSeries(
-            title,
-            dateStartTime,
-            dateEndTime,
-            CalendarApp.newRecurrence().addDate(eventDate),
-            {
-              location: location,
-              description: description,
-              guests: guests,
-            }
-          );
+          if (startTime === "" && endTime === "") { // make all-day event
+            eventSeries = calendar.createAllDayEventSeries(
+              title,
+              eventDate,
+              CalendarApp.newRecurrence().addDate(eventDate),
+              {
+                location: location,
+                description: description,
+                guests: guests,
+              }
+            );
+          }
+          else { // make regular event
+            eventSeries = calendar.createEventSeries(
+              title,
+              dateStartTime,
+              dateEndTime,
+              CalendarApp.newRecurrence().addDate(eventDate),
+              {
+                location: location,
+                description: description,
+                guests: guests,
+              }
+            );
+          }
         }
         firstEvent = false;
       } // chain subsequent event to first event
@@ -246,5 +280,5 @@ function addEvents(
     // Log which events were added
     Logger.log("Created a new event on " + dateStartTime);
   }
-  return "Events created!";
+  return "Events created! Go to your Google Calendar...";
 }
