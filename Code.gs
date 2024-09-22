@@ -46,15 +46,20 @@ function addEvents(
     }
   }
 
-  // Check if loop finds no calendar
-  if (calendarNameAlt !== "" && calendarIdAlt === "") {
-    return 'No "' + calendarNameAlt + '" calendar exists!';
-  }
+  // Check if loop finds no alt calendar, next
 
   // Access the calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
-  if (calendarNameAlt !== "") {
+  if (calendarNameAlt !== "" && calendarIdAlt !== "") {
     var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
+  } else if (calendarNameAlt !== "" && calendarIdAlt === "") {
+    // create the alternate calendar
+    if (!dryRun) {
+      var calendarAlt = CalendarApp.createCalendar(calendarNameAlt); // built-in function
+  
+      // Set its time zone the same as calendar's
+      calendarAlt.setTimeZone(calendar.getTimeZone());
+    }
   }
 
   // Check for null dates
