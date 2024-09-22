@@ -187,6 +187,11 @@ function addEvents(
       endTime[1]
     );
 
+    // check invalid time range
+    if (dateStartTime > dateEndTime) {
+      return "Event start time must be before event end time"; // handle error
+    }  
+
     if (!dryRun) {
       // Check if description is a link
       var includesHttp = description.includes("http"); // "let" is fine, using "var" for flexibility
