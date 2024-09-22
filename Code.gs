@@ -33,7 +33,8 @@ function addEvents(
 
   // Check if loop finds no calendar
   if (calendarId === "") {
-    return 'No "' + calendarName + '" calendar exists!';
+    var calendarDefault = CalendarApp.getDefaultCalendar();
+    return 'No "' + calendarName + '" calendar! But "' + calendarDefault.getName() + '" exists.'; // handle null
   }
 
   // Repeat loop for alternate calendar (if one exists)
