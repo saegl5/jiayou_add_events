@@ -50,7 +50,8 @@
         font-style: italic;
         color: var(--description);
       }
-      div[id="section"], div[id="dry"] {
+      div[id="section"],
+      div[id="dry"] {
         text-align: center;
         /* color: #000; */
       }
@@ -169,110 +170,75 @@
         <!-- If full URL, then text to display will be "Agenda" -->
         <br /><br />
 
-        <div style="display: table; width: 100%;">
-            <div style="display: table-row;">
-              <div style="display: table-cell;">
-                <label for="start">Start date:</label>
-              </div>
-              <div style="display: table-cell;">
-                &nbsp;&nbsp;-&nbsp;&nbsp;
-              </div>
-              <div style="display: table-cell;">
-                <label for="end">End date:</label>
-              </div>
+        <div style="display: table; width: 100%">
+          <div style="display: table-row">
+            <div style="display: table-cell">
+              <label for="start">Start date:</label>
             </div>
-            <div style="display: table-row;">
-              <div style="display: table-cell;">
-                <input type="text" id="start" name="start" placeholder="Optional" />
-              </div>
-              <div style="display: table-cell;">
-                  <p></p>
-              </div>
-              <div style="display: table-cell;">
-                <input type="text" id="end" name="end" placeholder="Optional" />
-              </div>
+            <div style="display: table-cell; text-align: center;">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
+            <div style="display: table-cell">
+              <label for="end">End date:</label>
             </div>
+          </div>
+          <div style="display: table-row">
+            <div style="display: table-cell">
+              <input
+                type="text"
+                id="start"
+                name="start"
+                placeholder="Optional"
+              />
+            </div>
+            <div style="display: table-cell">
+              <p></p>
+            </div>
+            <div style="display: table-cell">
+              <input type="text" id="end" name="end" placeholder="Optional" />
+            </div>
+          </div>
         </div>
         <!-- Confine date range -->
         <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
         <br /><br />
 
-        <div style="display: table; width: 100%;">
-          <div style="display: table-row;">
-            <div style="display: table-cell;">
-              <label for="start">Start date:</label>
+        <div style="display: table; width: 100%">
+          <div style="display: table-row">
+            <div style="display: table-cell">
+              <label for="startTime">Start time:</label>
             </div>
-            <div style="display: table-cell;">
-              &nbsp;&nbsp;-&nbsp;&nbsp;
-            </div>
-            <div style="display: table-cell;">
-              <label for="end">End date:</label>
+            <div style="display: table-cell; text-align: center;">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
+            <div style="display: table-cell">
+              <label for="endTime">End time:</label>
             </div>
           </div>
-          <div style="display: table-row;">
-            <div style="display: table-cell;">
-              <input type="text" id="start" name="start" placeholder="Optional" />
+          <div style="display: table-row">
+            <div style="display: table-cell">
+              <input
+                type="text"
+                id="startTime"
+                name="startTime"
+                value="10:00"
+                placeholder="Optional"
+              />
             </div>
-            <div style="display: table-cell;">
-                <p></p>
+            <div style="display: table-cell">
+              <p></p>
             </div>
-            <div style="display: table-cell;">
-              <input type="text" id="end" name="end" placeholder="Optional" />
+            <div style="display: table-cell">
+              <input
+                type="text"
+                id="endTime"
+                name="endTime"
+                value="11:00"
+                placeholder="Optional"
+              />
             </div>
           </div>
-      </div>
-
-
-        <table width="100%">
-          <tr>
-            <td></td>
-              <td>&nbsp;&nbsp;-&nbsp;&nbsp;</td>
-              <td><label for="endTime">End time:</label></td>
-          </tr>
-          <tr>
-            <td><input
-              type="text"
-              id="startTime"
-              name="startTime"
-              value="10:00"
-              placeholder="Optional"
-            /></td>
-            <td></td>
-            <td><input
-              type="text"
-              id="endTime"
-              name="endTime"
-              value="11:00"
-              placeholder="Optional"
-            /></td>
-          </tr>
-        </table>
+        </div>
         <!-- prefilled for clarity -->
         <text>Accepted format: 24-hour</text>
         <br /><br />
-
-
-        <!-- <label for="startTime">Start time:</label> -->
-        <!-- <input
-          type="text"
-          id="startTime"
-          name="startTime"
-          value="10:00"
-          placeholder="Optional"
-        /> -->
-
-        <!-- <label for="endTime">End time:</label> -->
-        <!-- <input
-          type="text"
-          id="endTime"
-          name="endTime"
-          value="11:00"
-          placeholder="Optional"
-        /> -->
-        <!-- prefilled for clarity -->
-        <!-- <text>Accepted format: 24-hour</text>
-        <br /><br /> -->
       </div>
 
       <br />
