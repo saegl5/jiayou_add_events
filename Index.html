@@ -51,7 +51,8 @@
         color: var(--description);
       }
       div[id="section"],
-      div[id="dry"] {
+      div[id="dry"],
+      .mid {
         text-align: center;
       }
       div[id="search"],
@@ -78,6 +79,17 @@
       }
       h1 {
         text-align: center;
+      }
+      div[id="table"] {
+        display: table;
+        width: 100%;
+      }
+      div[id="row"] {
+        display: table-row;
+      }
+      div[id="cell"],
+      .mid {
+        display: table-cell;
       }
     </style>
   </head>
@@ -167,18 +179,18 @@
         <!-- If full URL, then text to display will be "Agenda" -->
         <br /><br />
 
-        <div style="display: table; width: 100%">
-          <div style="display: table-row">
-            <div style="display: table-cell">
+        <div id="table">
+          <div id="row">
+            <div id="cell">
               <label for="start">Start date:</label>
             </div>
-            <div style="display: table-cell; text-align: center;">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-            <div style="display: table-cell">
+            <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
+            <div id="cell">
               <label for="end">End date:</label>
             </div>
           </div>
-          <div style="display: table-row">
-            <div style="display: table-cell">
+          <div id="row">
+            <div id="cell">
               <input
                 type="text"
                 id="start"
@@ -186,10 +198,10 @@
                 placeholder="Optional"
               />
             </div>
-            <div style="display: table-cell">
-              <p></p>
+            <div id="cell" class="mid">
+              <!-- empty -->
             </div>
-            <div style="display: table-cell">
+            <div id="cell">
               <input type="text" id="end" name="end" placeholder="Optional" />
             </div>
           </div>
@@ -199,18 +211,18 @@
         <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
         <br /><br />
 
-        <div style="display: table; width: 100%">
-          <div style="display: table-row">
-            <div style="display: table-cell">
+        <div id="table">
+          <div id="row">
+            <div id="cell">
               <label for="startTime">Start time:</label>
             </div>
-            <div style="display: table-cell; text-align: center;">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-            <div style="display: table-cell">
+            <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
+            <div id="cell">
               <label for="endTime">End time:</label>
             </div>
           </div>
-          <div style="display: table-row">
-            <div style="display: table-cell">
+          <div id="row">
+            <div id="cell">
               <input
                 type="text"
                 id="startTime"
@@ -219,10 +231,10 @@
                 placeholder="Optional"
               />
             </div>
-            <div style="display: table-cell">
-              <p></p>
+            <div id="cell" class="mid">
+              <!-- empty -->
             </div>
-            <div style="display: table-cell">
+            <div id="cell">
               <input
                 type="text"
                 id="endTime"
