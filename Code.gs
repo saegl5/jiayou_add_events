@@ -34,7 +34,13 @@ function addEvents(
   // Check if loop finds no calendar
   if (calendarId === "") {
     var calendarDefault = CalendarApp.getDefaultCalendar();
-    return 'No "' + calendarName + '" calendar! But "' + calendarDefault.getName() + '" exists.'; // handle null
+    return (
+      'No "' +
+      calendarName +
+      '" calendar! But "' +
+      calendarDefault.getName() +
+      '" exists.'
+    ); // handle null
   }
 
   // Repeat loop for alternate calendar (if one exists)
@@ -56,10 +62,15 @@ function addEvents(
     // create the alternate calendar
     if (!dryRun) {
       var calendarAlt = CalendarApp.createCalendar(calendarNameAlt); // built-in function
-  
+
       // Set its time zone the same as calendar's
       calendarAlt.setTimeZone(calendar.getTimeZone());
     }
+  }
+
+  // handle exceptions
+  if (start.includes(",") || end.includes(",")) {
+    return "Use accepted date formats!"; // for consistency
   }
 
   // Check for null dates
@@ -98,8 +109,7 @@ function addEvents(
   function search(from, to) {
     if (from > to) {
       events = null;
-    }
-    else {
+    } else {
       var eventsAll = calendar.getEvents(from, to);
       events = [];
       for (var k = 0; k < eventsAll.length; k++) {
@@ -126,28 +136,25 @@ function addEvents(
   // Check if times are null
   if (startTime === "" && endTime === "") {
     // make all-day event, later
-  }
-  else if (startTime !== "" && endTime === "") {
+  } else if (startTime !== "" && endTime === "") {
     // Split strings into lists of hours and minutes
     startTime = startTime.split(":");
     startTime[0] = parseInt(startTime[0]);
     startTime[1] = parseInt(startTime[1]);
 
     endTime = [];
-    endTime[0] = startTime[0]+1; // simply add 1 hour
+    endTime[0] = startTime[0] + 1; // simply add 1 hour
     endTime[1] = startTime[1];
-  }
-  else if (startTime === "" && endTime !== "") {
+  } else if (startTime === "" && endTime !== "") {
     // Split strings into lists of hours and minutes
     endTime = endTime.split(":");
     endTime[0] = parseInt(endTime[0]);
     endTime[1] = parseInt(endTime[1]);
 
     startTime = [];
-    startTime[0] = endTime[0]-1; // simply subtract 1 hour
+    startTime[0] = endTime[0] - 1; // simply subtract 1 hour
     startTime[1] = endTime[1];
-  }
-  else {
+  } else {
     // Split strings into lists of hours and minutes
     startTime = startTime.split(":");
     startTime[0] = parseInt(startTime[0]);
@@ -196,7 +203,7 @@ function addEvents(
     // check invalid time range
     if (dateStartTime > dateEndTime) {
       return "Event start time must be before event end time"; // handle error
-    }  
+    }
 
     if (!dryRun) {
       // Check if description is a link
@@ -212,7 +219,8 @@ function addEvents(
     function createEvent(calendar, includesHttp) {
       if (firstEvent) {
         if (includesHttp) {
-          if (startTime === "" && endTime === "") { // make all-day event
+          if (startTime === "" && endTime === "") {
+            // make all-day event
             eventSeries = calendar.createAllDayEventSeries(
               title,
               eventDate,
@@ -224,8 +232,8 @@ function addEvents(
                 guests: guests,
               }
             );
-          }
-          else { // make regular event
+          } else {
+            // make regular event
             eventSeries = calendar.createEventSeries(
               title,
               dateStartTime,
@@ -240,7 +248,8 @@ function addEvents(
             );
           }
         } else {
-          if (startTime === "" && endTime === "") { // make all-day event
+          if (startTime === "" && endTime === "") {
+            // make all-day event
             eventSeries = calendar.createAllDayEventSeries(
               title,
               eventDate,
@@ -251,8 +260,8 @@ function addEvents(
                 guests: guests,
               }
             );
-          }
-          else { // make regular event
+          } else {
+            // make regular event
             eventSeries = calendar.createEventSeries(
               title,
               dateStartTime,
