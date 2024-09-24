@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -33,7 +34,7 @@
       input,
       textarea,
       div {
-        font-family: "Courier New", Courier, monospace;
+        font-family: system-ui;
         font-size: medium;
       }
       h1,
@@ -99,7 +100,7 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="load()">
     <h1>Add 加油 ("jiā yóu") Events</h1>
     <form id="calendarForm">
       <div id="search">
@@ -107,18 +108,20 @@
         <br />
 
         <label for="calendarName">Calendar name:</label>
-        <input
-          type="text"
-          id="calendarName"
-          name="calendarName"
-          value="JIA YOU"
-          required
-        />
+
+        <select id="calendarName" required>
+        </select>
         <text>Calendar must already exist</text>
         <br /><br />
 
-        <label for="query">Query:</label>
-        <input type="text" id="query" name="query" value="J Day" required />
+        <p>JIAYOU Days:</p>
+        <input type="checkbox" id="j" name="query" value="J Day" /><label for="j">J</label><br />
+        <input type="checkbox" id="i" name="query" value="I Day" /><label for="i">I</label><br />
+        <input type="checkbox" id="a" name="query" value="A Day" /><label for="a">A</label><br />
+        <input type="checkbox" id="y" name="query" value="Y Day" /><label for="y">Y</label><br />
+        <input type="checkbox" id="o" name="query" value="O Day" /><label for="o">O</label><br />
+        <input type="checkbox" id="u" name="query" value="U Day" /><label for="u">U</label><br />
+        
         <text>Letter day on which you want to create an event</text>
         <!-- prefilled for clarity -->
         <br /><br />
@@ -128,18 +131,6 @@
 
       <div id="settings">
         <div id="section">Event Settings</div>
-        <br />
-
-        <label for="calendarNameAlt">Alternate calendar name:</label>
-        <input
-          type="text"
-          id="calendarNameAlt"
-          name="calendarNameAlt"
-          placeholder="Optional"
-        />
-        <text
-          >Create events on an alternate calendar on the same letter day</text
-        ><br />
         <br />
 
         <label for="title">Title:</label>
@@ -278,16 +269,23 @@
 
     <script>
       // JavaScript handles form submission and sends data to the Google Apps Script
+      function load() {
+        google.script.run
+          .withSuccessHandler(function (x) {
+            for (const c of x) {
+              document.getElementById("calendarName").options.add( new Option(c,c) ) 
+            };
+          })
+          .getCalendarNames();        
+      }
+
       document
         .getElementById("calendarForm")
         .addEventListener("submit", function (event) {
           event.preventDefault(); // Prevents the form from submitting the traditional way
 
           var calendarName = document.getElementById("calendarName").value;
-          var query = document.getElementById("query").value;
-
-          var calendarNameAlt =
-            document.getElementById("calendarNameAlt").value;
+          var query = [...document.querySelectorAll('input[name=query]:checked')].map(({value}) => value);
           var title = document.getElementById("title").value;
           var guests = document.getElementById("guests").value;
           var location = document.getElementById("location").value;
@@ -307,7 +305,6 @@
             .addEvents(
               calendarName,
               query,
-              calendarNameAlt,
               title,
               guests,
               location,
