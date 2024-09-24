@@ -39,8 +39,12 @@ If you haven't already, first create a JIAYOU calendar in the other form if you 
 1. Select your newly-created calendar to put your event in
 2. Choose which JIAYOU days the event occurs
 3. Add a title and the optional event info if necessary
-4. Add start and end date. It's recommended to type them out as MM/DD/YYYY (e.g. 12/31/2024). There are 2 other formats as stated in the form below the text fields if you prefer those instead.
-5. Set start and end time. 24 hour time is also accepted
+4. Add start and end date. This will add the event to the checked JIAYOU days (from step 2) in between these two dates.
+   - If left blank, it will add the event to ALL checked JIAYOU dates, all the way from the beginning to the end of the calendar.
+   - Type them out as MM/DD/YYYY (e.g. 12/31/2024). There are 2 other formats as stated in the form below the text fields if you prefer those instead.
+5. Set start and end time. 
+   - If left blank, the event will be added as an All-day event.
+   - 24 hour time is also accepted
 6. After everything is inputted, click Submit. It may take a while, but it will say that it is complete when all events are created.
 
 <hr>
