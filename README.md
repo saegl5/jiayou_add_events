@@ -33,5 +33,15 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 - Edit or delete individual events, individual and subsequent events, or all events directly in [Google Calendar](https://calendar.google.com/calendar/).
 - Additional Web apps are no longer needed. ([Web app for updating events](https://github.com/saegl5/jiayou_update_events) and [Web app for deleting events](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
 
+
+## End-user instructions
+If you haven't already, first create a JIAYOU calendar in the other form if you haven't already.
+1. Select your newly-created calendar to put your event in
+2. Choose which JIAYOU days the event occurs
+3. Add a title and the optional event info if necessary
+4. Add start and end date. It's recommended to type them out as MM/DD/YYYY (e.g. 12/31/2024). There are 2 other formats as stated in the form below the text fields if you prefer those instead.
+5. Set start and end time. 24 hour time is also accepted
+6. After everything is inputted, click Submit. It may take a while, but it will say that it is complete when all events are created.
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
