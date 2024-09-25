@@ -27,6 +27,10 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 10. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
 11. Press submit. (Requires another authorization. **_Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
 
+## Known Issue
+
+Events disappear when saving edits for "this and following events." (Investigating!)
+
 ## Next Steps
 
 - If you deploy the Web app such that it executes as `User accessing the web app` where `Anyone with Google account` can access it, then you can share the URL for them to add events to a calendar in their own account. (You may wish to hide the dry run option.)
