@@ -33,6 +33,8 @@ function addEvents(
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
   var calendarId = ""; // Initially null
 
+  var referenceCalendar = CalendarApp.getCalendarById("cais.org_ameqcd19592e51dtlrqp67jtnc@group.calendar.google.com");
+
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
@@ -97,7 +99,7 @@ function addEvents(
     if (from > to) {
       events = null;
     } else {
-      var eventsAll = calendar.getEvents(from, to);
+      var eventsAll = referenceCalendar.getEvents(from, to);
       events = [];
       for (var k = 0; k < eventsAll.length; k++) {
         var event = eventsAll[k];
