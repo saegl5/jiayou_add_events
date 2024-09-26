@@ -269,12 +269,21 @@ function addEvents(
         }
         firstEvent = false;
       } // chain subsequent event to first event
-      else
-        eventSeries.setRecurrence(
-          CalendarApp.newRecurrence().addDate(eventDate),
-          dateStartTime,
-          dateEndTime
-        );
+      else {
+        if (startTime === "" && endTime === "") {
+          eventSeries.setRecurrence(
+            CalendarApp.newRecurrence().addDate(eventDate),
+            firstDate
+          );
+        }
+        else {
+          eventSeries.setRecurrence(
+            CalendarApp.newRecurrence().addDate(eventDate),
+            dateStartTime,
+            dateEndTime
+          );
+        }
+      }
       return null;
     }
 
