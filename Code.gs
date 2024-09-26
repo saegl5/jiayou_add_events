@@ -223,66 +223,36 @@ function addEvents(
         firstEventDate = eventDate; // only assigned once
         firstDateStartTime = dateStartTime; // only assigned once
         firstDateEndTime = dateEndTime; // only assigned once
-        if (includesHttp) {
-          if (startTime === "" && endTime === "") {
-            // make all-day event
-            eventSeries = calendar.createAllDayEventSeries(
-              title,
-              eventDate,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description:
-                  '<a href="' + description + '" target="_blank" >Agenda</a>',
-                guests: guests,
-              }
-            );
-          } else {
-            // make regular event
-            eventSeries = calendar.createEventSeries(
-              title,
-              dateStartTime,
-              dateEndTime,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description:
-                  '<a href="' + description + '" target="_blank" >Agenda</a>',
-                guests: guests,
-              }
-            );
-          }
+
+        var eventOptions = {
+          location: location,
+          description: includesHttp
+            ? `<a href="${description}" target="_blank" >Agenda</a>`
+            : description,
+          guests: guests,
+        };
+
+        if (startTime === "" && endTime === "") {
+          // make all-day event
+          eventSeries = calendar.createAllDayEventSeries(
+            title,
+            eventDate,
+            CalendarApp.newRecurrence().addDate(eventDate),
+            eventOptions
+          );
         } else {
-          if (startTime === "" && endTime === "") {
-            // make all-day event
-            eventSeries = calendar.createAllDayEventSeries(
-              title,
-              eventDate,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description: description,
-                guests: guests,
-              }
-            );
-          } else {
-            // make regular event
-            eventSeries = calendar.createEventSeries(
-              title,
-              dateStartTime,
-              dateEndTime,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description: description,
-                guests: guests,
-              }
-            );
-          }
+          // make regular event
+          eventSeries = calendar.createEventSeries(
+            title,
+            dateStartTime,
+            dateEndTime,
+            CalendarApp.newRecurrence().addDate(eventDate),
+            eventOptions
+          );
         }
         firstEvent = false;
-      } // chain subsequent event to first event
-      else {
+      } else {
+        // chain subsequent event to first event
         if (startTime === "" && endTime === "") {
           eventSeries.setRecurrence(
             CalendarApp.newRecurrence().addDate(eventDate),
