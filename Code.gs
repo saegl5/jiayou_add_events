@@ -179,8 +179,10 @@ function addEvents(
     date[dateKey] = true;
   });
 
-  var firstEvent = true; // for first event, to which subsequent events will be chained
-  var eventSeries = ""; // for chaining events
+  var firstEvent = true;
+  var eventSeries = "";
+  var firstDateStartTime = Date(); // for chaining subsequent events to the first event
+  var firstDateEndTime = Date(); // for chaining subsequent events to the first event
 
   // Iterate over the dates with events titled query and create a new event for the series at start time
   for (var dateStr in date) {
@@ -218,6 +220,8 @@ function addEvents(
     // function nested because it relies on many parameters
     function createEvent(calendar, includesHttp) {
       if (firstEvent) {
+        firstDateStartTime = dateStartTime; // only assigned once
+        firstDateEndTime = dateEndTime; // only assigned once
         if (includesHttp) {
           if (startTime === "" && endTime === "") {
             // make all-day event
@@ -280,8 +284,8 @@ function addEvents(
       else
         eventSeries.setRecurrence(
           CalendarApp.newRecurrence().addDate(eventDate),
-          dateStartTime,
-          dateEndTime
+          firstDateStartTime, // dateStartTime for the firstEvent only
+          firstDateEndTime // dateEndTime for the firstEvent only
         );
       return null;
     }
