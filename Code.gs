@@ -169,24 +169,30 @@ function addEvents(
   var firstEvent = true; // for first event, to which subsequent events will be chained
   var eventSeries = ""; // for chaining events
 
+  var firstDate;
+  for (var k in date) {
+    firstDate = new Date(k);
+    break;
+  }
+
+  var dateStartTime = new Date(
+    firstDate.getFullYear(),
+    firstDate.getMonth(),
+    firstDate.getDate(),
+    startTime[0],
+    startTime[1]
+  );
+  var dateEndTime = new Date(
+    firstDate.getFullYear(),
+    firstDate.getMonth(),
+    firstDate.getDate(),
+    endTime[0],
+    endTime[1]
+  );
+
   // Iterate over the dates with events titled query and create a new event for the series at start time
   for (var dateStr in date) {
-    var eventDate = new Date(dateStr); // Cast "eventDate" as a function
-    var dateStartTime = new Date(
-      eventDate.getFullYear(),
-      eventDate.getMonth(),
-      eventDate.getDate(),
-      startTime[0],
-      startTime[1]
-    );
-    var dateEndTime = new Date(
-      eventDate.getFullYear(),
-      eventDate.getMonth(),
-      eventDate.getDate(),
-      endTime[0],
-      endTime[1]
-    );
-
+    var eventDate = new Date(dateStr)
     // check invalid time range
     if (dateStartTime > dateEndTime) {
       return "Event start time must be before event end time"; // handle error
