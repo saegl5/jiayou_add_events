@@ -220,6 +220,7 @@ function addEvents(
     // function nested because it relies on many parameters
     function createEvent(calendar, includesHttp) {
       if (firstEvent) {
+        firstEventDate = eventDate; // only assigned once
         firstDateStartTime = dateStartTime; // only assigned once
         firstDateEndTime = dateEndTime; // only assigned once
         if (includesHttp) {
@@ -281,12 +282,20 @@ function addEvents(
         }
         firstEvent = false;
       } // chain subsequent event to first event
-      else
-        eventSeries.setRecurrence(
-          CalendarApp.newRecurrence().addDate(eventDate),
-          firstDateStartTime, // dateStartTime for the firstEvent only
-          firstDateEndTime // dateEndTime for the firstEvent only
-        );
+      else {
+        if (startTime === "" && endTime === "") {
+          eventSeries.setRecurrence(
+            CalendarApp.newRecurrence().addDate(eventDate),
+            firstEventDate // eventDate for the firstEvent only
+          );
+        } else {
+          eventSeries.setRecurrence(
+            CalendarApp.newRecurrence().addDate(eventDate),
+            firstDateStartTime, // dateStartTime for the firstEvent only
+            firstDateEndTime // dateEndTime for the firstEvent only
+          );
+        }
+      }
       return null;
     }
 
