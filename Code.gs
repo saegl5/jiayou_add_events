@@ -5,11 +5,20 @@
 function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index");
 }
+// Used by Index.html for dropdown list of calendar names
+function getCalendarNames() {
+  let allCalendars = CalendarApp.getAllCalendars();
+
+  let allCalendarNames = [];
+  for (const calendar of allCalendars) {
+    allCalendarNames.push(calendar.getName());
+  }
+  return allCalendarNames;
+}
 
 function addEvents(
   calendarName,
   query,
-  calendarNameAlt,
   title,
   guests,
   location,
@@ -22,7 +31,7 @@ function addEvents(
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
   var calendarId = ""; // Initially null
-  var calendarIdAlt = ""; // Initially null
+  var calendarIdRef = ""; // Initially null
 
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
@@ -31,42 +40,16 @@ function addEvents(
     }
   }
 
-  // Check if loop finds no calendar
-  if (calendarId === "") {
-    var calendarDefault = CalendarApp.getDefaultCalendar();
-    return (
-      'No "' +
-      calendarName +
-      '" calendar! But "' +
-      calendarDefault.getName() +
-      '" exists.'
-    ); // handle null
-  }
-
-  // Repeat loop for alternate calendar (if one exists)
-  if (calendarNameAlt !== "") {
-    for (var j = 0; j < calendars.length; j++) {
-      if (calendars[j].getName() === calendarNameAlt) {
-        calendarIdAlt = String(calendars[j].getId()); // Assign the calendar ID
-      }
+  // Repeat loop for reference calendar
+  for (var j = 0; j < calendars.length; j++) {
+    if (calendars[j].getName() === "Internal Calendar") {
+      calendarIdRef = String(calendars[j].getId()); // Assign the calendar ID
     }
   }
 
-  // Check if loop finds no alt calendar, next
-
-  // Access the calendar
+  // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
-  if (calendarNameAlt !== "" && calendarIdAlt !== "") {
-    var calendarAlt = CalendarApp.getCalendarById(calendarIdAlt);
-  } else if (calendarNameAlt !== "" && calendarIdAlt === "") {
-    // create the alternate calendar
-    if (!dryRun) {
-      var calendarAlt = CalendarApp.createCalendar(calendarNameAlt); // built-in function
-
-      // Set its time zone the same as calendar's
-      calendarAlt.setTimeZone(calendar.getTimeZone());
-    }
-  }
+  var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // calendar is still hard-coded, but this way the ID is hidden
 
   // handle exceptions
   if (start.includes(",") || end.includes(",")) {
@@ -110,12 +93,14 @@ function addEvents(
     if (from > to) {
       events = null;
     } else {
-      var eventsAll = calendar.getEvents(from, to);
+      var eventsAll = calendarRef.getEvents(from, to);
       events = [];
       for (var k = 0; k < eventsAll.length; k++) {
         var event = eventsAll[k];
-        if (event.getTitle() === query) {
+        if (query.includes(event.getTitle())) {
+          // may also pick up shorter titles, but it is unlikely such shorter titles may exist
           // MORE RELIABLE THAN `{ search: query }`!
+          // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
           events.push(event);
         }
       }
@@ -179,51 +164,46 @@ function addEvents(
     date[dateKey] = true;
   });
 
+  // chain subsequent events to the first event
   var firstEvent = true;
   var eventSeries = "";
-  var firstDateStartTime = Date(); // for chaining subsequent events to the first event
-  var firstDateEndTime = Date(); // for chaining subsequent events to the first event
+
+  // extract the first date from the dictionary
+  dateStr = Object.keys(date)[0];
+  var eventDate = new Date(dateStr); // need to cast "eventDate" as a function
+  var dateStartTime = new Date(
+    eventDate.getFullYear(),
+    eventDate.getMonth(),
+    eventDate.getDate(),
+    startTime[0],
+    startTime[1]
+  );
+  var dateEndTime = new Date(
+    eventDate.getFullYear(),
+    eventDate.getMonth(),
+    eventDate.getDate(),
+    endTime[0],
+    endTime[1]
+  );
+
+  // check invalid time range
+  if (dateStartTime > dateEndTime) {
+    return "Event start time must be before event end time"; // handle error
+  }
 
   // Iterate over the dates with events titled query and create a new event for the series at start time
   for (var dateStr in date) {
-    var eventDate = new Date(dateStr); // Cast "eventDate" as a function
-    var dateStartTime = new Date(
-      eventDate.getFullYear(),
-      eventDate.getMonth(),
-      eventDate.getDate(),
-      startTime[0],
-      startTime[1]
-    );
-    var dateEndTime = new Date(
-      eventDate.getFullYear(),
-      eventDate.getMonth(),
-      eventDate.getDate(),
-      endTime[0],
-      endTime[1]
-    );
-
-    // check invalid time range
-    if (dateStartTime > dateEndTime) {
-      return "Event start time must be before event end time"; // handle error
-    }
-
+    var eventDate = new Date(dateStr);
     if (!dryRun) {
       // Check if description is a link
-      var includesHttp = description.includes("http"); // "let" is fine, using "var" for flexibility
+      let includesHttp = description.includes("http");
       // Create the new event
-      if (calendarNameAlt !== "")
-        // "!=" is okay, using "!==" for precision (same type AND same value)
-        createEvent(calendarAlt, includesHttp);
-      else createEvent(calendar, includesHttp);
+      createEvent(calendar, includesHttp);
     }
 
     // function nested because it relies on many parameters
     function createEvent(calendar, includesHttp) {
       if (firstEvent) {
-        firstEventDate = eventDate; // only assigned once
-        firstDateStartTime = dateStartTime; // only assigned once
-        firstDateEndTime = dateEndTime; // only assigned once
-
         var eventOptions = {
           location: location,
           description: includesHttp
@@ -252,17 +232,16 @@ function addEvents(
         }
         firstEvent = false;
       } else {
-        // chain subsequent event to first event
         if (startTime === "" && endTime === "") {
           eventSeries.setRecurrence(
             CalendarApp.newRecurrence().addDate(eventDate),
-            firstEventDate // eventDate for the firstEvent only
+            eventDate // eventDate for the firstEvent only
           );
         } else {
           eventSeries.setRecurrence(
             CalendarApp.newRecurrence().addDate(eventDate),
-            firstDateStartTime, // dateStartTime for the firstEvent only
-            firstDateEndTime // dateEndTime for the firstEvent only
+            dateStartTime, // dateStartTime for the firstEvent only
+            dateEndTime // dateEndTime for the firstEvent only
           );
         }
       }
@@ -270,7 +249,7 @@ function addEvents(
     }
 
     // Log which events were added
-    Logger.log('Created "' + title + '" on ' + dateStartTime + "!");
+    Logger.log('Created "' + title + '" on ' + eventDate + "!");
   }
   return "Events created! Go to your Google Calendar...";
 }
