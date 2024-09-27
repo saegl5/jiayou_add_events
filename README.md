@@ -26,7 +26,7 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 9. Modify the events' start time and end time. (If left blank, events will be added as all-day events.)
 10. Confine the date range by inputting a start date and end date. (If left blank, events will be added to all chosen letter days, starting from today and ending one year from today.)
 11. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
-12. Press submit. (Requires another authorization. **_Note also that creating calendar events is subject to a [use limit](https://support.google.com/a/answer/2905486?hl=en)._**)
+12. Press submit. (Requires another authorization. **_Note also that creating recurring events is subject to a [use limit](https://support.google.com/calendar/answer/37115)._**)
 
 ## Next Steps
 
