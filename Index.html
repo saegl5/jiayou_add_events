@@ -31,11 +31,10 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box; /* compatibility */
       }
-      select,
       input,
       textarea,
       div {
-        font-family: system-ui;
+        font-family: "Courier New", Courier, monospace; /* preserve monospace fonts, so that users easily distinguish input fields from non-input fields */
         font-size: medium;
       }
       h1,
@@ -112,20 +111,25 @@
         <br />
 
         <label for="calendarName">Calendar name:</label>
-
-        <select id="calendarName" required>
-        </select>
+        <select id="calendarName" name="calendarName"/></select>
         <text>Calendar must already exist</text>
         <br /><br />
 
-        <p>JIAYOU Days:</p>
-        <input type="checkbox" id="j" name="query" value="J Day" /><label for="j">J</label><br />
-        <input type="checkbox" id="i" name="query" value="I Day" /><label for="i">I</label><br />
-        <input type="checkbox" id="a" name="query" value="A Day" /><label for="a">A</label><br />
-        <input type="checkbox" id="y" name="query" value="Y Day" /><label for="y">Y</label><br />
-        <input type="checkbox" id="o" name="query" value="O Day" /><label for="o">O</label><br />
-        <input type="checkbox" id="u" name="query" value="U Day" /><label for="u">U</label><br />
-        
+        <label for="query">Letter days:</label>
+        <div id="table">
+          <div id="row">
+            <div id="cell"><input type="checkbox" id="j" name="query" value="J Day" unchecked /><label for="j">J</label></div>
+            <div id="cell"><input type="checkbox" id="y" name="query" value="Y Day" unchecked /><label for="y">Y</label></div>
+          </div>
+          <div id="row">
+            <div id="cell"><input type="checkbox" id="i" name="query" value="I Day" unchecked /><label for="i">I</label></div>
+            <div id="cell"><input type="checkbox" id="o" name="query" value="O Day" unchecked /><label for="o">O</label></div>
+          </div>
+          <div id="row">
+            <div id="cell"><input type="checkbox" id="a" name="query" value="A Day" unchecked /><label for="a">A</label></div>
+            <div id="cell"><input type="checkbox" id="u" name="query" value="U Day" unchecked /><label for="u">U</label></div>
+          </div>
+        </div>
         <text>Letter day on which you want to create an event</text>
         <!-- prefilled for clarity -->
         <br /><br />
@@ -282,9 +286,9 @@
       // JavaScript handles form submission and sends data to the Google Apps Script
       function load() {
         google.script.run
-          .withSuccessHandler(function (x) {
-            for (const c of x) {
-              document.getElementById("calendarName").options.add( new Option(c,c) ) 
+          .withSuccessHandler(function (calendarList) {
+            for (const calendar of calendarList) {
+              document.getElementById("calendarName").options.add( new Option(calendar, calendar) ) // syntax: new Option(text, value), so here each new option will display the calendar name, and its value will be that same name
             };
           })
           .getCalendarNames();        
@@ -296,7 +300,8 @@
           event.preventDefault(); // Prevents the form from submitting the traditional way
 
           var calendarName = document.getElementById("calendarName").value;
-          var query = [...document.querySelectorAll('input[name=query]:checked')].map(({value}) => value);
+          var query = [...document.querySelectorAll('input[name=query]:checked')].map(({value}) => value); // essentially, place the value of every letter day (that is checked) into an array called "query", "..." is spread syntax
+
           var title = document.getElementById("title").value;
           var guests = document.getElementById("guests").value;
           var location = document.getElementById("location").value;
