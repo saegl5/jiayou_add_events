@@ -169,19 +169,19 @@ function addEvents(
   var eventSeries = "";
 
   // extract the first date from the dictionary
-  dateStr = Object.keys(date)[0];
-  var eventDate = new Date(dateStr); // need to cast "eventDate" as a function
+  var firstDateStr = Object.keys(date)[0];
+  var firstDate = new Date(firstDateStr); // need to cast "firstDateStr" as a function
   var dateStartTime = new Date(
-    eventDate.getFullYear(),
-    eventDate.getMonth(),
-    eventDate.getDate(),
+    firstDate.getFullYear(),
+    firstDate.getMonth(),
+    firstDate.getDate(),
     startTime[0],
     startTime[1]
   );
   var dateEndTime = new Date(
-    eventDate.getFullYear(),
-    eventDate.getMonth(),
-    eventDate.getDate(),
+    firstDate.getFullYear(),
+    firstDate.getMonth(),
+    firstDate.getDate(),
     endTime[0],
     endTime[1]
   );
@@ -193,7 +193,7 @@ function addEvents(
 
   // Iterate over the dates with events titled query and create a new event for the series at start time
   for (var dateStr in date) {
-    var eventDate = new Date(dateStr);
+    var eventDate = new Date(dateStr); // "eventDate" above is isolated in its own loop
     if (!dryRun) {
       // Check if description is a link
       let includesHttp = description.includes("http");
@@ -216,7 +216,7 @@ function addEvents(
           // make all-day event
           eventSeries = calendar.createAllDayEventSeries(
             title,
-            eventDate,
+            eventDate, // can also put `firstDate`
             CalendarApp.newRecurrence().addDate(eventDate),
             eventOptions
           );
@@ -235,13 +235,13 @@ function addEvents(
         if (startTime === "" && endTime === "") {
           eventSeries.setRecurrence(
             CalendarApp.newRecurrence().addDate(eventDate),
-            eventDate // eventDate for the firstEvent only
+            firstDate // date of first event only
           );
         } else {
           eventSeries.setRecurrence(
             CalendarApp.newRecurrence().addDate(eventDate),
-            dateStartTime, // dateStartTime for the firstEvent only
-            dateEndTime // dateEndTime for the firstEvent only
+            dateStartTime, // date start time of first event only
+            dateEndTime // date end time of first event only
           );
         }
       }
