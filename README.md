@@ -49,7 +49,7 @@ If you haven't already, first create a JIAYOU calendar in the other form if you 
    - Type them out as MM/DD/YYYY (e.g. 12/31/2024). There are 2 other formats as stated in the form below the text fields if you prefer those instead.
 5. Set start and end time. 
    - If left blank, the event will be added as an All-day event.
-   - 24 hour time is also accepted
+   - 24 hour time is necessary 
 6. After everything is inputted, click Submit. It may take a while, but it will say that it is complete when all events are created.
 
 <hr>
