@@ -288,7 +288,7 @@ function addEvents(
     }
 
     // Log which events were added
-    Logger.log("Created a new event on " + dateStartTime);
+    Logger.log("Created a new event on " + eventDate);
   }
   return "Events created! Go to your Google Calendar...";
 }
