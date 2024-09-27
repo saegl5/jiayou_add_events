@@ -38,5 +38,19 @@ Events disappear when saving edits for "this and following events." (Investigati
 - Feel free to fork!
 - Additional Web apps are no longer needed. ([Web app for updating events](https://github.com/saegl5/jiayou_update_events) and [Web app for deleting events](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
 
+
+## End-user instructions
+If you haven't already, first create a JIAYOU calendar in the other form if you haven't already.
+1. Select your newly-created calendar to put your event in
+2. Choose which JIAYOU days the event occurs
+3. Add a title and the optional event info if necessary
+4. Add start and end date. This will add the event to the checked JIAYOU days (from step 2) in between these two dates.
+   - If left blank, it will add the event to ALL checked JIAYOU dates, starting from today to 1 year from now
+   - Type them out as MM/DD/YYYY (e.g. 12/31/2024). There are 2 other formats as stated in the form below the text fields if you prefer those instead.
+5. Set start and end time. 
+   - If left blank, the event will be added as an All-day event.
+   - 24 hour time is also accepted
+6. After everything is inputted, click Submit. It may take a while, but it will say that it is complete when all events are created.
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
