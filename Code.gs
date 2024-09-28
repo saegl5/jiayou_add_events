@@ -5,6 +5,13 @@
 function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index");
 }
+
+// Used by Index.html for default calendar name
+function getDefaultName() {
+  let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
+  return defaultCalendarName;
+}
+
 // Used by Index.html for dropdown list of calendar names
 function getCalendarNames() {
   let allCalendars = CalendarApp.getAllCalendars();
