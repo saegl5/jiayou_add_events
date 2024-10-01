@@ -205,11 +205,11 @@ function addEvents(
       // Check if description is a link
       let includesHttp = description.includes("http");
       // Create the new event
-      createEvent(calendar, includesHttp);
+      createEvent(includesHttp);
     }
 
     // function nested because it relies on many parameters
-    function createEvent(calendar, includesHttp) {
+    function createEvent(includesHttp) {
       if (firstEvent) {
         var eventOptions = {
           location: location,
