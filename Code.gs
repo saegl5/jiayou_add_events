@@ -237,6 +237,7 @@ function addEvents(
             eventOptions
           );
         }
+        // could also set firstDate = eventDate here
         firstEvent = false;
       } else {
         if (startTime === "" && endTime === "") {
