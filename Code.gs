@@ -60,6 +60,11 @@ function addEvents(
     }
   }
 
+  // check if reference calendar doesn't exist
+  if (calendarIdRef === "") {
+    return "JIA YOU calendar does not exist!"; // handle error
+  }  
+
   // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
   var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // calendar is still hard-coded, but this way the ID is hidden
