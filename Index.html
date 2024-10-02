@@ -142,6 +142,18 @@
         <div id="section">Event Settings</div>
         <br />
 
+        <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
+        <!-- <input -->
+          <!-- type="text" -->
+          <!-- id="calendarNameAlt" -->
+          <!-- name="calendarNameAlt" -->
+          <!-- placeholder="Optional" -->
+        <!-- /> -->
+        <!-- <text -->
+          <!-- >Create events on an alternate calendar on the same letter day</text -->
+        <!-- ><br /> -->
+        <!-- <br /> -->
+
         <label for="title">Title:</label>
         <input
           type="text"
@@ -307,6 +319,8 @@
           var calendarName = document.getElementById("calendarName").value;
           var query = [...document.querySelectorAll('input[name=query]:checked')].map(({value}) => value); // essentially, place the value of every letter day (that is checked) into an array called "query", "..." is spread syntax
 
+          // var calendarNameAlt =
+          //   document.getElementById("calendarNameAlt").value;
           var title = document.getElementById("title").value;
           var guests = document.getElementById("guests").value;
           var location = document.getElementById("location").value;
@@ -336,7 +350,7 @@
               endTime,
               dryRun
             );
-        });
+        }); // calendarNameAlt is now calendarName, and previous calendarName has been hard-coded
     </script>
   </body>
 </html>
