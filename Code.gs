@@ -6,21 +6,15 @@ function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index");
 }
 
-// Used by Index.html for default calendar name
-function getDefaultName() {
-  let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
-  return defaultCalendarName;
-}
-
-// Used by Index.html for dropdown list of calendar names
-function getCalendarNames() {
+// Used by Index.html for dropdown list of calendar names and default name
+function getCalendarNamesAndDefault() {
   let allCalendars = CalendarApp.getAllCalendars();
-
   let allCalendarNames = [];
   for (const calendar of allCalendars) {
     allCalendarNames.push(calendar.getName());
   }
-  return allCalendarNames;
+  let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
+  return { calendars: allCalendarNames, default: defaultCalendarName };
 }
 
 function addEvents(
