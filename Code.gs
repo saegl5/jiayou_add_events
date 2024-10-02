@@ -41,10 +41,22 @@ function addEvents(
     }
   }
 
-  // Repeat loop for reference calendar
+  // Find reference calendar
+  var found = false;
   for (var j = 0; j < calendars.length; j++) {
-    if (calendars[j].getName() === "Internal Calendar") {
-      calendarIdRef = String(calendars[j].getId()); // Assign the calendar ID
+    if (found === false) {
+      var now = new Date();
+      var oneYearFromNow = new Date();
+      oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
+      var eventFind = calendars[j].getEvents(now, oneYearFromNow);
+      for (var k = 0; k < eventFind.length; k++) {
+        var event = eventFind[k];
+        if (query.includes(event.getTitle())) {
+          calendarIdRef = String(calendars[j].getId()); // Assign the calendar ID
+          found = true;
+          break;
+        }
+      }
     }
   }
 
@@ -96,8 +108,8 @@ function addEvents(
     } else {
       var eventsAll = calendarRef.getEvents(from, to);
       events = [];
-      for (var k = 0; k < eventsAll.length; k++) {
-        var event = eventsAll[k];
+      for (var l = 0; l < eventsAll.length; l++) {
+        var event = eventsAll[l];
         if (query.includes(event.getTitle())) {
           // may also pick up shorter titles, but it is unlikely such shorter titles may exist
           // MORE RELIABLE THAN `{ search: query }`!
@@ -172,13 +184,13 @@ function addEvents(
   var firstEvent = true;
   // get letter days from query
   var eventSeries = [];
-  for (var l = 0; l < query.length; l++) {
-    if (query[l].includes("J")) eventSeries[l] = "eventSeriesJ";
-    else if (query[l].includes("I")) eventSeries[l] = "eventSeriesI";
-    else if (query[l].includes("A")) eventSeries[l] = "eventSeriesA";
-    else if (query[l].includes("Y")) eventSeries[l] = "eventSeriesY";
-    else if (query[l].includes("O")) eventSeries[l] = "eventSeriesO";
-    else if (query[l].includes("U")) eventSeries[l] = "eventSeriesU";
+  for (var m = 0; m < query.length; m++) {
+    if (query[m].includes("J")) eventSeries[m] = "eventSeriesJ";
+    else if (query[m].includes("I")) eventSeries[m] = "eventSeriesI";
+    else if (query[m].includes("A")) eventSeries[m] = "eventSeriesA";
+    else if (query[m].includes("Y")) eventSeries[m] = "eventSeriesY";
+    else if (query[m].includes("O")) eventSeries[m] = "eventSeriesO";
+    else if (query[m].includes("U")) eventSeries[m] = "eventSeriesU";
   }
   // breaking up the series like this helps mitigate issue #4
   // https://github.com/saegl5/jiayou_add_events/issues/4
@@ -189,19 +201,19 @@ function addEvents(
   var dateEndTime = []; // subsequently, may have multiple dateEndTimes
 
   // not all letter days may be used, but it is still easy to pair up firstDate with the letter
-  for (var m = 0; m < eventSeries.length; m++) {
-    firstDate[m] = new Date(Object.keys(date)[m]); // need to cast key as a function
-    dateStartTime[m] = new Date(
-      firstDate[m].getFullYear(),
-      firstDate[m].getMonth(),
-      firstDate[m].getDate(),
+  for (var n = 0; n < eventSeries.length; n++) {
+    firstDate[n] = new Date(Object.keys(date)[n]); // need to cast key as a function
+    dateStartTime[n] = new Date(
+      firstDate[n].getFullYear(),
+      firstDate[n].getMonth(),
+      firstDate[n].getDate(),
       startTime[0],
       startTime[1]
     );
-    dateEndTime[m] = new Date(
-      firstDate[m].getFullYear(),
-      firstDate[m].getMonth(),
-      firstDate[m].getDate(),
+    dateEndTime[n] = new Date(
+      firstDate[n].getFullYear(),
+      firstDate[n].getMonth(),
+      firstDate[n].getDate(),
       endTime[0],
       endTime[1]
     );
