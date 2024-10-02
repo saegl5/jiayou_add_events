@@ -35,6 +35,10 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 - Feel free to fork!
 - Additional Web apps are no longer needed. ([Web app for updating events](https://github.com/saegl5/jiayou_update_events) and [Web app for deleting events](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
 
+## Known Issue
+
+While you _can_ drag and drop single events of a series to another day or edit the day of a single event of a series, you _cannot_ drag and drop single and subsequent events as a series to another day or edit the day of them all at once. Google Calendar does not handle changing days of these events (i.e., events chained by date) properly. So, treat event days as fixed days. If you need to adjust the events' days, delete the events in Google Calendar, and re-create them using this Web app.
+
 <hr>
 Made with &heartsuit; in Visual Studio Code
 
