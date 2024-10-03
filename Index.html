@@ -109,7 +109,7 @@
   <body onload="load()">
     <h1>Add 加油 ("jiā yóu") Events</h1>
     <div id="user">&nbsp;</div>
-    <br>
+    <br />
     <form id="calendarForm">
       <div id="search">
         <div id="section">Search Parameters</div>
@@ -299,20 +299,31 @@
 
     <script>
       // JavaScript handles form submission and sends data to the Google Apps Script
-      function load() { // optimized by merging into one script
+      function load() {
+        // optimized by merging into one script
         google.script.run
-          .withSuccessHandler(function (response) {  
-            document.getElementById("user").innerHTML = "Welcome, " + response.username + "!";
-            for (const calendar of response.calendars) { // populate dropdown list
-              if (calendar === response.default) // select option with default calendar listed
-                document.getElementById("calendarName").options.add( new Option(calendar + " (default)", calendar, true, true) ) // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected
-              else // do not select calendar listed
-                document.getElementById("calendarName").options.add( new Option(calendar, calendar, false, false) ) // likewise, each other option will display the calendar name, and their value will be that same name; however, they are not selected by default and are not shown as selected
+          .withSuccessHandler(function (response) {
+            document.getElementById("user").innerHTML =
+              "Welcome, " + response.username + "!";
+            for (const calendar of response.calendars) {
+              // populate dropdown list
+              if (calendar === response.default)
+                // select option with default calendar listed
+                document
+                  .getElementById("calendarName")
+                  .options.add(
+                    new Option(calendar + " (default)", calendar, true, true)
+                  ); // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected
+              // do not select calendar listed
+              else
+                document
+                  .getElementById("calendarName")
+                  .options.add(new Option(calendar, calendar, false, false)); // likewise, each other option will display the calendar name, and their value will be that same name; however, they are not selected by default and are not shown as selected
               // see also https://stackoverflow.com/questions/45379356/whats-the-difference-between-selected-and-defaultselected-when-constructing
-            };
+            }
           })
           .getCalendarNamesAndDefault();
-        }
+      }
 
       document
         .getElementById("calendarForm")
@@ -320,7 +331,9 @@
           event.preventDefault(); // Prevents the form from submitting the traditional way
 
           var calendarName = document.getElementById("calendarName").value;
-          var query = [...document.querySelectorAll('input[name=query]:checked')].map(({value}) => value); // essentially, place the value of every letter day (that is checked) into an array called "query", "..." is spread syntax
+          var query = [
+            ...document.querySelectorAll("input[name=query]:checked"),
+          ].map(({ value }) => value); // essentially, place the value of every letter day (that is checked) into an array called "query", "..." is spread syntax
 
           // var calendarNameAlt =
           //   document.getElementById("calendarNameAlt").value;
