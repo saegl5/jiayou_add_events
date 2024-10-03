@@ -300,7 +300,7 @@
           .withSuccessHandler(function (response) {  
             for (const calendar of response.calendars) { // populate dropdown list
               if (calendar === response.default) // select option with default calendar listed
-                document.getElementById("calendarName").options.add( new Option(calendar, calendar, true, true) ) // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected
+                document.getElementById("calendarName").options.add( new Option(calendar + " (default)", calendar, true, true) ) // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected
               else // do not select calendar listed
                 document.getElementById("calendarName").options.add( new Option(calendar, calendar, false, false) ) // likewise, each other option will display the calendar name, and their value will be that same name; however, they are not selected by default and are not shown as selected
               // see also https://stackoverflow.com/questions/45379356/whats-the-difference-between-selected-and-defaultselected-when-constructing
