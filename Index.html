@@ -39,6 +39,7 @@
         font-size: medium;
       }
       h1,
+      div[id="user"],
       label,
       input[type="submit"],
       text,
@@ -53,6 +54,7 @@
         font-style: italic;
         color: var(--description);
       }
+      div[id="user"],
       div[id="section"],
       div[id="dry"],
       div[id="issues"],
@@ -106,6 +108,8 @@
   </head>
   <body onload="load()">
     <h1>Add 加油 ("jiā yóu") Events</h1>
+    <div id="user">&nbsp;</div>
+    <br>
     <form id="calendarForm">
       <div id="search">
         <div id="section">Search Parameters</div>
@@ -298,6 +302,7 @@
       function load() { // optimized by merging into one script
         google.script.run
           .withSuccessHandler(function (response) {  
+            document.getElementById("user").innerHTML = "Welcome, " + response.username + "!";
             for (const calendar of response.calendars) { // populate dropdown list
               if (calendar === response.default) // select option with default calendar listed
                 document.getElementById("calendarName").options.add( new Option(calendar + " (default)", calendar, true, true) ) // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected

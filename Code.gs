@@ -6,15 +6,20 @@ function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index");
 }
 
-// Used by Index.html for dropdown list of calendar names and default name
+// Used by Index.html for username, dropdown list of calendar names and default calendar name
 function getCalendarNamesAndDefault() {
+  let userName = Session.getActiveUser().getEmail();
   let allCalendars = CalendarApp.getAllCalendars();
   let allCalendarNames = [];
   for (const calendar of allCalendars) {
     allCalendarNames.push(calendar.getName());
   }
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
-  return { calendars: allCalendarNames, default: defaultCalendarName };
+  return {
+    username: userName,
+    calendars: allCalendarNames,
+    default: defaultCalendarName,
+  };
 }
 
 function addEvents(
@@ -63,7 +68,7 @@ function addEvents(
   // check if reference calendar doesn't exist
   if (calendarIdRef === "") {
     return "JIA YOU calendar does not exist!"; // handle error
-  }  
+  }
 
   // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
