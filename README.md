@@ -23,7 +23,7 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 6. Next to Services, add a service: "Google Calendar API."
 7. Deploy the project as a Web app, and open the assigned URL.
 8. Check the username to ensure that you opened the URL in the correct account.
-9. Select your calendar name, and choose letter days on which you want to add events. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate the 加油 calendar.)
+9. Select your calendar name, and choose letter days on which you want to add events. (**_Must name the calendar differently from the owner name, otherwise the app will not add events._** The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate the 加油 calendar.)
 10. Modify the events' title, guests, location, and description. (If you input a URL for the description, text to display will be "Agenda.")
 11. Modify the events' start time and end time. (If left blank, events will be added as all-day events.)
 12. Confine the date range by inputting a start date and end date. (If left blank, events will be added to all chosen letter days, starting from today and ending one year from today.)
@@ -37,9 +37,10 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 - Feel free to fork!
 - Additional Web apps are no longer needed. ([Web app for updating events](https://github.com/saegl5/jiayou_update_events) and [Web app for deleting events](https://github.com/saegl5/jiayou_delete_events) have now been deprecated.)
 
-## Known Issue
+## Known Issues
 
-While you _can_ drag and drop single events of a series to another day or edit the day of a single event of a series, you _cannot_ drag and drop single and subsequent events as a series to another day or edit the day of them all at once. Google Calendar does not handle changing days of these events (i.e., events chained by date) properly. So, treat event days as fixed days. If you need to adjust the events' days, delete the events in Google Calendar, and re-create them using this Web app.
+- While you _can_ drag and drop single events of a series to another day or edit the day of a single event of a series, you _cannot_ drag and drop single and subsequent events as a series to another day or edit the day of them all at once. Google Calendar does not handle changing days of these events (i.e., events chained by date) properly. So, treat event days as fixed days. If you need to adjust the events' days, delete the events in Google Calendar, and re-create them using this Web app.
+- If users are members of an organization, then their calendar names in Google Calendar do not match their calendar names in Google Calendar API.
 
 <hr>
 Made with &heartsuit; in Visual Studio Code
