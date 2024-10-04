@@ -40,8 +40,7 @@ function addEvents(
   var calendarIdRef = ""; // Initially null
 
   // handle exception
-  if (query.length === 0)
-    return "Select a letter day!";  
+  if (query.length === 0) return "Select a letter day!";
 
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
@@ -49,6 +48,12 @@ function addEvents(
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
+
+  // Must name the calendar differently from the owner name, otherwise the app will not add events
+  // Temporarily rename, just in case
+  calendarName = calendarName.split(" ");
+  calendarName = calendarName[0] + "_" + calendarName[1]; // 'FirstName_LastName'
+  renameCalendar(calendarName, calendarId);
 
   // Find reference calendar
   var found = false;
@@ -330,7 +335,23 @@ function addEvents(
     Logger.log('Created "' + title + '" on ' + eventDate + "!");
     eventIndex++;
   }
+
+  // Revert calendar name
+  calendarName = calendarName.split("_");
+  calendarName = calendarName[0] + " " + calendarName[1]; // 'FirstName LastName'
+  renameCalendar(calendarName, calendarId);
+
   return "Events created! Go to your Google Calendar...";
+}
+
+// Function to rename calendar
+function renameCalendar(calendarName, id) {
+  // Use the advanced Calendar API to update the name
+  var calendarResource = {
+    summary: calendarName,
+  };
+  // Update the calendar using the Calendar API
+  Calendar.Calendars.update(calendarResource, id);
 }
 
 // Function to adjust time for ISO-formatted date
