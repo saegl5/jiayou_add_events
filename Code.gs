@@ -39,6 +39,10 @@ function addEvents(
   var calendarId = ""; // Initially null
   var calendarIdRef = ""; // Initially null
 
+  // handle exception
+  if (query.length === 0)
+    return "Select a letter day!";  
+
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
@@ -74,10 +78,22 @@ function addEvents(
   var calendar = CalendarApp.getCalendarById(calendarId);
   var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // calendar is still hard-coded, but this way the ID is hidden
 
-  // handle exceptions
+  // handle additional exceptions
   if (start.includes(",") || end.includes(",")) {
     return "Use accepted date formats!"; // for consistency
   }
+  if (
+    startTime.includes("am") ||
+    startTime.includes("pm") ||
+    !startTime.includes(":") ||
+    !startTime.includes(" ") ||
+    endTime.includes("am") ||
+    endTime.includes("pm") ||
+    !endTime.includes(":") ||
+    !endTime.includes(" ")
+  ) {
+    return "Use accepted time formats!";
+  } // for consistency
 
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
@@ -330,7 +346,6 @@ function adjustTime(isoDate) {
 
 // Function to parse the time and to convert 12-hour time to 24-hour time if AM/PM utilized
 function parseTime(time) {
-
   let [timePart, modifier] = time.split(" "); // modifier ignored if missing
   time = timePart.split(":");
 
@@ -338,10 +353,8 @@ function parseTime(time) {
   time[0] = parseInt(time[0]);
   time[1] = parseInt(time[1]);
 
-  if (modifier === "AM" && time[0] === 12)
-    time[0] = time[0] - 12;
-  else if (modifier === "PM" && time[0] !== 12)
-    time[0] = time[0] + 12;
+  if (modifier === "AM" && time[0] === 12) time[0] = time[0] - 12;
+  else if (modifier === "PM" && time[0] !== 12) time[0] = time[0] + 12;
 
   return time;
 }
