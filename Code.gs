@@ -88,15 +88,12 @@ function addEvents(
     if (regex.test(start) === true) {
       start = new Date(start);
       start = adjustTime(start);
-    }
-    else
-      start = new Date(start);
+    } else start = new Date(start);
     if (regex.test(end) === true) {
       end = new Date(end); // excluded from search
       end = adjustTime(end);
       end.setDate(end.getDate() + 1); // include end date in search
-    }
-    else {
+    } else {
       end = new Date(end); // excluded from search
       end.setDate(end.getDate() + 1); // include end date in search
     }
@@ -110,8 +107,7 @@ function addEvents(
       end = new Date(end); // excluded from search
       end = adjustTime(end);
       end.setDate(end.getDate() + 1); // include end date in search
-    }
-    else {
+    } else {
       end = new Date(end); // excluded from search
       end.setDate(end.getDate() + 1); // include end date in search
     }
@@ -123,9 +119,7 @@ function addEvents(
     if (regex.test(start) === true) {
       start = new Date(start);
       start = adjustTime(start);
-    }
-    else
-      start = new Date(start);
+    } else start = new Date(start);
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
     // Search for events with title between start and one year from start
@@ -174,32 +168,55 @@ function addEvents(
   if (startTime === "" && endTime === "") {
     // make all-day event, later
   } else if (startTime !== "" && endTime === "") {
+    // Handle 12-hour time, if utilized
+    var [timePart, modifier] = startTime.split(" "); // modifier undefined if missing
     // Split strings into lists of hours and minutes
-    startTime = startTime.split(":");
+    startTime = timePart.split(":");
     startTime[0] = parseInt(startTime[0]);
     startTime[1] = parseInt(startTime[1]);
+    if (modifier === "AM" && startTime[0] === 12)
+      startTime[0] = startTime[0] - 12;
+    else if (modifier === "PM" && startTime[0] !== 12)
+      startTime[0] = startTime[0] + 12;
 
     endTime = [];
     endTime[0] = startTime[0] + 1; // simply add 1 hour
     endTime[1] = startTime[1];
   } else if (startTime === "" && endTime !== "") {
+    // Handle 12-hour time, if utilized
+    var [timePart, modifier] = endTime.split(" "); // modifier undefined if missing
     // Split strings into lists of hours and minutes
-    endTime = endTime.split(":");
+    endTime = timePart.split(":");
     endTime[0] = parseInt(endTime[0]);
     endTime[1] = parseInt(endTime[1]);
+    if (modifier === "AM" && endTime[0] === 12)
+      endTime[0] = endTime[0] - 12;
+    else if (modifier === "PM" && endTime[0] !== 12)
+      endTime[0] = endTime[0] + 12;
 
     startTime = [];
     startTime[0] = endTime[0] - 1; // simply subtract 1 hour
     startTime[1] = endTime[1];
   } else {
+    // Handle 12-hour time, if utilized
+    var [timePart, modifier] = startTime.split(" "); // modifier undefined if missing
     // Split strings into lists of hours and minutes
-    startTime = startTime.split(":");
+    startTime = timePart.split(":");
     startTime[0] = parseInt(startTime[0]);
     startTime[1] = parseInt(startTime[1]);
+    if (modifier === "AM" && startTime[0] === 12)
+      startTime[0] = startTime[0] - 12;
+    else if (modifier === "PM" && startTime[0] !== 12)
+      startTime[0] = startTime[0] + 12;
 
-    endTime = endTime.split(":");
+    var [timePart, modifier] = endTime.split(" "); // modifier undefined if missing
+    endTime = timePart.split(":");
     endTime[0] = parseInt(endTime[0]);
     endTime[1] = parseInt(endTime[1]);
+    if (modifier === "AM" && endTime[0] === 12)
+      endTime[0] = endTime[0] - 12;
+    else if (modifier === "PM" && endTime[0] !== 12)
+      endTime[0] = endTime[0] + 12;
   }
 
   // Track dates when events with title occur
@@ -337,8 +354,8 @@ function adjustTime(isoDate) {
   // Dates formatted as YYYY-MM-DD use Coordinated Universal Time, whereas dates formatted differently use local time
   // So, we will have to adjust ISO dates' time
   let timezoneOffset = isoDate.getTimezoneOffset(); // in minutes, varies depending on local time zone and daylight saving time (if observed)
-  let adjustedTime = isoDate.getTime() + timezoneOffset*60*1000; // milliseconds since January 1, 1970 00:00:00 + timezoneOffset in milliseconds
+  let adjustedTime = isoDate.getTime() + timezoneOffset * 60 * 1000; // milliseconds since January 1, 1970 00:00:00 + timezoneOffset in milliseconds
   let adjustedDate = new Date(adjustedTime);
-  
+
   return adjustedDate;
 }

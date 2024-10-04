@@ -246,7 +246,7 @@
                 type="text"
                 id="startTime"
                 name="startTime"
-                value="10:00"
+                value="10:00 AM"
                 placeholder="Optional"
               />
             </div>
@@ -258,14 +258,14 @@
                 type="text"
                 id="endTime"
                 name="endTime"
-                value="11:00"
+                value="11:00 AM"
                 placeholder="Optional"
               />
             </div>
           </div>
         </div>
         <!-- prefilled for clarity -->
-        <text>Accepted format: 24-hour</text>
+        <text>Accepted format: HH:MM AM/PM, HH:MM (24-hour)</text>
         <br /><br />
       </div>
 
@@ -312,7 +312,8 @@
                   .getElementById("calendarName")
                   .options.add(
                     new Option(calendar + " (default)", calendar, true, true)
-                  ); // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected
+                  );
+              // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected
               // do not select calendar listed
               else
                 document
