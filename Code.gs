@@ -39,12 +39,21 @@ function addEvents(
   var calendarId = ""; // Initially null
   var calendarIdRef = ""; // Initially null
 
+  // handle exception
+  if (query.length === 0) return "Select a letter day!";
+
   // Loop through all calendars and find the one with the matching name
   for (var i = 0; i < calendars.length; i++) {
     if (calendars[i].getName() === calendarName) {
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
+
+  // Must name the calendar differently from the owner name, otherwise the app will not add events
+  // Temporarily rename, just in case
+  calendarName = calendarName.split(" ");
+  calendarName = calendarName[0] + "_" + calendarName[1]; // 'FirstName_LastName'
+  renameCalendar(calendarName, calendarId);
 
   // Find reference calendar
   var found = false;
@@ -74,10 +83,22 @@ function addEvents(
   var calendar = CalendarApp.getCalendarById(calendarId);
   var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // calendar is still hard-coded, but this way the ID is hidden
 
-  // handle exceptions
+  // handle additional exceptions
   if (start.includes(",") || end.includes(",")) {
     return "Use accepted date formats!"; // for consistency
   }
+  if (
+    startTime.includes("am") ||
+    startTime.includes("pm") ||
+    !startTime.includes(":") ||
+    !startTime.includes(" ") ||
+    endTime.includes("am") ||
+    endTime.includes("pm") ||
+    !endTime.includes(":") ||
+    !endTime.includes(" ")
+  ) {
+    return "Use accepted time formats!";
+  } // for consistency
 
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
@@ -88,15 +109,12 @@ function addEvents(
     if (regex.test(start) === true) {
       start = new Date(start);
       start = adjustTime(start);
-    }
-    else
-      start = new Date(start);
+    } else start = new Date(start);
     if (regex.test(end) === true) {
       end = new Date(end); // excluded from search
       end = adjustTime(end);
       end.setDate(end.getDate() + 1); // include end date in search
-    }
-    else {
+    } else {
       end = new Date(end); // excluded from search
       end.setDate(end.getDate() + 1); // include end date in search
     }
@@ -110,8 +128,7 @@ function addEvents(
       end = new Date(end); // excluded from search
       end = adjustTime(end);
       end.setDate(end.getDate() + 1); // include end date in search
-    }
-    else {
+    } else {
       end = new Date(end); // excluded from search
       end.setDate(end.getDate() + 1); // include end date in search
     }
@@ -123,9 +140,7 @@ function addEvents(
     if (regex.test(start) === true) {
       start = new Date(start);
       start = adjustTime(start);
-    }
-    else
-      start = new Date(start);
+    } else start = new Date(start);
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
     // Search for events with title between start and one year from start
@@ -174,32 +189,23 @@ function addEvents(
   if (startTime === "" && endTime === "") {
     // make all-day event, later
   } else if (startTime !== "" && endTime === "") {
-    // Split strings into lists of hours and minutes
-    startTime = startTime.split(":");
-    startTime[0] = parseInt(startTime[0]);
-    startTime[1] = parseInt(startTime[1]);
+    // Parse the time, and convert 12-hour time to 24-hour time if AM/PM utilized
+    startTime = parseTime(startTime);
 
     endTime = [];
     endTime[0] = startTime[0] + 1; // simply add 1 hour
     endTime[1] = startTime[1];
   } else if (startTime === "" && endTime !== "") {
-    // Split strings into lists of hours and minutes
-    endTime = endTime.split(":");
-    endTime[0] = parseInt(endTime[0]);
-    endTime[1] = parseInt(endTime[1]);
+    // Parse the time, and convert 12-hour time to 24-hour time if AM/PM utilized
+    endTime = parseTime(endTime);
 
     startTime = [];
     startTime[0] = endTime[0] - 1; // simply subtract 1 hour
     startTime[1] = endTime[1];
   } else {
-    // Split strings into lists of hours and minutes
-    startTime = startTime.split(":");
-    startTime[0] = parseInt(startTime[0]);
-    startTime[1] = parseInt(startTime[1]);
-
-    endTime = endTime.split(":");
-    endTime[0] = parseInt(endTime[0]);
-    endTime[1] = parseInt(endTime[1]);
+    // Parse the time, and convert 12-hour time to 24-hour time if AM/PM utilized
+    startTime = parseTime(startTime);
+    endTime = parseTime(endTime);
   }
 
   // Track dates when events with title occur
@@ -329,7 +335,23 @@ function addEvents(
     Logger.log('Created "' + title + '" on ' + eventDate + "!");
     eventIndex++;
   }
+
+  // Revert calendar name
+  calendarName = calendarName.split("_");
+  calendarName = calendarName[0] + " " + calendarName[1]; // 'FirstName LastName'
+  renameCalendar(calendarName, calendarId);
+
   return "Events created! Go to your Google Calendar...";
+}
+
+// Function to rename calendar
+function renameCalendar(calendarName, id) {
+  // Use the advanced Calendar API to update the name
+  var calendarResource = {
+    summary: calendarName,
+  };
+  // Update the calendar using the Calendar API
+  Calendar.Calendars.update(calendarResource, id);
 }
 
 // Function to adjust time for ISO-formatted date
@@ -337,8 +359,23 @@ function adjustTime(isoDate) {
   // Dates formatted as YYYY-MM-DD use Coordinated Universal Time, whereas dates formatted differently use local time
   // So, we will have to adjust ISO dates' time
   let timezoneOffset = isoDate.getTimezoneOffset(); // in minutes, varies depending on local time zone and daylight saving time (if observed)
-  let adjustedTime = isoDate.getTime() + timezoneOffset*60*1000; // milliseconds since January 1, 1970 00:00:00 + timezoneOffset in milliseconds
+  let adjustedTime = isoDate.getTime() + timezoneOffset * 60 * 1000; // milliseconds since January 1, 1970 00:00:00 + timezoneOffset in milliseconds
   let adjustedDate = new Date(adjustedTime);
-  
+
   return adjustedDate;
+}
+
+// Function to parse the time and to convert 12-hour time to 24-hour time if AM/PM utilized
+function parseTime(time) {
+  let [timePart, modifier] = time.split(" "); // modifier ignored if missing
+  time = timePart.split(":");
+
+  // Split strings into lists of hours and minutes
+  time[0] = parseInt(time[0]);
+  time[1] = parseInt(time[1]);
+
+  if (modifier === "AM" && time[0] === 12) time[0] = time[0] - 12;
+  else if (modifier === "PM" && time[0] !== 12) time[0] = time[0] + 12;
+
+  return time;
 }
