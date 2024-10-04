@@ -168,55 +168,23 @@ function addEvents(
   if (startTime === "" && endTime === "") {
     // make all-day event, later
   } else if (startTime !== "" && endTime === "") {
-    // Handle 12-hour time, if utilized
-    var [timePart, modifier] = startTime.split(" "); // modifier undefined if missing
-    // Split strings into lists of hours and minutes
-    startTime = timePart.split(":");
-    startTime[0] = parseInt(startTime[0]);
-    startTime[1] = parseInt(startTime[1]);
-    if (modifier === "AM" && startTime[0] === 12)
-      startTime[0] = startTime[0] - 12;
-    else if (modifier === "PM" && startTime[0] !== 12)
-      startTime[0] = startTime[0] + 12;
+    // Parse the time, and convert 12-hour time to 24-hour time if AM/PM utilized
+    startTime = parseTime(startTime);
 
     endTime = [];
     endTime[0] = startTime[0] + 1; // simply add 1 hour
     endTime[1] = startTime[1];
   } else if (startTime === "" && endTime !== "") {
-    // Handle 12-hour time, if utilized
-    var [timePart, modifier] = endTime.split(" "); // modifier undefined if missing
-    // Split strings into lists of hours and minutes
-    endTime = timePart.split(":");
-    endTime[0] = parseInt(endTime[0]);
-    endTime[1] = parseInt(endTime[1]);
-    if (modifier === "AM" && endTime[0] === 12)
-      endTime[0] = endTime[0] - 12;
-    else if (modifier === "PM" && endTime[0] !== 12)
-      endTime[0] = endTime[0] + 12;
+    // Parse the time, and convert 12-hour time to 24-hour time if AM/PM utilized
+    endTime = parseTime(endTime);
 
     startTime = [];
     startTime[0] = endTime[0] - 1; // simply subtract 1 hour
     startTime[1] = endTime[1];
   } else {
-    // Handle 12-hour time, if utilized
-    var [timePart, modifier] = startTime.split(" "); // modifier undefined if missing
-    // Split strings into lists of hours and minutes
-    startTime = timePart.split(":");
-    startTime[0] = parseInt(startTime[0]);
-    startTime[1] = parseInt(startTime[1]);
-    if (modifier === "AM" && startTime[0] === 12)
-      startTime[0] = startTime[0] - 12;
-    else if (modifier === "PM" && startTime[0] !== 12)
-      startTime[0] = startTime[0] + 12;
-
-    var [timePart, modifier] = endTime.split(" "); // modifier undefined if missing
-    endTime = timePart.split(":");
-    endTime[0] = parseInt(endTime[0]);
-    endTime[1] = parseInt(endTime[1]);
-    if (modifier === "AM" && endTime[0] === 12)
-      endTime[0] = endTime[0] - 12;
-    else if (modifier === "PM" && endTime[0] !== 12)
-      endTime[0] = endTime[0] + 12;
+    // Parse the time, and convert 12-hour time to 24-hour time if AM/PM utilized
+    startTime = parseTime(startTime);
+    endTime = parseTime(endTime);
   }
 
   // Track dates when events with title occur
@@ -358,4 +326,22 @@ function adjustTime(isoDate) {
   let adjustedDate = new Date(adjustedTime);
 
   return adjustedDate;
+}
+
+// Function to parse the time and to convert 12-hour time to 24-hour time if AM/PM utilized
+function parseTime(time) {
+
+  let [timePart, modifier] = time.split(" "); // modifier ignored if missing
+  time = timePart.split(":");
+
+  // Split strings into lists of hours and minutes
+  time[0] = parseInt(time[0]);
+  time[1] = parseInt(time[1]);
+
+  if (modifier === "AM" && time[0] === 12)
+    time[0] = time[0] - 12;
+  else if (modifier === "PM" && time[0] !== 12)
+    time[0] = time[0] + 12;
+
+  return time;
 }
