@@ -79,24 +79,53 @@ function addEvents(
     return "Use accepted date formats!"; // for consistency
   }
 
+  const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
+
   // Check for null dates
   if (start !== "" && end !== "") {
     // Set the search parameters
-    start = new Date(start);
-    end = new Date(end); // excluded from search
-    end.setDate(end.getDate() + 1); // include end date in search
+    // but test if dates are ISO-formatted first
+    if (regex.test(start) === true) {
+      start = new Date(start);
+      start = adjustTime(start);
+    }
+    else
+      start = new Date(start);
+    if (regex.test(end) === true) {
+      end = new Date(end); // excluded from search
+      end = adjustTime(end);
+      end.setDate(end.getDate() + 1); // include end date in search
+    }
+    else {
+      end = new Date(end); // excluded from search
+      end.setDate(end.getDate() + 1); // include end date in search
+    }
     // Search for events with title between start and end dates
     search(start, end);
   } else if (start === "" && end !== "") {
     // Set the search parameters
     var now = new Date();
-    end = new Date(end); // excluded from search
-    end.setDate(end.getDate() + 1); // include end date in search
+    // test if date is ISO-formatted first
+    if (regex.test(end) === true) {
+      end = new Date(end); // excluded from search
+      end = adjustTime(end);
+      end.setDate(end.getDate() + 1); // include end date in search
+    }
+    else {
+      end = new Date(end); // excluded from search
+      end.setDate(end.getDate() + 1); // include end date in search
+    }
     // Search for events with title between now and end date
     search(now, end);
   } else if (start !== "" && end === "") {
     // Set the search parameters
-    start = new Date(start);
+    // but test if date is ISO-formatted first
+    if (regex.test(start) === true) {
+      start = new Date(start);
+      start = adjustTime(start);
+    }
+    else
+      start = new Date(start);
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
     // Search for events with title between start and one year from start
@@ -301,4 +330,15 @@ function addEvents(
     eventIndex++;
   }
   return "Events created! Go to your Google Calendar...";
+}
+
+// Function to adjust time for ISO-formatted date
+function adjustTime(isoDate) {
+  // Dates formatted as YYYY-MM-DD use Coordinated Universal Time, whereas dates formatted differently use local time
+  // So, we will have to adjust ISO dates' time
+  let timezoneOffset = isoDate.getTimezoneOffset(); // in minutes, varies depending on local time zone and daylight saving time (if observed)
+  let adjustedTime = isoDate.getTime() + timezoneOffset*60*1000; // milliseconds since January 1, 1970 00:00:00 + timezoneOffset in milliseconds
+  let adjustedDate = new Date(adjustedTime);
+  
+  return adjustedDate;
 }
