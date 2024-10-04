@@ -53,7 +53,8 @@ function addEvents(
   // Temporarily rename, just in case
   calendarName = calendarName.split(" ");
   calendarName = calendarName[0] + "_" + calendarName[1]; // 'FirstName_LastName'
-  renameCalendar(calendarName, calendarId);
+  if (!dryRun)
+    renameCalendar(calendarName, calendarId);
 
   // Find reference calendar
   var found = false;
@@ -339,7 +340,8 @@ function addEvents(
   // Revert calendar name
   calendarName = calendarName.split("_");
   calendarName = calendarName[0] + " " + calendarName[1]; // 'FirstName LastName'
-  renameCalendar(calendarName, calendarId);
+  if (!dryRun)
+    renameCalendar(calendarName, calendarId);
 
   return "Events created! Go to your Google Calendar...";
 }
