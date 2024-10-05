@@ -82,17 +82,21 @@ function addEvents(
     return "Use accepted date formats!"; // for consistency
   }
   if (
-    startTime.includes("am") ||
-    startTime.includes("pm") ||
-    !startTime.includes(":") ||
-    !startTime.includes(" ") ||
-    endTime.includes("am") ||
-    endTime.includes("pm") ||
-    !endTime.includes(":") ||
-    !endTime.includes(" ")
-  ) {
-    return "Use accepted time formats!";
-  } // for consistency
+    startTime !== "" &&
+    (startTime.includes("am") ||
+      startTime.includes("pm") ||
+      !startTime.includes(":") ||
+      !startTime.includes(" "))
+  )
+    return "Use accepted time formats!"; // for consistency
+  if (
+    endTime !== "" &&
+    (endTime.includes("am") ||
+      endTime.includes("pm") ||
+      !endTime.includes(":") ||
+      !endTime.includes(" "))
+  )
+    return "Use accepted time formats!"; // for consistency
 
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
