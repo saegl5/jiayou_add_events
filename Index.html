@@ -1,4 +1,4 @@
-<!-- hide dryRun checkbox and update reference ID before deployment -->
+<!-- hide dryRun checkbox and label, and update reference ID, before deployment -->
 
 <!DOCTYPE html>
 <html>
@@ -272,12 +272,10 @@
       <br />
 
       <div id="dry">
-        <input type="checkbox" id="dryRun" name="dryRun" unchecked />
-        <label for="dryRun">Dry run</label>
+        <input type="checkbox" id="dryRun" name="dryRun" unchecked /> <!-- add "hidden" to hide -->
+        <label for="dryRun">Dry run<br><br></label> <!-- add "hidden" to hide -->
         <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
       </div>
-
-      <br />
 
       <input type="submit" value="Submit" />
       <div id="wait">&nbsp;</div>
