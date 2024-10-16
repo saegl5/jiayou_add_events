@@ -51,8 +51,9 @@ function addEvents(
 
   // Find reference calendar
   var found = false;
+  var howMany = 0;
   for (var j = 0; j < calendars.length; j++) {
-    if (found === false) {
+    if (found === false || howMany === 1) {
       var now = new Date();
       var oneYearFromNow = new Date();
       oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
@@ -62,6 +63,7 @@ function addEvents(
         if (query.includes(event.getTitle())) {
           calendarIdRef = String(calendars[j].getId()); // Assign the calendar ID
           found = true;
+          howMany += 1;
           break;
         }
       }
@@ -71,6 +73,11 @@ function addEvents(
   // check if reference calendar doesn't exist
   if (calendarIdRef === "") {
     return "JIA YOU calendar does not exist!"; // handle error
+  }
+
+  // check for multiple (i.e., conflicting) reference calendars
+  if (howMany > 1) {
+    return "Multiple calendars contain letter days!"; // handle error
   }
 
   // Access the user calendar and reference calendar
