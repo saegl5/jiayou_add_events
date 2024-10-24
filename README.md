@@ -24,7 +24,7 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 5. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
 6. Deploy the project as a Web app, and open the assigned URL.
 
-### Configure and Run
+### How to Use
 
 7. Check the username to ensure that you opened the URL in the correct account.
 8. Select your calendar name, and choose letter days on which you want to add events. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate the 加油 calendar.)
