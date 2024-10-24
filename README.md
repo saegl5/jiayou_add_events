@@ -15,12 +15,17 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 
 ## Getting Started
 
+### Build and Deploy
+
 1. Go to [Google Apps Script](https://script.google.com/), and create a new project.
 2. Copy and paste [the script](./Code.gs) into the editor, and save the file.
 3. Run the script to acquire authorization.
 4. Create an HTML file, and name it "Index."
 5. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
 6. Deploy the project as a Web app, and open the assigned URL.
+
+### Configure and Run
+
 7. Check the username to ensure that you opened the URL in the correct account.
 8. Select your calendar name, and choose letter days on which you want to add events. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate the 加油 calendar.)
 9. Modify the events' title, guests, location, and description. (If you input a URL for the description, text to display will be "Agenda.")
