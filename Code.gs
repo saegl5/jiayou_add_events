@@ -3,7 +3,9 @@
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile("Index");
+  return HtmlService.createHtmlOutputFromFile("Index").setTitle(
+    'Add 加油 ("jiā yóu") Events'
+  );
 }
 
 // Used by Index.html for username, dropdown list of calendar names and default calendar name
