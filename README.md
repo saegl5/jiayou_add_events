@@ -50,4 +50,4 @@ Made with &heartsuit; in Visual Studio Code
 
 <br>
 
-A special thank you to James Armstrong for adding recurring events, the calendar name dropdown menu, letter day checkboxes, etc.
+A special thank you to [James Armstrong](https://github.com/jmarmstrong1207) for adding recurring events, the calendar name dropdown menu, letter day checkboxes, etc.
