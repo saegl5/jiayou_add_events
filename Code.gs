@@ -148,15 +148,21 @@ function addEvents(
       start = new Date(start);
       start = adjustTime(start);
     } else start = new Date(start);
-    var schoolDateEnd = new Date("2025-6-12");
+    // var schoolDateEnd = new Date("2025-6-12"); <- redundant since internal calendar events end same date
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
     // Search for events with title between start and one year from start
-    search(start, schoolDateEnd);
+    // search(start, schoolDateEnd);
+    search(start, oneYearFromNow);
   } else {
     // Set the search parameters
     var now = new Date();
-    var schoolDateEnd = new Date("2025-6-12");
+    // var schoolDateEnd = new Date("2025-6-12"); <- again, redundant since internal calendar events end same date
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
     // Search for events with title between now and one year from now
-    search(now, schoolDateEnd);
+    // search(now, schoolDateEnd);
+    search(now, oneYearFromNow);
   }
 
   // consolidated into nested function
