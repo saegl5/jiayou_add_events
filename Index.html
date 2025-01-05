@@ -216,7 +216,9 @@
                 type="text"
                 id="start"
                 name="start"
+                required
               />
+              <!-- replacing placeholder="Optional" with the current date is a good idea because otherwise events might be added to internal calendar events of a prior year -->
             </div>
             <div id="cell" class="mid">
               <!-- empty -->
@@ -301,8 +303,6 @@
       // JavaScript handles form submission and sends data to the Google Apps Script
       function load() {
         // optimized by merging into one script
-        let d = new Date();
-        document.getElementById("start").placeholder = d.getMonth() + "/" + d.getDay() + "/" + d.getFullYear();
         google.script.run
           .withSuccessHandler(function (response) {
             document.getElementById("user").innerHTML =
@@ -327,6 +327,10 @@
           })
           .getCalendarNamesAndDefault();
       }
+
+      document
+        .getElementById("start").placeholder = new Date().getMonth()+1 + "/" + new Date().getDay() + "/" + new Date().getFullYear();
+        // fixed month by adding 1
 
       document
         .getElementById("calendarForm")

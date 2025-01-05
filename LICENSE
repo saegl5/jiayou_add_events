@@ -1,9 +1,9 @@
 Copyright (c) 2024-2025 Ed Silkworth
-All codes except some involving createEventSeries() and setRecurrence()
+All codes except some involving createEventSeries(), setRecurrence(), and current date for start date
 License: MIT
 
 Copyright (c) 2024 James Armstrong
-Some codes involving createEventSeries() and setRecurrence(), the calendar name dropdown list, and the letter day checkboxes
+Some codes involving createEventSeries(), setRecurrence(), the calendar name dropdown list, the letter day checkboxes, and current date for start date
 No license
 
 MIT License
