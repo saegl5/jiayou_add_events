@@ -281,7 +281,7 @@
       // JavaScript handles form submission and sends data to the Google Apps Script
       function load() {
         let d = new Date();
-        document.getElementById("start").placeholder = d.getMonth() + "/" + d.getDay() + "/" + d.getFullYear();
+        document.getElementById("start").placeholder = d.getMonth()+1 + "/" + d.getDay() + "/" + d.getFullYear();
         google.script.run
           .withSuccessHandler(function (x) {
             for (const c of x) {
