@@ -327,10 +327,15 @@
           .getCalendarNamesAndDefault();
       }
 
-      document
-        .getElementById("start").value = new Date().toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }).replace(/,/g, "");;
-        // Examples: Jan 4 2024, Mar 14 2025
-        // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
+      document.getElementById("start").value = new Date()
+        .toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+        .replace(/,/g, ""); // removes comma
+      // Examples: Jan 4 2024, Mar 14 2025
+      // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
 
       document
         .getElementById("calendarForm")
