@@ -202,7 +202,7 @@
               <!-- empty -->
             </div>
             <div id="cell">
-              <input type="text" id="end" name="end" placeholder="6/12/2025" />
+              <input type="text" id="end" name="end" value="6/12/2025" />
             </div>
           </div>
         </div>
@@ -281,7 +281,7 @@
       // JavaScript handles form submission and sends data to the Google Apps Script
       function load() {
         let d = new Date();
-        document.getElementById("start").placeholder = d.getMonth()+1 + "/" + d.getDay() + "/" + d.getFullYear();
+        document.getElementById("start").value = d.getMonth()+1 + "/" + d.getDay() + "/" + d.getFullYear();
         google.script.run
           .withSuccessHandler(function (x) {
             for (const c of x) {
