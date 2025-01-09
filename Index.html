@@ -121,17 +121,17 @@
         <text>Calendar must already exist</text>
         <br /><br />
 
-        <label for="query">Letter days:</label>
+        <label for="letters">Letter days:</label>
         <div id="table">
           <div id="row">
-            <div id="cell"><input type="checkbox" id="j" name="query" value="J Day" unchecked /><label for="j">J</label></div>
-            <div id="cell"><input type="checkbox" id="i" name="query" value="I Day" unchecked /><label for="i">I</label></div>
-            <div id="cell"><input type="checkbox" id="a" name="query" value="A Day" unchecked /><label for="a">A</label></div>
+            <div id="cell"><input type="checkbox" id="j" name="letters" value="J Day" unchecked /><label for="j">J</label></div>
+            <div id="cell"><input type="checkbox" id="i" name="letters" value="I Day" unchecked /><label for="i">I</label></div>
+            <div id="cell"><input type="checkbox" id="a" name="letters" value="A Day" unchecked /><label for="a">A</label></div>
           </div>
           <div id="row">
-            <div id="cell"><input type="checkbox" id="y" name="query" value="Y Day" unchecked /><label for="y">Y</label></div>
-            <div id="cell"><input type="checkbox" id="o" name="query" value="O Day" unchecked /><label for="o">O</label></div>
-            <div id="cell"><input type="checkbox" id="u" name="query" value="U Day" unchecked /><label for="u">U</label></div>
+            <div id="cell"><input type="checkbox" id="y" name="letters" value="Y Day" unchecked /><label for="y">Y</label></div>
+            <div id="cell"><input type="checkbox" id="o" name="letters" value="O Day" unchecked /><label for="o">O</label></div>
+            <div id="cell"><input type="checkbox" id="u" name="letters" value="U Day" unchecked /><label for="u">U</label></div>
           </div>
         </div>
         <text>Letter day on which you want to create an event</text>
@@ -345,8 +345,8 @@
 
           var calendarName = document.getElementById("calendarName").value;
           var query = [
-            ...document.querySelectorAll("input[name=query]:checked"),
-          ].map(({ value }) => value); // essentially, place the value of every letter day (that is checked) into an array called "query", "..." is spread syntax
+            ...document.querySelectorAll("input[name=letters]:checked"),
+          ].map(({ value }) => value); // essentially, place the value of every letter day (that is checked) into an array called "letters", "..." is spread syntax
 
           // var calendarNameAlt =
           //   document.getElementById("calendarNameAlt").value;
