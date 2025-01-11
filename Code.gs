@@ -27,6 +27,7 @@ function getCalendarNamesAndDefault() {
 function addEvents(
   calendarName,
   query,
+  frequency,
   title,
   guests,
   location,
@@ -292,10 +293,10 @@ function addEvents(
 
     // function nested because it relies on many parameters
     function createEvent(includesHttp) {
-      if (eventIndex === eventSeries.length)
+      if (eventIndex === eventSeries.length) // ex: J Day, so eventSeries.length = 1, also need other days
         // could also use query.length
         firstEvent = false;
-      if (firstEvent) {
+      if (firstEvent && eventIndex === frequency-1) { // 0, 1, 2
         var eventOptions = {
           location: location,
           description: includesHttp
@@ -325,25 +326,34 @@ function addEvents(
         // can't set firstEvent = false yet
       } // chain subsequent event to first event
       else {
-        if (startTime === "" && endTime === "") {
-          eventSeries[eventIndex % eventSeries.length].setRecurrence(
-            CalendarApp.newRecurrence().addDate(eventDate),
-            firstDate[eventIndex % eventSeries.length] // date of first event only
-          );
-        } else {
-          eventSeries[eventIndex % eventSeries.length].setRecurrence(
-            CalendarApp.newRecurrence().addDate(eventDate),
-            dateStartTime[eventIndex % eventSeries.length], // date start time of first event only
-            dateEndTime[eventIndex % eventSeries.length] // date end time of first event only
-          );
+        if (firstEvent) {
+          // just increment
+        }
+        else {
+          if (eventIndex % frequency === 0) { // 1: 3, 5, 7, ... 2x + 1 2*(eventIndex % frequency-1)+1 <-- don't forget 2: ... something wrong with mod
+            if (startTime === "" && endTime === "") {
+              eventSeries[eventIndex % eventSeries.length].setRecurrence(
+                CalendarApp.newRecurrence().addDate(eventDate),
+                firstDate[eventIndex % eventSeries.length] // date of first event only
+              );
+            } else {
+              eventSeries[eventIndex % eventSeries.length].setRecurrence(
+                CalendarApp.newRecurrence().addDate(eventDate),
+                dateStartTime[eventIndex % eventSeries.length], // date start time of first event only
+                dateEndTime[eventIndex % eventSeries.length] // date end time of first event only
+              );
+            }
+          }
+          else {
+            // just increment
+          }
         }
       }
-
       return null;
     }
 
     // Log which events were added
-    Logger.log('Created "' + title + '" on ' + eventDate + "!");
+    Logger.log('Created "' + title + '" on ' + eventDate + "!"); // may need to check index
     eventIndex++;
   }
 
