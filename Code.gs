@@ -293,10 +293,13 @@ function addEvents(
 
     // function nested because it relies on many parameters
     function createEvent(includesHttp) {
-      if (eventIndex === eventSeries.length) // ex: J Day, so eventSeries.length = 1, also need other days
+      if (eventIndex % eventSeries.length === 0)
+        eventIndex = eventIndex + eventSeries.length*(frequency-1);
+      if (eventIndex === eventSeries.length + eventSeries.length*(frequency-1)) // ex: J Day and I Day, so eventSeries.length = 2
         // could also use query.length
         firstEvent = false;
-      if (firstEvent && eventIndex === frequency-1) { // 0, 1, 2
+        // if (eventIndex === frequency-1) {
+      if (firstEvent) { // && eventIndex === eventSeries.length-1 + frequency-1) { // 0, 1, 2
         var eventOptions = {
           location: location,
           description: includesHttp
@@ -307,47 +310,45 @@ function addEvents(
 
         if (startTime === "" && endTime === "") {
           // make all-day event
-          eventSeries[eventIndex] = calendar.createAllDayEventSeries(
+          eventSeries[eventIndex - eventSeries.length*(frequency-1)] = calendar.createAllDayEventSeries(
             title,
-            firstDate[eventIndex], // can also put `firstDate`
+            firstDate[eventIndex - eventSeries.length*(frequency-1)], // can also put `firstDate`
             CalendarApp.newRecurrence().addDate(eventDate),
             eventOptions
           );
         } else {
           // make regular event
-          eventSeries[eventIndex] = calendar.createEventSeries(
+          eventSeries[eventIndex - eventSeries.length*(frequency-1)] = calendar.createEventSeries(
             title,
-            dateStartTime[eventIndex],
-            dateEndTime[eventIndex],
+            dateStartTime[eventIndex - eventSeries.length*(frequency-1)],
+            dateEndTime[eventIndex - eventSeries.length*(frequency-1)],
             CalendarApp.newRecurrence().addDate(eventDate),
             eventOptions
           );
         }
         // can't set firstEvent = false yet
       } // chain subsequent event to first event
+      // }
       else {
-        if (firstEvent) {
-          // just increment
+        // if (eventIndex % frequency === 0) { // 1: 3, 5, 7, ... 2x + 1 2*(eventIndex % frequency-1)+1 <-- don't forget 2: ... something wrong with mod
+        if (startTime === "" && endTime === "") {
+          eventSeries[eventIndex % eventSeries.length].setRecurrence(
+            CalendarApp.newRecurrence().addDate(eventDate),
+            firstDate[eventIndex % eventSeries.length] // date of first event only
+          );
+        } else {
+          eventSeries[eventIndex % eventSeries.length].setRecurrence(
+            CalendarApp.newRecurrence().addDate(eventDate),
+            dateStartTime[eventIndex % eventSeries.length], // date start time of first event only
+            dateEndTime[eventIndex % eventSeries.length] // date end time of first event only
+          );
         }
-        else {
-          if (eventIndex % frequency === 0) { // 1: 3, 5, 7, ... 2x + 1 2*(eventIndex % frequency-1)+1 <-- don't forget 2: ... something wrong with mod
-            if (startTime === "" && endTime === "") {
-              eventSeries[eventIndex % eventSeries.length].setRecurrence(
-                CalendarApp.newRecurrence().addDate(eventDate),
-                firstDate[eventIndex % eventSeries.length] // date of first event only
-              );
-            } else {
-              eventSeries[eventIndex % eventSeries.length].setRecurrence(
-                CalendarApp.newRecurrence().addDate(eventDate),
-                dateStartTime[eventIndex % eventSeries.length], // date start time of first event only
-                dateEndTime[eventIndex % eventSeries.length] // date end time of first event only
-              );
-            }
-          }
-          else {
-            // just increment
-          }
-        }
+                // }
+                // else {
+                  // just increment
+                // }
+            // }
+
       }
       return null;
     }
