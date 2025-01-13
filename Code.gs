@@ -241,7 +241,7 @@ function addEvents(
   var firstEvent = true;
   // get letter days from query
   var eventSeries = [];
-  for (var m = 0; m < query.length; m++) {
+  for (var m = 0; m < query.length; m++) { // strings act as placeholders
     if (query[m].includes("J")) eventSeries[m] = "eventSeriesJ";
     else if (query[m].includes("I")) eventSeries[m] = "eventSeriesI";
     else if (query[m].includes("A")) eventSeries[m] = "eventSeriesA";
