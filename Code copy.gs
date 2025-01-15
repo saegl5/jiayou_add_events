@@ -47,7 +47,7 @@ function myFunction() {
 
 }
 
-// OUTPUT
+// OUTPUT <--- subsequent letter should follow previous letter!!
 
 // 1:27:22 AM	Notice	Execution started
 // 1:27:22 AM	Info	eventSeries[0] = ["2", "20", "38"]
