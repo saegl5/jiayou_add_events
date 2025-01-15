@@ -264,7 +264,7 @@ function addEvents(
   // for (var n = 0 + (frequency-1); n < eventSeries.length + eventSeries.length*(frequency-1); n = n+frequency) {
   // for (var n in eventSeries.length + eventSeries.length*(frequency-1)) {
     // if (n % frequency === frequency-1)
-  var firstIndexKeep = frequency-1;
+  var firstIndexKeep = eventSeries.length*(frequency-1); // not working on multiple days for frequency 2+
   for (var n = 0; n < eventSeries.length; n++) {
     firstDate[n] = new Date(Object.keys(date)[firstIndexKeep]); // need to cast key as a function
     dateStartTime[n] = new Date(
@@ -281,7 +281,7 @@ function addEvents(
       endTime[0],
       endTime[1]
     );
-    firstIndexKeep = firstIndexKeep + frequency;
+    firstIndexKeep++;
   }
 
   // check invalid time range
@@ -319,7 +319,7 @@ function addEvents(
             eventSeries[indexKeep] = calendar.createAllDayEventSeries(
               title,
               firstDate[indexKeep], // can also put `firstDate`
-              CalendarApp.newRecurrence().addDate(eventDate),
+              CalendarApp.newRecurrence().addDate(new Date(Object.keys(date)[indexKeep + eventSeries.length*(frequency-1)])),
               eventOptions
             );
           } else {
@@ -328,24 +328,29 @@ function addEvents(
               title,
               dateStartTime[indexKeep],
               dateEndTime[indexKeep],
-              CalendarApp.newRecurrence().addDate(eventDate),
+              CalendarApp.newRecurrence().addDate(new Date(Object.keys(date)[indexKeep + eventSeries.length*(frequency-1)])),
               eventOptions
             );
           }
           // can't set firstEvent = false yet
         } // chain subsequent event to first event
         else {
-          if (startTime === "" && endTime === "") {
-            eventSeries[indexKeep % eventSeries.length].setRecurrence(
-              CalendarApp.newRecurrence().addDate(eventDate),
-              firstDate[indexKeep % eventSeries.length] // date of first event only
-            );
-          } else {
-            eventSeries[indexKeep % eventSeries.length].setRecurrence(
-              CalendarApp.newRecurrence().addDate(eventDate),
-              dateStartTime[indexKeep % eventSeries.length], // date start time of first event only
-              dateEndTime[indexKeep % eventSeries.length] // date end time of first event only
-            );
+          if (new Date(Object.keys(date)[indexKeep + (Math.floor((indexKeep+eventSeries.length)/eventSeries.length))*eventSeries.length*(frequency-1)]) === undefined) {
+            // skip
+          }
+          else {
+            if (startTime === "" && endTime === "") {
+              eventSeries[indexKeep % eventSeries.length].setRecurrence(
+                CalendarApp.newRecurrence().addDate(new Date(Object.keys(date)[indexKeep + (Math.floor((indexKeep+eventSeries.length)/eventSeries.length))*eventSeries.length*(frequency-1)])),
+                firstDate[indexKeep % eventSeries.length] // date of first event only
+              );
+            } else {
+              eventSeries[indexKeep % eventSeries.length].setRecurrence(
+                CalendarApp.newRecurrence().addDate(new Date(Object.keys(date)[indexKeep + (Math.floor((indexKeep+eventSeries.length)/eventSeries.length))*eventSeries.length*(frequency-1)])),
+                dateStartTime[indexKeep % eventSeries.length], // date start time of first event only
+                dateEndTime[indexKeep % eventSeries.length] // date end time of first event only
+              );
+            }
           }
         }
         Logger.log('Created "' + title + '" on ' + eventDate + "!"); // may need to check index
