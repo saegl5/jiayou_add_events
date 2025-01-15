@@ -1,59 +1,70 @@
 // TEMP FILE OF WORKING MODULE
 // NEED TO INTEGRATE
 
-// eventSeries = JIA
-// freq = 1-3
-// eventIndex = 0-12
-
-var events = [];
-for (e = 0; e < 50; e++) {
-  events.push("\"" + e + "\""); // in all, say
-}
-
-var firstEvent = true;
-var eventSeries = ["J", "I", "A", "Y", "O", "U"]; // JIAYOU
-var freq = 3; // 1-3
-var eventIndex = 0; // 1-3
-var count = 0; // <--- new
-
 function myFunction() {
 
-  for (var _ in events) { // for each event <--- don't increment more!!!!
-    // if (eventIndex % eventSeries.length === 0)
-    //   eventIndex = eventIndex + eventSeries.length*(freq-1);
+  var frequency = 3;
+  var eventSeries = ["J", "I", "A"];
+  var eventIndex = 0;
+  var indexKeep = 0;
+  var firstEvent = true;
+  var events = [];
 
-    if (eventIndex % freq === freq-1) { // may need adjusted
+  for (e = 0; e < 49; e++) {
+    events.push(eventSeries[e % eventSeries.length] + e); // in all, say
+  }
+  Logger.log(events);
 
-      if (eventIndex >= eventSeries.length + eventSeries.length*(freq-1)) // + eventSeries.length*(freq-1)) <-- notice >
-        firstEvent = false;
-      if (firstEvent) {
-        // eventSeries[eventIndex - eventSeries.length*(freq-1)] = events[eventIndex];
-        eventSeries[count] = events[eventIndex];
-        count++;
+  var firstDate = [];
+  var firstIndexKeep = eventSeries.length*(frequency-1); // not working on multiple days for frequency 2+
+  for (var n = 0; n < eventSeries.length; n++) {
+    firstDate[n] = events[firstIndexKeep];
+    Logger.log("start[" + n + "], = " + events[firstIndexKeep]);
+    firstIndexKeep++;
+    // firstIndexKeep = firstIndexKeep + frequency;
+  }
+
+  // go back, maybe just jump like 01 -> 23
+
+  // JIAYOU*JI*AYOUJIAYOUJIAYOU
+
+  for (var _ in events) { // 7 3, 9 4, 11 5, 13 6->16
+
+    // function nested because it relies on many parameters
+      if (eventIndex % frequency === frequency-1) {
+        if (eventIndex >= eventSeries.length + eventSeries.length*(frequency-1))
+          // could also use query.length
+          firstEvent = false;
+        if (firstEvent) {
+            // make regular event
+            eventSeries[indexKeep] = firstDate[indexKeep];
+          // can't set firstEvent = false yet
+          // Logger.log("start[" + indexKeep + "], eventSeries[" + indexKeep + "] = " + eventSeries[indexKeep]);
+        } // chain subsequent event to first event
+        else {
+            if (events[indexKeep + (Math.floor((indexKeep+eventSeries.length)/eventSeries.length))*eventSeries.length*(frequency-1)] === undefined) {
+              // skip
+            }
+            else {
+              eventSeries[indexKeep % eventSeries.length] = eventSeries[indexKeep % eventSeries.length].concat(", " + events[indexKeep + (Math.floor((indexKeep+eventSeries.length)/eventSeries.length))*eventSeries.length*(frequency-1)]);
+            }
+        }
+        indexKeep++;
       }
-      else {
-        // eventSeries[eventIndex % eventSeries.length] = eventSeries[eventIndex % eventSeries.length].concat(", " + events[eventIndex]);
-        eventSeries[count % eventSeries.length] = eventSeries[count % eventSeries.length].concat(", " + events[eventIndex]);
-        count++;
-      }
-    }
+
+    // Log which events were added
     eventIndex++;
-
   }
 
-  for (i = 0; i < eventSeries.length; i++) {
-    Logger.log("eventSeries[" + i + "] = [" + eventSeries[i] + "]");
-  }
-
+    Logger.log("eventSeries[" + 0 + "] = " + eventSeries[0]);
+    Logger.log("eventSeries[" + 1 + "] = " + eventSeries[1]);
+    Logger.log("eventSeries[" + 2 + "] = " + eventSeries[2]);
 }
 
-// OUTPUT <--- subsequent letter should follow previous letter!!
+// OUTPUT
 
-// 1:27:22 AM	Notice	Execution started
-// 1:27:22 AM	Info	eventSeries[0] = ["2", "20", "38"]
-// 1:27:22 AM	Info	eventSeries[1] = ["5", "23", "41"]
-// 1:27:22 AM	Info	eventSeries[2] = ["8", "26", "44"]
-// 1:27:22 AM	Info	eventSeries[3] = ["11", "29", "47"]
-// 1:27:22 AM	Info	eventSeries[4] = ["14", "32"]
-// 1:27:22 AM	Info	eventSeries[5] = ["17", "35"]
-// 1:27:22 AM	Notice	Execution completed
+// 1:21:30 AM	Notice	Execution started
+// 1:21:30 AM	Info	eventSeries[0] = J6, J15, J24, J33, J42
+// 1:21:30 AM	Info	eventSeries[1] = I7, I16, I25, I34, I43
+// 1:21:30 AM	Info	eventSeries[2] = A8, A17, A26, A35, A44
+// 1:21:30 AM	Notice	Execution completed
