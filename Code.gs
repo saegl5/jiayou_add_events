@@ -296,6 +296,9 @@ function addEvents(
     if (!dryRun) {
       // Check if description is a link
       let includesHttp = description.includes("http");
+
+      // Event uses color of calendar to which it is added
+
       // Create the new event
       createEvent(frequency, includesHttp); // split up events, all of which have the same event details, into separate series
     }
