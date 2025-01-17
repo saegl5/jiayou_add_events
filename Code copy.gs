@@ -38,7 +38,7 @@ function myFunction() {
     eventIndex++;
   }
 
-Logger.log("eventSeries[" + 0 + "] = " + eventSeries[0]);
-Logger.log("eventSeries[" + 1 + "] = " + eventSeries[1]);
-Logger.log("eventSeries[" + 2 + "] = " + eventSeries[2]);
+  for (var i in eventSeries) {
+    Logger.log("eventSeries[" + i + "] = " + eventSeries[i]);
+  }
 }
