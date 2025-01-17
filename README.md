@@ -27,7 +27,7 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 ### How to Use
 
 7. Check the username to ensure that you opened the URL in the correct account.
-8. Select your calendar name, and choose letter days on which you want to add events. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate the 加油 calendar.)
+8. Select your calendar name; choose letter days on which you want to add events, and optionally skip one or two letter days. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate the 加油 calendar.)
 9. Modify the events' title, guests, location, and description. (If you input a URL for the description, text to display will be "Agenda.")
 10. Modify the events' start time and end time. (If removed, events will be added as all-day events.)
 11. Confine the date range by modifying the start date and inputting an end date. (If either is empty, events will be added to all chosen letter days, starting from either today or ending one year from today.)
