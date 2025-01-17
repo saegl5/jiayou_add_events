@@ -3,7 +3,7 @@
 
 function myFunction() {
 
-  var frequency = 2;
+  var frequency = 2; // provided by user
 
   var eventIndex = 0;
   var date = ["Tue Jan 21 2025", "Tue Feb 04 2025", "Wed Feb 12 2025", "Thu Feb 27 2025", "Fri Mar 07 2025", "Wed Mar 19 2025", "Mon Mar 31 2025", "Tue Apr 08 2025", "Wed Apr 23 2025", "Thu May 01 2025", "Fri May 09 2025", "Mon May 19 2025", "Wed May 28 2025", "Thu Jun 05 2025"]; // date is app is a dictionary, so this is essentially Object.keys(date)
