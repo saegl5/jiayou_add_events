@@ -226,9 +226,6 @@ function addEvents(
   // Counter for all events
   var eventIndex = 0;
 
-  // Counter for only events keep
-  var indexKeep = 0; // separate counter that is not aligned with eventIndex
-
   // Loop through each event found
   events.forEach(function (event) {
     var eventDate = event.getStartTime();
@@ -254,6 +251,10 @@ function addEvents(
   }
   // breaking up the series like this helps mitigate issue #4
   // https://github.com/saegl5/jiayou_add_events/issues/4
+
+    // Counter for only events keep
+  // var indexKeep = 0; // separate counter that is not aligned with eventIndex
+  var indexKeep = eventSeries.length*(frequency-1); // start
 
   // extract the first date from the dictionary
   var firstDate = []; // may have multiple first dates
@@ -290,8 +291,8 @@ function addEvents(
   }
 
   // Iterate over the dates with events titled query and create a new event for the series at start time
-  for (var _ in date) { // every event date
-    var eventDate; // "eventDate" above is isolated in its own loop
+  for (var datestr in date) { // every event date
+    var eventDate = new Date(datestr); // "eventDate" above is isolated in its own loop
     var skip; // how many events to skip
     if (!dryRun) {
       // Check if description is a link
@@ -305,7 +306,20 @@ function addEvents(
 
     // function nested because it relies on many parameters
     function createEvent(frequency, includesHttp) {
-      if (eventIndex % frequency === frequency-1) {
+      if (eventIndex === indexKeep) {// + eventSeries.length*(frequency-1)) {
+        // indexKeep = indexKeep + Math.floor(eventIndex/eventSeries.length)*eventSeries.length*(frequency-1);
+        indexKeep++;
+        if (indexKeep % eventSeries.length === 0) // <--- wait every eventSeries.length
+          indexKeep = indexKeep + eventSeries.length*(frequency-1);
+        // else
+          // indexKeep = indexKeep + 1;
+        
+          // + Math.floor((eventIndex-1)/eventSeries.length)*eventSeries.length*(frequency-1);
+
+
+      // if (eventIndex % frequency === frequency-1) {
+      // if (eventIndex % frequency === eventSeries.length*(frequency-1)) {
+      // if (eventIndex === Math.floor((eventIndex+eventSeries.length)/eventSeries.length)*eventSeries.length*(frequency-1)) {
         if (eventIndex >= eventSeries.length + eventSeries.length*(frequency-1)) // cc
           // could also use query.length
           firstEvent = false;
@@ -318,23 +332,23 @@ function addEvents(
             guests: guests,
           };
 
-          skip = eventSeries.length*(frequency-1);
-          eventDate = new Date(Object.keys(date)[indexKeep + skip]);
+          // skip = eventSeries.length*(frequency-1);
+          // eventDate = new Date(Object.keys(date)[indexKeep + skip]);
   
           if (startTime === "" && endTime === "") {
             // make all-day event
-            eventSeries[indexKeep] = calendar.createAllDayEventSeries(
+            eventSeries[eventIndex % eventSeries.length] = calendar.createAllDayEventSeries(
               title,
-              firstDate[indexKeep], // can also put `firstDate`
+              firstDate[eventIndex % eventSeries.length], // can also put `firstDate`
               CalendarApp.newRecurrence().addDate(eventDate),
               eventOptions
             );
           } else {
             // make regular event
-            eventSeries[indexKeep] = calendar.createEventSeries(
+            eventSeries[eventIndex % eventSeries.length] = calendar.createEventSeries(
               title,
-              dateStartTime[indexKeep],
-              dateEndTime[indexKeep],
+              dateStartTime[eventIndex % eventSeries.length],
+              dateEndTime[eventIndex % eventSeries.length],
               CalendarApp.newRecurrence().addDate(eventDate),
               eventOptions
             );
@@ -342,30 +356,30 @@ function addEvents(
           // can't set firstEvent = false yet
         } // chain subsequent event to first event
         else {
-          skip = Math.floor((indexKeep+eventSeries.length)/eventSeries.length)*eventSeries.length*(frequency-1); // already skipped events, so every eventSeries.length*(frequency-1) more indexKeep skip additional multiples of events 
-          eventDate = new Date(Object.keys(date)[indexKeep + skip])
+          // skip = Math.floor((indexKeep+eventSeries.length)/eventSeries.length)*eventSeries.length*(frequency-1); // already skipped events, so every eventSeries.length*(frequency-1) more indexKeep skip additional multiples of events 
+          // eventDate = new Date(Object.keys(date)[indexKeep + skip])
 
-          if (eventDate === undefined) {
-            // skip, as well
+          // if (eventDate === undefined) {
+          //   // skip, as well
+          // }
+          // else {
+          if (startTime === "" && endTime === "") {
+            eventSeries[eventIndex % eventSeries.length].setRecurrence(
+              CalendarApp.newRecurrence().addDate(eventDate),
+              firstDate[eventIndex % eventSeries.length] // date of first event only
+            );
+          } else {
+            eventSeries[eventIndex % eventSeries.length].setRecurrence(
+              CalendarApp.newRecurrence().addDate(eventDate),
+              dateStartTime[eventIndex % eventSeries.length], // date start time of first event only
+              dateEndTime[eventIndex % eventSeries.length] // date end time of first event only
+            );
           }
-          else {
-            if (startTime === "" && endTime === "") {
-              eventSeries[indexKeep % eventSeries.length].setRecurrence(
-                CalendarApp.newRecurrence().addDate(eventDate),
-                firstDate[indexKeep % eventSeries.length] // date of first event only
-              );
-            } else {
-              eventSeries[indexKeep % eventSeries.length].setRecurrence(
-                CalendarApp.newRecurrence().addDate(eventDate),
-                dateStartTime[indexKeep % eventSeries.length], // date start time of first event only
-                dateEndTime[indexKeep % eventSeries.length] // date end time of first event only
-              );
-            }
-          }
+          // }
         }
       // Log which events were added
         Logger.log('Created "' + title + '" on ' + eventDate + "!");
-        indexKeep++;
+        // indexKeep++;
       }
       return null;
     }
