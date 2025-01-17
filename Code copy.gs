@@ -3,41 +3,34 @@
 
 function myFunction() {
 
-  var frequency = 3;
-  var eventSeries = ["J", "I", "A"];
+  var frequency = 2;
+
   var eventIndex = 0;
-  var indexKeep = eventSeries.length*(frequency-1); // start
+  var date = ["Tue Jan 21 2025", "Tue Feb 04 2025", "Wed Feb 12 2025", "Thu Feb 27 2025", "Fri Mar 07 2025", "Wed Mar 19 2025", "Mon Mar 31 2025", "Tue Apr 08 2025", "Wed Apr 23 2025", "Thu May 01 2025", "Fri May 09 2025", "Mon May 19 2025", "Wed May 28 2025", "Thu Jun 05 2025"]; // date is app is a dictionary, so this is essentially Object.keys(date)
   var firstEvent = true;
-  var events = [];
-
-  for (e = 0; e < 49; e++) {
-    events.push(eventSeries[e % eventSeries.length] + e); // in all, say
-  }
-  Logger.log(events);
-
+  var eventSeries = ["eventSeriesJ", "eventSeriesI", "eventSeriesA"];
+  var indexKeep = eventSeries.length*(frequency-1); // start
   var firstDate = [];
-  var firstIndexKeep = eventSeries.length*(frequency-1);
+  var firstDateIndex = eventSeries.length*(frequency-1);
   for (var n = 0; n < eventSeries.length; n++) {
-    firstDate[n] = events[firstIndexKeep];
-    firstIndexKeep++;
+    firstDate[n] = date[firstDateIndex]; // using strings and arrays for simplicity
+    firstDateIndex++;
   }
-  Logger.log(firstDate);
 
-  for (var _ in events) { // 7 3, 9 4, 11 5, 13 6->16
-
+  for (var datestr in date) {
+    var eventDate = date[datestr]; // again, using strings and arrays for simplicity
       if (eventIndex === indexKeep) {
         indexKeep++;
-        if (indexKeep % eventSeries.length === 0) { // <--- wait every eventSeries.length
+        if (indexKeep % eventSeries.length === 0) // <--- wait every eventSeries.length
           indexKeep = indexKeep + eventSeries.length*(frequency-1);
-        }
         if (eventIndex >= eventSeries.length + eventSeries.length*(frequency-1)) {
           firstEvent = false;
         }
         if (firstEvent) {
-          eventSeries[eventIndex % eventSeries.length] = firstDate[eventIndex % eventSeries.length]; // <-- changed
+          eventSeries[eventIndex % eventSeries.length] = firstDate[eventIndex % eventSeries.length];
         }
         else {
-          eventSeries[eventIndex % eventSeries.length] = eventSeries[eventIndex % eventSeries.length].concat(", " + events[eventIndex]);
+          eventSeries[eventIndex % eventSeries.length] = eventSeries[eventIndex % eventSeries.length].concat(", " + eventDate); // similar to chaining events
         }
       }
 
@@ -45,7 +38,7 @@ function myFunction() {
     eventIndex++;
   }
 
-    Logger.log("eventSeries[" + 0 + "] = " + eventSeries[0]);
-    Logger.log("eventSeries[" + 1 + "] = " + eventSeries[1]);
-    Logger.log("eventSeries[" + 2 + "] = " + eventSeries[2]);
+Logger.log("eventSeries[" + 0 + "] = " + eventSeries[0]);
+Logger.log("eventSeries[" + 1 + "] = " + eventSeries[1]);
+Logger.log("eventSeries[" + 2 + "] = " + eventSeries[2]);
 }
