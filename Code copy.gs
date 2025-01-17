@@ -6,7 +6,7 @@ function myFunction() {
   var frequency = 2; // provided by user
 
   var eventIndex = 0;
-  var date = ["Tue Jan 21 2025", "Tue Feb 04 2025", "Wed Feb 12 2025", "Thu Feb 27 2025", "Fri Mar 07 2025", "Wed Mar 19 2025", "Mon Mar 31 2025", "Tue Apr 08 2025", "Wed Apr 23 2025", "Thu May 01 2025", "Fri May 09 2025", "Mon May 19 2025", "Wed May 28 2025", "Thu Jun 05 2025"]; // date is app is a dictionary, so this is essentially Object.keys(date)
+  var date = ["Tue Jan 21 2025", "Tue Feb 04 2025", "Wed Feb 12 2025", "Thu Feb 27 2025", "Fri Mar 07 2025", "Wed Mar 19 2025", "Mon Mar 31 2025", "Tue Apr 08 2025", "Wed Apr 23 2025", "Thu May 01 2025", "Fri May 09 2025", "Mon May 19 2025", "Wed May 28 2025", "Thu Jun 05 2025"]; // date in app is a dictionary, so this is essentially Object.keys(date)
   var firstEvent = true;
   var eventSeries = ["eventSeriesJ", "eventSeriesI", "eventSeriesA"];
   var indexKeep = eventSeries.length*(frequency-1); // start
@@ -21,7 +21,7 @@ function myFunction() {
     var eventDate = date[datestr]; // again, using strings and arrays for simplicity
       if (eventIndex === indexKeep) {
         indexKeep++;
-        if (indexKeep % eventSeries.length === 0) // <--- wait every eventSeries.length
+        if (indexKeep % eventSeries.length === 0) // <--- jump every eventSeries.length
           indexKeep = indexKeep + eventSeries.length*(frequency-1);
         if (eventIndex >= eventSeries.length + eventSeries.length*(frequency-1)) {
           firstEvent = false;
@@ -34,7 +34,6 @@ function myFunction() {
         }
       }
 
-    // Log which events were added
     eventIndex++;
   }
 
