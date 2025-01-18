@@ -30,7 +30,7 @@ function getCalendarNamesAndDefault() {
       for (var k = 0; k < eventFind.length; k++) {
         var event = eventFind[k];
         let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
-        if (query.includes(event.getTitle())) { // but won't know query yet
+        if (query.includes(event.getTitle())) {
           calendarNameRef = String(allCalendars[j].getName()); // Assign the calendar ID
           found = true;
           howMany += 1;
@@ -48,11 +48,13 @@ function getCalendarNamesAndDefault() {
     username: userName,
     calendars: allCalendarNames,
     default: defaultCalendarName,
+    reference: calendarNameRef, // will pump to addEvents() instead of looping again
   };
 }
 
 function addEvents(
   calendarName,
+  calendarNameRef,
   query,
   frequency,
   title,
@@ -78,28 +80,34 @@ function addEvents(
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
-  // maybe use filter too?
-
+  
   // Find reference calendar
-  var found = false;
-  var howMany = 0;
-  for (var j = 0; j < calendars.length; j++) {
-    if (found === false || howMany === 1) {
-      var now = new Date();
-      var oneYearFromNow = new Date();
-      oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
-      var eventFind = calendars[j].getEvents(now, oneYearFromNow);
-      for (var k = 0; k < eventFind.length; k++) {
-        var event = eventFind[k];
-        if (query.includes(event.getTitle())) {
-          calendarIdRef = String(calendars[j].getId()); // Assign the calendar ID
-          found = true;
-          howMany += 1;
-          break;
-        }
-      }
+  // var found = false;
+  // var howMany = 0;
+  // for (var j = 0; j < calendars.length; j++) {
+  //   if (found === false || howMany === 1) {
+  //     var now = new Date();
+  //     var oneYearFromNow = new Date();
+  //     oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
+  //     var eventFind = calendars[j].getEvents(now, oneYearFromNow);
+  //     for (var k = 0; k < eventFind.length; k++) {
+  //       var event = eventFind[k];
+  //       if (query.includes(event.getTitle())) {
+  //         calendarIdRef = String(calendars[j].getId()); // Assign the calendar ID
+  //         found = true;
+  //         howMany += 1;
+  //         break;
+  //       }
+  //     }
+  //   }
+  // }
+  for (var i = 0; i < calendars.length; i++) {
+    if (calendars[i].getName() === calendarNameRef) {
+      calendarIdRef = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
+  // calendarIdRef = String(calendarNameRef.getId());
+
 
   // check if reference calendar doesn't exist
   if (calendarIdRef === "") {
@@ -107,9 +115,9 @@ function addEvents(
   }
 
   // check for multiple (i.e., conflicting) reference calendars
-  if (howMany > 1) {
-    return "Multiple calendars contain letter days!"; // handle error
-  }
+  // if (howMany > 1) {
+  //   return "Multiple calendars contain letter days!"; // handle error
+  // }
 
   // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);

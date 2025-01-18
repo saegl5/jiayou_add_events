@@ -125,6 +125,11 @@
         <text>Calendar must already exist</text>
         <br /><br />
 
+        <label for="calendarNameRef"></label>
+        <text id="calendarNameRef" name="calendarNameRef"></text>
+        <!-- <text>Calendar must already exist</text> -->
+        <!-- <br /><br /> -->
+
         <label for="letters">Letter days:</label>
         <div id="table">
           <div id="row">
@@ -342,6 +347,7 @@
                   .options.add(new Option(calendar, calendar, false, false)); // likewise, each other option will display the calendar name, and their value will be that same name; however, they are not selected by default and are not shown as selected
               // see also https://stackoverflow.com/questions/45379356/whats-the-difference-between-selected-and-defaultselected-when-constructing
             }
+            document.getElementById("calendarNameRef").value = response.reference;
           })
           .getCalendarNamesAndDefault();
       }
@@ -362,6 +368,7 @@
           event.preventDefault(); // Prevents the form from submitting the traditional way
 
           var calendarName = document.getElementById("calendarName").value;
+          var calendarNameRef = document.getElementById("calendarNameRef").value;
           var query = [
             ...document.querySelectorAll("input[name=letters]:checked"),
           ].map(({ value }) => value); // essentially, place the value of every letter day (that is checked) into an array called "letters", "..." is spread syntax
@@ -387,6 +394,7 @@
             })
             .addEvents(
               calendarName,
+              calendarNameRef,
               query,
               frequency,
               title,
