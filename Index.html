@@ -31,6 +31,9 @@
         -webkit-box-sizing: border-box;
         box-sizing: border-box; /* compatibility */
       }
+      input[type="number"] {
+        width: 2em;
+      }
       select,
       input,
       textarea,
@@ -43,6 +46,7 @@
       input[type="submit"],
       text,
       div[id="section"],
+      div[id="inline"],
       div[id="issues"] {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
@@ -128,6 +132,20 @@
         
         <text>Letter day on which you want to create an event</text>
         <!-- prefilled for clarity -->
+        <br /><br />
+
+        <!-- <label for="frequency">Frequency:</label><br> -->
+        <div id="inline">
+          Every&nbsp; <input
+            type="number"
+            id="frequency"
+            name="frequency"
+            value="1"
+            min="1"
+            max="3"
+          /> &nbsp;letter day(s)
+        </div>
+        <text>Skip one or two letter days</text>
         <br /><br />
       </div>
 
@@ -298,6 +316,7 @@
 
           var calendarName = document.getElementById("calendarName").value;
           var query = [...document.querySelectorAll('input[name=query]:checked')].map(({value}) => value);
+          var frequency = document.getElementById("frequency").value;
           var title = document.getElementById("title").value;
           var guests = document.getElementById("guests").value;
           var location = document.getElementById("location").value;
@@ -317,6 +336,7 @@
             .addEvents(
               calendarName,
               query,
+              frequency,
               title,
               guests,
               location,
