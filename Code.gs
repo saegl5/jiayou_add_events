@@ -17,6 +17,33 @@ function getCalendarNamesAndDefault() {
     allCalendarNames.push(calendar.getName());
   }
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
+
+  // Hide reference calendar
+  var found = false;
+  var howMany = 0;
+  for (var j = 0; j < allCalendars.length; j++) {
+    if (found === false || howMany === 1) {
+      var now = new Date();
+      var oneYearFromNow = new Date();
+      oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
+      var eventFind = allCalendars[j].getEvents(now, oneYearFromNow);
+      for (var k = 0; k < eventFind.length; k++) {
+        var event = eventFind[k];
+        let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
+        if (query.includes(event.getTitle())) { // but won't know query yet
+          calendarNameRef = String(allCalendars[j].getName()); // Assign the calendar ID
+          found = true;
+          howMany += 1;
+          break;
+        }
+        else {
+          calendarNameRef = "";
+        }
+      }
+    }
+  }
+  allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef);
+
   return {
     username: userName,
     calendars: allCalendarNames,
@@ -51,6 +78,7 @@ function addEvents(
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
+  // maybe use filter too?
 
   // Find reference calendar
   var found = false;
