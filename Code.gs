@@ -266,7 +266,7 @@ function addEvents(
 
   });
 
-  // chain subsequent events to the first event
+  // chain subsequent events to each first event
   var firstEvent = true;
   // get letter days from query
   var eventSeries = [];
@@ -282,7 +282,7 @@ function addEvents(
   // https://github.com/saegl5/jiayou_add_events/issues/4
 
   // Counter for only events keep
-  var indexKeep = eventSeries.length*(frequency-1); // start
+  var indexKeep = eventSeries.length*(frequency-1); // start very first date at this index
 
   // extract the first date from the dictionary
   var firstDate = []; // may have multiple first dates
@@ -316,7 +316,7 @@ function addEvents(
   }
 
   // Iterate over the dates with events titled query and create a new event for the series at start time
-  for (var datestr in date) { // every dictionary key in date
+  for (var datestr in date) { // every dictionary key in date, key is ordered too
     var eventDate = new Date(datestr); // "eventDate" above is isolated in its own loop
     if (!dryRun) {
       // Check if description is a link
@@ -332,7 +332,7 @@ function addEvents(
     function createEvent(frequency, includesHttp) {
       if (eventIndex === indexKeep) {
         indexKeep++;
-        if (indexKeep % eventSeries.length === 0) // <--- jump every eventSeries.length
+        if (indexKeep % eventSeries.length === 0) // jump every eventSeries.length
           indexKeep = indexKeep + eventSeries.length*(frequency-1);
         if (eventIndex >= eventSeries.length + eventSeries.length*(frequency-1))
           // could also use query.length
