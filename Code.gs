@@ -34,6 +34,7 @@ function getCalendarNamesAndDefault() {
         let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
         if (query.includes(event.getTitle())) {
           calendarNameRef = String(allCalendars[j].getName()); // Assign the calendar ID
+          allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
           found = true;
           howMany += 1;
           break;
@@ -44,7 +45,6 @@ function getCalendarNamesAndDefault() {
       }
     }
   }
-  allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
 
   return {
     username: userName,
