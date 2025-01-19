@@ -2,6 +2,8 @@
 // If the script below is modified improperly, running it may cause irrevocable damage.
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
+// comment out the calendar filter to display the reference calendar
+
 function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index").setTitle(
     'Add 加油 ("jiā yóu") Events'
@@ -42,7 +44,7 @@ function getCalendarNamesAndDefault() {
       }
     }
   }
-  allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef);
+  allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
 
   return {
     username: userName,
@@ -101,7 +103,7 @@ function addEvents(
   //     }
   //   }
   // }
-  for (var i = 0; i < calendars.length; i++) {
+  for (var i = 0; i < calendars.length; i++) { // j? how to avoid looping for this?
     if (calendars[i].getName() === calendarNameRef) {
       calendarIdRef = String(calendars[i].getId()); // Assign the calendar ID
     }
