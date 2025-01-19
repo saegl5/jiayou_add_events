@@ -370,6 +370,13 @@
       // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
 
       document
+        .getElementById("calendarName")
+        .addEventListener("change", function () { 
+          if (this.value === document.getElementById("calendarNameRef").value)
+            alert("\"" + this.value + "\" is an internal calendar!\n\nPlease kindly choose a different calendar to add events.");
+      }); 
+
+      document
         .getElementById("calendarForm")
         .addEventListener("submit", function (event) {
           event.preventDefault(); // Prevents the form from submitting the traditional way
