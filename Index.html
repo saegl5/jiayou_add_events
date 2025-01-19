@@ -129,6 +129,9 @@
         <text id="calendarNameRef" name="calendarNameRef"></text>
         <!-- <text>Calendar must already exist</text> -->
         <!-- <br /><br /> -->
+        
+        <label for="howMany"></label>
+        <text id="howMany" name="howMany"></text>
 
         <label for="letters">Letter days:</label>
         <div id="table">
@@ -348,6 +351,7 @@
               // see also https://stackoverflow.com/questions/45379356/whats-the-difference-between-selected-and-defaultselected-when-constructing
             }
             document.getElementById("calendarNameRef").value = response.reference;
+            document.getElementById("howMany").value = response.conflict;
           })
           .getCalendarNamesAndDefault();
       }
@@ -369,6 +373,7 @@
 
           var calendarName = document.getElementById("calendarName").value;
           var calendarNameRef = document.getElementById("calendarNameRef").value;
+          var howMany = document.getElementById("howMany").value;
           var query = [
             ...document.querySelectorAll("input[name=letters]:checked"),
           ].map(({ value }) => value); // essentially, place the value of every letter day (that is checked) into an array called "letters", "..." is spread syntax
@@ -395,6 +400,7 @@
             .addEvents(
               calendarName,
               calendarNameRef,
+              howMany,
               query,
               frequency,
               title,

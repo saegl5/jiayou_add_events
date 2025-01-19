@@ -51,12 +51,14 @@ function getCalendarNamesAndDefault() {
     calendars: allCalendarNames,
     default: defaultCalendarName,
     reference: calendarNameRef, // will pump to addEvents() instead of looping again
+    conflict: howMany,
   };
 }
 
 function addEvents(
   calendarName,
   calendarNameRef,
+  howMany,
   query,
   frequency,
   title,
@@ -117,9 +119,9 @@ function addEvents(
   }
 
   // check for multiple (i.e., conflicting) reference calendars
-  // if (howMany > 1) {
-  //   return "Multiple calendars contain letter days!"; // handle error
-  // }
+  if (howMany > 1) {
+    return "Multiple calendars contain letter days!"; // handle error
+  }
 
   // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
