@@ -352,6 +352,9 @@
             }
             document.getElementById("calendarNameRef").value = response.reference;
             document.getElementById("howMany").value = response.conflict;
+            if (response.conflict > 1) {
+              document.getElementById("wait").innerHTML = "Multiple calendars contain letter days!";
+            }
           })
           .getCalendarNamesAndDefault();
       }
