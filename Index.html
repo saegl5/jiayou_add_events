@@ -8,18 +8,19 @@
     <style>
       /* Basic styling for the form */
       :root {
-        --border: silver;
-        --background: Gainsboro;
-        --foreground: #f8f8f8;
-        --section: darkgrey;
-        --description: darkgrey;
+        /* use three root colors, based on material design */
+        --border: #9E9E9E;
+        --background: #E0E0E0;
+        --foreground: #f5f5f5;
+        --section: var(--border);
+        --description: var(--border);
       }
       form {
         max-width: 528px;
         margin: 0 auto;
         padding: 15px;
         border: 1px solid var(--border);
-        border-radius: 5px;
+        border-radius: 15px; /* more fun-looking */
         background-color: var(--background);
       }
       select,
@@ -73,8 +74,8 @@
         padding-top: 10px;
         padding-left: 15px;
         padding-right: 15px;
-        border: 1px solid var(--border);
-        border-radius: 5px;
+        border: 2px solid var(--border); /* more pop */
+        border-radius: 15px; /* more fun-looking */
         background-color: var(--foreground);
       }
       div[id="section"] {
@@ -202,7 +203,7 @@
           rows="2"
           placeholder="Optional"
         ></textarea>
-        <text>Accepted format: comma-separated list of email addresses</text>
+        <text>Comma-separated list of email addresses</text>
         <!-- send invitation emails manually -->
         <br /><br />
 
@@ -223,7 +224,7 @@
           rows="3"
           placeholder="Optional"
         /></textarea>
-        <text>Accepted formats: string or full URL</text>
+        <text>String or full URL</text>
         <!-- If full URL, then text to display will be "Agenda" -->
         <br /><br />
 
@@ -256,7 +257,7 @@
           </div>
         </div>
         <!-- Confine date range -->
-        <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</text>
+        <text>Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</text>
         <br /><br />
 
         <div id="table">
@@ -294,7 +295,7 @@
           </div>
         </div>
         <!-- prefilled for clarity -->
-        <text>Accepted formats: HH:MM AM/PM, HH:MM (24-hour)</text>
+        <text>HH:MM AM/PM, HH:MM (24-hour)</text>
         <br /><br />
       </div>
 
