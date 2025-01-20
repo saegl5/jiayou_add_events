@@ -2,8 +2,6 @@
 // If the script below is modified improperly, running it may cause irrevocable damage.
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
-// comment out the calendar filter to display the reference calendar
-
 function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index").setTitle(
     'Add 加油 ("jiā yóu") Events'
