@@ -21,17 +21,17 @@ function getCalendarNamesAndDefault() {
   // Hide reference calendar
   var found = false;
   var howMany = 0;
-  for (var j = 0; j < allCalendars.length; j++) {
+  for (var i = 0; i < allCalendars.length; i++) {
     if (found === false || howMany === 1) {
       var now = new Date();
       var oneYearFromNow = new Date();
       oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
-      var eventFind = allCalendars[j].getEvents(now, oneYearFromNow);
-      for (var k = 0; k < eventFind.length; k++) {
-        var event = eventFind[k];
+      var eventFind = allCalendars[i].getEvents(now, oneYearFromNow);
+      for (var j = 0; j < eventFind.length; j++) {
+        var event = eventFind[j];
         let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
         if (query.includes(event.getTitle())) {
-          calendarNameRef = String(allCalendars[j].getName()); // Assign the calendar ID
+          calendarNameRef = String(allCalendars[i].getName()); // Assign the calendar ID
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
           found = true;
           howMany += 1;
@@ -103,9 +103,9 @@ function addEvents(
   //     }
   //   }
   // }
-  for (var i = 0; i < calendars.length; i++) { // j? how to avoid looping for this?
-    if (calendars[i].getName() === calendarNameRef) {
-      calendarIdRef = String(calendars[i].getId()); // Assign the calendar ID
+  for (var k = 0; k < calendars.length; k++) {
+    if (calendars[k].getName() === calendarNameRef) {
+      calendarIdRef = String(calendars[k].getId()); // Assign the calendar ID
     }
   }
   // calendarIdRef = String(calendarNameRef.getId());
