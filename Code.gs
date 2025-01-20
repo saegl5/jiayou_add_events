@@ -84,32 +84,11 @@ function addEvents(
   }
   
   // Find reference calendar
-  // var found = false;
-  // var howMany = 0;
-  // for (var j = 0; j < calendars.length; j++) {
-  //   if (found === false || howMany === 1) {
-  //     var now = new Date();
-  //     var oneYearFromNow = new Date();
-  //     oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
-  //     var eventFind = calendars[j].getEvents(now, oneYearFromNow);
-  //     for (var k = 0; k < eventFind.length; k++) {
-  //       var event = eventFind[k];
-  //       if (query.includes(event.getTitle())) {
-  //         calendarIdRef = String(calendars[j].getId()); // Assign the calendar ID
-  //         found = true;
-  //         howMany += 1;
-  //         break;
-  //       }
-  //     }
-  //   }
-  // }
   for (var k = 0; k < calendars.length; k++) {
     if (calendars[k].getName() === calendarNameRef) {
       calendarIdRef = String(calendars[k].getId()); // Assign the calendar ID
     }
   }
-  // calendarIdRef = String(calendarNameRef.getId());
-
 
   // check if reference calendar doesn't exist
   if (calendarIdRef === "") {
