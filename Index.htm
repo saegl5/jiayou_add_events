@@ -1,81 +1,93 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-</head>
-<body>
-  <div class="container">
-    <h5>Materialize Dropdown Example</h5>
-    <!-- Dropdown Trigger -->
-    <a class="dropdown-trigger btn" href="#" data-target="dropdown1">Dropdown Menu</a>
-    <!-- Dropdown Structure -->
-    <ul id="dropdown1" class="dropdown-content">
-      <li><a href="#!">Option 1</a></li>
-      <li><a href="#!">Option 2</a></li>
-      <li class="divider" tabindex="-1"></li>
-      <li><a href="#!">Option 3</a></li>
-    </ul>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h5>Materialize Dropdown Example</h5>
+      <!-- Dropdown Trigger -->
+      <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
+        >Dropdown Menu</a
+      >
+      <!-- Dropdown Structure -->
+      <ul id="dropdown1" class="dropdown-content">
+        <li><a href="#!">Option 1</a></li>
+        <li><a href="#!">Option 2</a></li>
+        <li class="divider" tabindex="-1"></li>
+        <li><a href="#!">Option 3</a></li>
+      </ul>
 
-    <h5>Materialize Checkboxes Example</h5>
-    <form id="checkboxForm">
-      <p>
-        <label>
-          <input type="checkbox" name="option1" />
-          <span>Option 1</span>
-        </label>
-      </p>
-      <p>
-        <label>
-          <input type="checkbox" name="option2" />
-          <span>Option 2</span>
-        </label>
-      </p>
-      <p>
-        <label>
-          <input type="checkbox" name="option3" />
-          <span>Option 3</span>
-        </label>
-      <!-- </p> -->
-      <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
-    </form>
+      <h5>Materialize Checkboxes Example</h5>
+      <form id="checkboxForm">
+        <p>
+          <label>
+            <input type="checkbox" name="option1" />
+            <span>Option 1</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input type="checkbox" name="option2" />
+            <span>Option 2</span>
+          </label>
+        </p>
+        <p>
+          <label>
+            <input type="checkbox" name="option3" />
+            <span>Option 3</span>
+          </label>
+          <!-- </p> -->
+          <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
+        </p>
+      </form>
 
-    <h5>Materialize Number Input Example</h5>
-    <form id="numberForm">
-      <div class="input-field">
-        <input id="numberInput" type="number" name="quantity" min="1" max="100" step="1">
-        <label for="numberInput">Enter a number</label>
-      </div>
-      <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
-    </form>
+      <h5>Materialize Number Input Example</h5>
+      <form id="numberForm">
+        <div class="input-field">
+          <input
+            id="numberInput"
+            type="number"
+            name="quantity"
+            min="1"
+            max="100"
+            step="1"
+          />
+          <label for="numberInput">Enter a number</label>
+        </div>
+        <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
+      </form>
 
-    <h5>Materialize Text Input Example</h5>
-    <form id="textInputForm">
-      <div class="input-field">
-        <input id="first_name" type="text" class="validate" required>
-        <label for="first_name">First Name</label>
-      </div>
-      <div class="input-field">
-        <input id="email" type="email" class="validate" required>
-        <label for="email">Email</label>
-      </div>
-      <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
-    </form>
+      <h5>Materialize Text Input Example</h5>
+      <form id="textInputForm">
+        <div class="input-field">
+          <input id="first_name" type="text" class="validate" required />
+          <label for="first_name">First Name</label>
+        </div>
+        <div class="input-field">
+          <input id="email" type="email" class="validate" required />
+          <label for="email">Email</label>
+        </div>
+        <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
+      </form>
 
-    <button class="btn waves-effect waves-light" type="submit">Submit</button>
+      <button class="btn waves-effect waves-light" type="submit">Submit</button>
+    </div>
 
-  </div>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const elems = document.querySelectorAll('.dropdown-trigger');
-      M.Dropdown.init(elems);
-      M.AutoInit();
-    });
-    // document.addEventListener('DOMContentLoaded', function () {
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const elems = document.querySelectorAll(".dropdown-trigger");
+        M.Dropdown.init(elems);
+        M.AutoInit();
+      });
+      // document.addEventListener('DOMContentLoaded', function () {
       // M.AutoInit();
-    // });
-  </script>
-</body>
+      // });
+    </script>
+  </body>
 </html>
