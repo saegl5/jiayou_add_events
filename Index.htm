@@ -10,18 +10,19 @@
   </head>
   <body>
     <div class="container">
-      <h5>Materialize Dropdown Example</h5>
-      <!-- Dropdown Trigger -->
-      <a class="dropdown-trigger btn" href="#" data-target="dropdown1"
-        >Dropdown Menu</a
-      >
-      <!-- Dropdown Structure -->
-      <ul id="dropdown1" class="dropdown-content">
-        <li><a href="#!">Option 1</a></li>
-        <li><a href="#!">Option 2</a></li>
-        <li class="divider" tabindex="-1"></li>
-        <li><a href="#!">Option 3</a></li>
-      </ul>
+      <h5>Materialize Select Example</h5>
+      <form>
+        <div class="input-field">
+          <select id="selectOption">
+            <option value="" disabled selected>Choose an option</option>
+            <option value="1">Option 1</option>
+            <option value="2">Option 2</option>
+            <option value="3">Option 3</option>
+          </select>
+          <label>Options</label>
+        </div>
+        <button class="btn waves-effect waves-light" type="submit">Submit</button>
+      </form>
 
       <h5>Materialize Checkboxes Example</h5>
       <form id="checkboxForm">
