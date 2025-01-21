@@ -89,9 +89,9 @@
         font-size: smaller;
         color: var(--section);
       }
-      input[type="checkbox"] {
-        vertical-align: bottom;
-      }
+      /* input[type="checkbox"] { */
+        /* vertical-align: bottom; */
+      /* } */
       input[type="submit"] {
         border-color: var(--border);
         border-radius: 5px;
@@ -115,6 +115,9 @@
       }
       .reference {
         font-style: normal;
+      }
+      h5 {
+        margin-bottom: 0px;
       }
     </style>
   </head>
@@ -144,22 +147,51 @@
           <label for="howMany"></label>
           <text id="howMany" name="howMany"></text>
 
-          <label for="letters">Letter days:</label>
+          <h5>Letter Days</h5>
+          <label>Letter day on which you want to create an event</label>
           <div id="table">
             <div id="row">
-              <div id="cell"><input type="checkbox" id="j" name="letters" value="J Day" unchecked /><label for="j">J</label></div>
-              <div id="cell"><input type="checkbox" id="i" name="letters" value="I Day" unchecked /><label for="i">I</label></div>
-              <div id="cell"><input type="checkbox" id="a" name="letters" value="A Day" unchecked /><label for="a">A</label></div>
+              <div id="cell">
+                <label>
+                  <input type="checkbox" name="letters" value="J Day" unchecked />
+                  <span>J</span>
+                </label>
+              </div>
+              <div id="cell">
+                <label>
+                  <input type="checkbox" name="letters" value="I Day" unchecked />
+                  <span>I</span>
+                </label>
+              </div>
+              <div id="cell">
+                <label>
+                  <input type="checkbox" name="letters" value="A Day" unchecked />
+                  <span>A</span>
+                </label>
+              </div>
             </div>
             <div id="row">
-              <div id="cell"><input type="checkbox" id="y" name="letters" value="Y Day" unchecked /><label for="y">Y</label></div>
-              <div id="cell"><input type="checkbox" id="o" name="letters" value="O Day" unchecked /><label for="o">O</label></div>
-              <div id="cell"><input type="checkbox" id="u" name="letters" value="U Day" unchecked /><label for="u">U</label></div>
+              <div id="cell">
+                <label>
+                  <input type="checkbox" name="letters" value="Y Day" unchecked />
+                  <span>Y</span>
+                </label>
+              </div>
+              <div id="cell">
+                <label>
+                  <input type="checkbox" name="letters" value="O Day" unchecked />
+                  <span>O</span>
+                </label>
+              </div>
+              <div id="cell">
+                <label>
+                  <input type="checkbox" name="letters" value="U Day" unchecked />
+                  <span>U</span>
+                </label>
+              </div>
             </div>
           </div>
-          <text>Letter day on which you want to create an event</text>
           <!-- prefilled for clarity -->
-          <br /><br />
 
           <!-- <label for="frequency">Frequency:</label><br> -->
           <div id="inline">
@@ -342,6 +374,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const elems = document.querySelectorAll("select");
         M.FormSelect.init(elems);
+        M.AutoInit();
         load();
       });
 
