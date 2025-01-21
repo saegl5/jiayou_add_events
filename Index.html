@@ -117,7 +117,7 @@
       .reference {
         font-style: normal;
       }
-      h5[id="days"] {
+      h5[id="days"], h5[id="dates"], h5[id="times"] {
         margin-bottom: -5px;
       }
     </style>
@@ -226,7 +226,7 @@
           <div class="container">
             <div id="settings">
               <div id="section">Event Settings</div>
-              <br />
+              <!-- <br /> -->
 
               <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
               <!-- <input -->
@@ -267,75 +267,47 @@
               </div>
               <!-- If full URL, then text to display will be "Agenda" -->
 
+
+              <h5 id="dates">Date</h5>
+              <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
               <div id="table">
                 <div id="row">
                   <div id="cell">
-                    <label for="start">Start date:</label>
-                  </div>
-                  <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-                  <div id="cell">
-                    <label for="end">End date:</label>
-                  </div>
-                </div>
-                <div id="row">
-                  <div id="cell">
-                    <input
-                      type="text"
-                      id="start"
-                      name="start"
-                    />
+                    <input id="start" type="text" class="validate" placeholder="Optional" />
+                    <label for="start">Start</label>
                     <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
                   </div>
                   <div id="cell" class="mid">
-                    <!-- empty -->
+                    &emsp;-&emsp;
                   </div>
                   <div id="cell">
+                    <input id="end" type="text" class="validate" placeholder="Optional" />
+                    <label for="end">End</label>                    
                     <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
-                    <input type="text" id="end" name="end" placeholder="Optional" />
                   </div>
                 </div>
               </div>
               <!-- Confine date range -->
-              <text>Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</text>
-              <br /><br />
 
+              <h5 id="times">Time</h5>
+              <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label>
               <div id="table">
                 <div id="row">
                   <div id="cell">
-                    <label for="startTime">Start time:</label>
-                  </div>
-                  <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-                  <div id="cell">
-                    <label for="endTime">End time:</label>
-                  </div>
-                </div>
-                <div id="row">
-                  <div id="cell">
-                    <input
-                      type="text"
-                      id="startTime"
-                      name="startTime"
-                      value="10:00 AM"
-                      placeholder="Optional"
-                    />
+                    <input id="startTime" type="text" class="validate" placeholder="Optional" value="10:00 AM" />
+                    <label for="startTime">Start</label>
                   </div>
                   <div id="cell" class="mid">
-                    <!-- empty -->
+                    &emsp;-&emsp;
                   </div>
                   <div id="cell">
-                    <input
-                      type="text"
-                      id="endTime"
-                      name="endTime"
-                      value="11:00 AM"
-                      placeholder="Optional"
-                    />
+                    <input id="endTime" type="text" class="validate" placeholder="Optional" value="11:00 AM" />
+                    <label for="endTime">End</label>                     
                   </div>
                 </div>
               </div>
               <!-- prefilled for clarity -->
-              <text>HH:MM AM/PM, HH:MM (24-hour)</text>
-              <br /><br />
+              <br/>
             </div>
 
             <br />
