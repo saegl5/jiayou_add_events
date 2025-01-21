@@ -31,7 +31,7 @@
       }
       /* select, */
       /* input[type="text"], */
-      input[type="submit"],
+      /* input[type="submit"], */
       textarea {
         display: block;
         margin-bottom: 0px;
@@ -53,7 +53,7 @@
       h1,
       div[id="user"],
       label,
-      input[type="submit"],
+      /* input[type="submit"], */
       /* text, */
       div[id="section"],
       /* div[id="inline"], */
@@ -93,10 +93,10 @@
       /* input[type="checkbox"] { */
         /* vertical-align: bottom; */
       /* } */
-      input[type="submit"] {
-        border-color: var(--border);
-        border-radius: 5px;
-      }
+      /* input[type="submit"] { */
+        /* border-color: var(--border); */
+        /* border-radius: 5px; */
+      /* } */
       /* h1 {
         text-align: center;
       } */
@@ -362,7 +362,10 @@
               <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
             </div>
 
-            <input type="submit" value="Submit" />
+            <div class="center-align">
+              <button class="btn waves-effect waves-light" type="submit">Submit</button>
+            </div>
+
             <div id="wait">&nbsp;</div>
             <!-- id="wait" div displays function return messages -->
           </div>
