@@ -119,220 +119,222 @@
     </style>
   </head>
   <body onload="load()">
-    <h1>Add 加油 ("jiā yóu") Events</h1>
-    <div id="user">&nbsp;</div>
-    <br />
-    <form id="calendarForm">
-      <div id="search">
-        <div id="section">Search Parameters</div>
-        <br />
-
-        <h5>Calendar Name</h5>
-        <div class="input-field">
-          <select id="calendarName">
-            <option value="" disabled selected>Searching calendars...</option>
-          </select>
-          <label>Calendar must already exist</label>
-        </div>
-
-        <label for="calendarNameRef"></label>
-        <text id="calendarNameRef" name="calendarNameRef"></text>
-        <!-- <text>Calendar must already exist</text> -->
-        <!-- <br /><br /> -->
-        
-        <label for="howMany"></label>
-        <text id="howMany" name="howMany"></text>
-
-        <label for="letters">Letter days:</label>
-        <div id="table">
-          <div id="row">
-            <div id="cell"><input type="checkbox" id="j" name="letters" value="J Day" unchecked /><label for="j">J</label></div>
-            <div id="cell"><input type="checkbox" id="i" name="letters" value="I Day" unchecked /><label for="i">I</label></div>
-            <div id="cell"><input type="checkbox" id="a" name="letters" value="A Day" unchecked /><label for="a">A</label></div>
-          </div>
-          <div id="row">
-            <div id="cell"><input type="checkbox" id="y" name="letters" value="Y Day" unchecked /><label for="y">Y</label></div>
-            <div id="cell"><input type="checkbox" id="o" name="letters" value="O Day" unchecked /><label for="o">O</label></div>
-            <div id="cell"><input type="checkbox" id="u" name="letters" value="U Day" unchecked /><label for="u">U</label></div>
-          </div>
-        </div>
-        <text>Letter day on which you want to create an event</text>
-        <!-- prefilled for clarity -->
-        <br /><br />
-
-        <!-- <label for="frequency">Frequency:</label><br> -->
-        <div id="inline">
-          Every&nbsp; <input
-            type="number"
-            id="frequency"
-            name="frequency"
-            value="1"
-            min="1"
-            max="3"
-          /> &nbsp;letter day(s)
-        </div>
-        <text>Skip one or two letter days</text>
-        <br /><br />
-      </div>
-
+    <div class="container">
+      <h1>Add 加油 ("jiā yóu") Events</h1>
+      <div id="user">&nbsp;</div>
       <br />
+      <form id="calendarForm">
+        <div id="search">
+          <div id="section">Search Parameters</div>
+          <br />
 
-      <div id="settings">
-        <div id="section">Event Settings</div>
-        <br />
+          <h5>Calendar Name</h5>
+          <div class="input-field">
+            <select id="calendarName">
+              <option value="" disabled selected>Searching calendars...</option>
+            </select>
+            <label>Calendar must already exist</label>
+          </div>
 
-        <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
-        <!-- <input -->
-        <!-- type="text" -->
-        <!-- id="calendarNameAlt" -->
-        <!-- name="calendarNameAlt" -->
-        <!-- placeholder="Optional" -->
-        <!-- /> -->
-        <!-- <text -->
-        <!-- >Create events on an alternate calendar on the same letter day</text -->
-        <!-- ><br /> -->
-        <!-- <br /> -->
+          <label for="calendarNameRef"></label>
+          <text id="calendarNameRef" name="calendarNameRef"></text>
+          <!-- <text>Calendar must already exist</text> -->
+          <!-- <br /><br /> -->
+          
+          <label for="howMany"></label>
+          <text id="howMany" name="howMany"></text>
 
-        <label for="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value="New Meeting"
-          required
-        />
-        <!-- prefilled for convenience -->
-        <br />
-
-        <label for="guests">Guests:</label>
-        <textarea
-          type="text"
-          id="guests"
-          name="guests"
-          rows="2"
-          placeholder="Optional"
-        ></textarea>
-        <text>Comma-separated list of email addresses</text>
-        <!-- send invitation emails manually -->
-        <br /><br />
-
-        <label for="location">Location:</label>
-        <input
-          type="text"
-          id="location"
-          name="location"
-          placeholder="Optional"
-        />
-        <br />
-
-        <label for="description">Description:</label>
-        <textarea
-          type="text"
-          id="description"
-          name="description"
-          rows="3"
-          placeholder="Optional"
-        /></textarea>
-        <text>String or full URL</text>
-        <!-- If full URL, then text to display will be "Agenda" -->
-        <br /><br />
-
-        <div id="table">
-          <div id="row">
-            <div id="cell">
-              <label for="start">Start date:</label>
+          <label for="letters">Letter days:</label>
+          <div id="table">
+            <div id="row">
+              <div id="cell"><input type="checkbox" id="j" name="letters" value="J Day" unchecked /><label for="j">J</label></div>
+              <div id="cell"><input type="checkbox" id="i" name="letters" value="I Day" unchecked /><label for="i">I</label></div>
+              <div id="cell"><input type="checkbox" id="a" name="letters" value="A Day" unchecked /><label for="a">A</label></div>
             </div>
-            <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-            <div id="cell">
-              <label for="end">End date:</label>
+            <div id="row">
+              <div id="cell"><input type="checkbox" id="y" name="letters" value="Y Day" unchecked /><label for="y">Y</label></div>
+              <div id="cell"><input type="checkbox" id="o" name="letters" value="O Day" unchecked /><label for="o">O</label></div>
+              <div id="cell"><input type="checkbox" id="u" name="letters" value="U Day" unchecked /><label for="u">U</label></div>
             </div>
           </div>
-          <div id="row">
-            <div id="cell">
-              <input
-                type="text"
-                id="start"
-                name="start"
-              />
-              <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
-            </div>
-            <div id="cell" class="mid">
-              <!-- empty -->
-            </div>
-            <div id="cell">
-              <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
-              <input type="text" id="end" name="end" placeholder="Optional" />
-            </div>
+          <text>Letter day on which you want to create an event</text>
+          <!-- prefilled for clarity -->
+          <br /><br />
+
+          <!-- <label for="frequency">Frequency:</label><br> -->
+          <div id="inline">
+            Every&nbsp; <input
+              type="number"
+              id="frequency"
+              name="frequency"
+              value="1"
+              min="1"
+              max="3"
+            /> &nbsp;letter day(s)
           </div>
+          <text>Skip one or two letter days</text>
+          <br /><br />
         </div>
-        <!-- Confine date range -->
-        <text>Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</text>
-        <br /><br />
 
-        <div id="table">
-          <div id="row">
-            <div id="cell">
-              <label for="startTime">Start time:</label>
+        <br />
+
+        <div id="settings">
+          <div id="section">Event Settings</div>
+          <br />
+
+          <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
+          <!-- <input -->
+          <!-- type="text" -->
+          <!-- id="calendarNameAlt" -->
+          <!-- name="calendarNameAlt" -->
+          <!-- placeholder="Optional" -->
+          <!-- /> -->
+          <!-- <text -->
+          <!-- >Create events on an alternate calendar on the same letter day</text -->
+          <!-- ><br /> -->
+          <!-- <br /> -->
+
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value="New Meeting"
+            required
+          />
+          <!-- prefilled for convenience -->
+          <br />
+
+          <label for="guests">Guests:</label>
+          <textarea
+            type="text"
+            id="guests"
+            name="guests"
+            rows="2"
+            placeholder="Optional"
+          ></textarea>
+          <text>Comma-separated list of email addresses</text>
+          <!-- send invitation emails manually -->
+          <br /><br />
+
+          <label for="location">Location:</label>
+          <input
+            type="text"
+            id="location"
+            name="location"
+            placeholder="Optional"
+          />
+          <br />
+
+          <label for="description">Description:</label>
+          <textarea
+            type="text"
+            id="description"
+            name="description"
+            rows="3"
+            placeholder="Optional"
+          /></textarea>
+          <text>String or full URL</text>
+          <!-- If full URL, then text to display will be "Agenda" -->
+          <br /><br />
+
+          <div id="table">
+            <div id="row">
+              <div id="cell">
+                <label for="start">Start date:</label>
+              </div>
+              <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
+              <div id="cell">
+                <label for="end">End date:</label>
+              </div>
             </div>
-            <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-            <div id="cell">
-              <label for="endTime">End time:</label>
+            <div id="row">
+              <div id="cell">
+                <input
+                  type="text"
+                  id="start"
+                  name="start"
+                />
+                <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
+              </div>
+              <div id="cell" class="mid">
+                <!-- empty -->
+              </div>
+              <div id="cell">
+                <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
+                <input type="text" id="end" name="end" placeholder="Optional" />
+              </div>
             </div>
           </div>
-          <div id="row">
-            <div id="cell">
-              <input
-                type="text"
-                id="startTime"
-                name="startTime"
-                value="10:00 AM"
-                placeholder="Optional"
-              />
+          <!-- Confine date range -->
+          <text>Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</text>
+          <br /><br />
+
+          <div id="table">
+            <div id="row">
+              <div id="cell">
+                <label for="startTime">Start time:</label>
+              </div>
+              <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
+              <div id="cell">
+                <label for="endTime">End time:</label>
+              </div>
             </div>
-            <div id="cell" class="mid">
-              <!-- empty -->
-            </div>
-            <div id="cell">
-              <input
-                type="text"
-                id="endTime"
-                name="endTime"
-                value="11:00 AM"
-                placeholder="Optional"
-              />
+            <div id="row">
+              <div id="cell">
+                <input
+                  type="text"
+                  id="startTime"
+                  name="startTime"
+                  value="10:00 AM"
+                  placeholder="Optional"
+                />
+              </div>
+              <div id="cell" class="mid">
+                <!-- empty -->
+              </div>
+              <div id="cell">
+                <input
+                  type="text"
+                  id="endTime"
+                  name="endTime"
+                  value="11:00 AM"
+                  placeholder="Optional"
+                />
+              </div>
             </div>
           </div>
+          <!-- prefilled for clarity -->
+          <text>HH:MM AM/PM, HH:MM (24-hour)</text>
+          <br /><br />
         </div>
-        <!-- prefilled for clarity -->
-        <text>HH:MM AM/PM, HH:MM (24-hour)</text>
-        <br /><br />
+
+        <br />
+
+        <div id="dry">
+          <input type="checkbox" id="dryRun" name="dryRun" unchecked />
+          <!-- add "hidden" to hide -->
+          <label for="dryRun">Dry run<br /><br /></label>
+          <!-- add "hidden" to hide -->
+          <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
+        </div>
+
+        <input type="submit" value="Submit" />
+        <div id="wait">&nbsp;</div>
+        <!-- id="wait" div displays function return messages -->
+      </form>
+
+      <div id="issues">
+        Technical difficulties? Search issues or open a new one on
+        <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
+
+        <br />
+
+        <text class="reference"
+          >Reference ID: c68fc0476567ed3d50cc7af94afd7d915bb3ec12</text
+        >
+        <!-- Latest commit SHA from main branch that includes major updates, minor updates, or bug fixes -->
       </div>
-
-      <br />
-
-      <div id="dry">
-        <input type="checkbox" id="dryRun" name="dryRun" unchecked />
-        <!-- add "hidden" to hide -->
-        <label for="dryRun">Dry run<br /><br /></label>
-        <!-- add "hidden" to hide -->
-        <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
-      </div>
-
-      <input type="submit" value="Submit" />
-      <div id="wait">&nbsp;</div>
-      <!-- id="wait" div displays function return messages -->
-    </form>
-
-    <div id="issues">
-      Technical difficulties? Search issues or open a new one on
-      <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
-
-      <br />
-
-      <text class="reference"
-        >Reference ID: c68fc0476567ed3d50cc7af94afd7d915bb3ec12</text
-      >
-      <!-- Latest commit SHA from main branch that includes major updates, minor updates, or bug fixes -->
     </div>
 
     <script>
