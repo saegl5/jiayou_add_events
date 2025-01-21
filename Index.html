@@ -241,12 +241,11 @@
               <!-- <br /> -->
 
               <h5>Title</h5>
-                <div class="input-field">
-                  <input id="title" type="text" class="validate" value="New Meeting" required />
-                  <label for="title">of events</label>
-                </div>
-                <!-- prefilled for convenience -->
-                <br />      
+              <div class="input-field">
+                <input id="title" type="text" class="validate" value="New Meeting" required />
+                <label for="title">of events</label>
+              </div>
+              <!-- prefilled for convenience -->
 
               <h5>Guests</h5>
               <div class="input-field">
@@ -254,28 +253,19 @@
                 <label for="guests">List email addresses, comma-separated</label>
               </div>
               <!-- send invitation emails manually -->
-              <br /><br />
 
-              <label for="location">Location:</label>
-              <input
-                type="text"
-                id="location"
-                name="location"
-                placeholder="Optional"
-              />
-              <br />
+              <h5>Location</h5>
+              <div class="input-field">
+                <input id="location" type="text" class="validate" placeholder="Optional" />
+                <label for="location">of events</label>
+              </div>
 
-              <label for="description">Description:</label>
-              <textarea
-                type="text"
-                id="description"
-                name="description"
-                rows="3"
-                placeholder="Optional"
-              /></textarea>
-              <text>String or full URL</text>
+              <h5>Description</h5>
+              <div class="input-field">
+                <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
+                <label for="description">String or full URL</label>
+              </div>
               <!-- If full URL, then text to display will be "Agenda" -->
-              <br /><br />
 
               <div id="table">
                 <div id="row">
