@@ -1,68 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-  </head>
-  <body>
-    <div class="container">
-      <h5>Materialize Select Example</h5>
-      <form>
-        <div class="input-field">
-          <select id="selectOption">
-            <option value="" disabled selected>Choose an option</option>
-            <option value="1">Option 1</option>
-            <option value="2">Option 2</option>
-            <option value="3">Option 3</option>
-          </select>
-          <label>Options</label>
-        </div>
-        <button class="btn waves-effect waves-light" type="submit">Submit</button>
-      </form>
 
-      <h5>Materialize Checkboxes Example</h5>
-      <form id="checkboxForm">
-        <p>
-          <label>
-            <input type="checkbox" name="option1" />
-            <span>Option 1</span>
-          </label>
-        </p>
-        <p>
-          <label>
-            <input type="checkbox" name="option2" />
-            <span>Option 2</span>
-          </label>
-        </p>
-        <p>
-          <label>
-            <input type="checkbox" name="option3" />
-            <span>Option 3</span>
-          </label>
-          <!-- </p> -->
-          <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
-        </p>
-      </form>
-
-      <h5>Materialize Number Input Example</h5>
-      <form id="numberForm">
-        <div class="input-field">
-          <input
-            id="numberInput"
-            type="number"
-            name="quantity"
-            min="1"
-            max="100"
-            step="1"
-          />
-          <label for="numberInput">Enter a number</label>
-        </div>
-        <!-- <button class="btn waves-effect waves-light" type="submit">Submit</button> -->
-      </form>
 
       <h5>Materialize Text Input Example</h5>
       <form id="textInputForm">
@@ -78,17 +14,5 @@
       </form>
 
       <button class="btn waves-effect waves-light" type="submit">Submit</button>
-    </div>
 
-    <script>
-      document.addEventListener("DOMContentLoaded", function () {
-        const elems = document.querySelectorAll("select");
-        M.FormSelect.init(elems);
         M.AutoInit();
-      });
-      // document.addEventListener('DOMContentLoaded', function () {
-      // M.AutoInit();
-      // });
-    </script>
-  </body>
-</html>
