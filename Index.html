@@ -29,7 +29,7 @@
         border-radius: 15px; /* more fun-looking */
         background-color: var(--background);
       }
-      select,
+      /* select, */
       input[type="text"],
       input[type="submit"],
       textarea {
@@ -42,7 +42,7 @@
       input[type="number"] {
         width: 2em;
       }
-      select,
+      /* select, */
       input,
       textarea,
       div {
@@ -127,10 +127,13 @@
         <div id="section">Search Parameters</div>
         <br />
 
-        <label for="calendarName">Calendar name:</label>
-        <select id="calendarName" name="calendarName"></select>
-        <text>Calendar must already exist</text>
-        <br /><br />
+        <h5>Calendar Name</h5>
+        <div class="input-field">
+          <select id="calendarName">
+            <option value="" disabled selected>Searching calendars...</option>
+          </select>
+          <label>Calendar must already exist</label>
+        </div>
 
         <label for="calendarNameRef"></label>
         <text id="calendarNameRef" name="calendarNameRef"></text>
@@ -333,6 +336,13 @@
     </div>
 
     <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const elems = document.querySelectorAll("select");
+        M.FormSelect.init(elems);
+        load();
+      });
+
       // JavaScript handles form submission and sends data to the Google Apps Script
       function load() {
         // optimized by merging into one script
@@ -340,6 +350,8 @@
           .withSuccessHandler(function (response) {
             document.getElementById("user").innerHTML =
               "Welcome, " + response.username + "!";
+            const selectElement = document.querySelector('select');
+            selectElement.innerHTML = ''; // Clear existing options
             for (const calendar of response.calendars) {
               // populate dropdown list
               if (calendar === response.default)
@@ -362,6 +374,7 @@
             if (response.conflict > 1) {
               document.getElementById("wait").innerHTML = "Multiple calendars contain letter days!";
             }
+            M.FormSelect.init(selectElement);
           })
           .getCalendarNamesAndDefault();
       }
