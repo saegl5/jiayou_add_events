@@ -32,13 +32,13 @@
       /* select, */
       /* input[type="text"], */
       /* input[type="submit"], */
-      textarea {
-        display: block;
-        margin-bottom: 0px;
-        width: 100%;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box; /* compatibility */
-      }
+      /* textarea { */
+        /* display: block; */
+        /* margin-bottom: 0px; */
+        /* width: 100%; */
+        /* -webkit-box-sizing: border-box; */
+        /* box-sizing: border-box; */ /* compatibility */
+      /* } */
       /* input[type="number"] {
         width: 2em;
       } */
@@ -248,15 +248,11 @@
                 <!-- prefilled for convenience -->
                 <br />      
 
-              <label for="guests">Guests:</label>
-              <textarea
-                type="text"
-                id="guests"
-                name="guests"
-                rows="2"
-                placeholder="Optional"
-              ></textarea>
-              <text>Comma-separated list of email addresses</text>
+              <h5>Guests</h5>
+              <div class="input-field">
+                <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
+                <label for="guests">List email addresses, comma-separated</label>
+              </div>
               <!-- send invitation emails manually -->
               <br /><br />
 
