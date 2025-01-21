@@ -70,7 +70,7 @@
       div[id="user"],
       div[id="section"],
       div[id="dry"],
-      div[id="issues"],
+      /* div[id="issues"], */
       div[id="wait"],
       .mid {
         text-align: center;
@@ -111,9 +111,9 @@
       .mid {
         display: table-cell;
       }
-      div[id="issues"] {
-        font-size: smaller;
-      }
+      /* div[id="issues"] { */
+        /* font-size: smaller; */
+      /* } */
       .reference {
         font-style: normal;
       }
@@ -123,7 +123,6 @@
     </style>
   </head>
   <body onload="load()">
-    <main>
     <header class="center-align">
       <h1>Add 加油 ("jiā yóu") Events</h1>
       <div id="user">&nbsp;</div>
@@ -372,19 +371,20 @@
           </div>
         </section>
       </form>
+    </main>
 
-      <div id="issues">
+    <footer class="center-align">
+      <p>
         Technical difficulties? Search issues or open a new one on
         <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
-
-        <br />
-
+        <br>
         <text class="reference"
           >Reference ID: c68fc0476567ed3d50cc7af94afd7d915bb3ec12</text
         >
+      </p>
         <!-- Latest commit SHA from main branch that includes major updates, minor updates, or bug fixes -->
-      </div>
-
+    </footer>
+  
     <script>
 
       document.addEventListener("DOMContentLoaded", function () {
