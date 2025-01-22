@@ -21,7 +21,8 @@
       form {
         max-width: 75%; /* allow expansion, was 529px; */
         margin: 0 auto;
-        padding: 5%; /* allow expansion */
+        padding-left: 5%; /* allow expansion */
+        padding-right: 5%; /* allow expansion */
         border-radius: 15px; /* more fun-looking */
       }
       input,
@@ -50,9 +51,10 @@
         text-align: center;
       }
       .container {
-        padding: 15px;
+        padding: 20px;
         border: 1.5px solid var(--border); /* more pop */
         border-radius: 15px; /* more fun-looking */
+        background-color: #fcfcff; /* equal to --md-sys-color-surface */
       }
       div[id="table"] {
         display: table;
@@ -71,9 +73,12 @@
       .days, .dates, .times {
         padding-top: 10px;
       }
+      div[id="user"] {
+        font-weight: bold;
+      }
     </style>
   </head>
-  <body onload="load()">
+  <body onload="load()" class="grey lighten-2">
     <header class="center-align">
       <h1>Add 加油 ("jiā yóu") Events</h1>
       <div id="user">&nbsp;</div>
@@ -82,9 +87,9 @@
     <br />
 
     <main>
-      <form id="calendarForm" class="blue-grey lighten-3">
+      <form id="calendarForm">
         <section class="section">
-          <div class="container grey lighten-3">
+          <div class="container">
             <!-- <div id="search"> -->
               <div id="section">Search Parameters</div>
               <!-- <br /> -->
@@ -173,8 +178,8 @@
 
           </div>
         </section>
-        <section class="section blue-grey lighten-3">
-          <div class="container  grey lighten-3">
+        <section class="section">
+          <div class="container">
             <!-- <div id="settings"> -->
               <div id="section">Event Settings</div>
               <!-- <br /> -->
@@ -197,6 +202,7 @@
                 <label for="title">of events</label>
               </div>
               <!-- prefilled for convenience -->
+              <br>
 
               <h5>Guests</h5>
               <div class="input-field">
@@ -204,12 +210,14 @@
                 <label for="guests">List email addresses, comma-separated</label>
               </div>
               <!-- send invitation emails manually -->
+              <br>
 
               <h5>Location</h5>
               <div class="input-field">
                 <input id="location" type="text" class="validate" placeholder="Optional" />
                 <label for="location">of events</label>
               </div>
+              <br>
 
               <h5>Description</h5>
               <div class="input-field">
@@ -217,7 +225,7 @@
                 <label for="description">String or full URL</label>
               </div>
               <!-- If full URL, then text to display will be "Agenda" -->
-
+              <br>
 
               <h5 id="dates">Date</h5>
               <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
@@ -243,7 +251,7 @@
                 </div>
               </div>
               <!-- Confine date range -->
-
+              <br>
               <h5 id="times">Time</h5>
               <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label>
               <div id="table" class="times">
