@@ -1,4 +1,4 @@
-<!-- hide dryRun checkbox and label, and update reference ID, before deployment -->
+<!-- hide dryRun and update reference ID, before deployment -->
 
 <!DOCTYPE html>
 <html>
@@ -313,12 +313,15 @@
             <br />
 
             <div id="dry">
-              <input type="checkbox" id="dryRun" name="dryRun" unchecked />
-              <!-- add "hidden" to hide -->
-              <label for="dryRun">Dry run<br /><br /></label>
-              <!-- add "hidden" to hide -->
-              <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
+              <label>
+                <!-- add "hidden" to label tag above to hide dryRun-->
+                <input type="checkbox" id="dryRun" unchecked/>
+                <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
+                <span>Dry Run</span>
+              </label>
             </div>
+
+            <br />
 
             <div class="center-align">
               <button class="btn waves-effect waves-light" type="submit">Submit</button>
