@@ -15,62 +15,46 @@
       /* Basic styling for the form */
       :root {
         /* use three root colors, based on material design */
-        --border: #9E9E9E;
-        --background: #E0E0E0;
-        --foreground: #f5f5f5;
-        --section: var(--border);
-        --description: var(--border);
+        --border: black;
+        --text: var(--border);
       }
       form {
-        max-width: 529px;
+        max-width: 75%; /* allow expansion, was 529px; */
         margin: 0 auto;
-        padding: 15px;
-        border: 1px solid var(--border);
+        padding: 5%; /* allow expansion */
         border-radius: 15px; /* more fun-looking */
-        background-color: var(--foreground);
       }
       input,
       textarea,
-      div .input-field, span {
-        font-family: "Courier New", Courier, monospace; /* preserve monospace fonts, so that users easily distinguish input fields from non-input fields */
-        /* font-size: medium; */
-        color: black;
+      .input-field, 
+      span,
+      div[id="wait"] {
+        font-family: monospace; /* preserve monospace fonts, so that users easily distinguish input fields from non-input fields */
+        color: var(--text);
+        font-style: normal;
       }
-      h1,
-      div[id="user"],
-      label,
-      div[id="section"],
-      div[id="issues"] {
+      label {
         font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
           Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
           sans-serif;
-      }
-      text {
-        font-size: smaller;
         font-style: italic;
-        color: var(--description);
       }
-      div[id="user"],
+      .reference {
+        font-size: smaller;
+      }
       div[id="section"],
       div[id="dry"],
       div[id="wait"],
       .mid {
         text-align: center;
       }
-      div[id="search"],
-      div[id="settings"] {
-        text-align: left;
+      .container {
         padding-top: 10px;
         padding-left: 15px;
         padding-right: 15px;
-        border: 2px solid var(--border); /* more pop */
+        padding-bottom: 10px;
+        border: 1.5px solid var(--border); /* more pop */
         border-radius: 15px; /* more fun-looking */
-        background-color: var(--foreground);
-      }
-      div[id="section"] {
-        font-weight: bold;
-        font-size: smaller;
-        color: var(--section);
       }
       div[id="table"] {
         display: table;
@@ -83,11 +67,11 @@
       .mid {
         display: table-cell;
       }
-      .reference {
-        font-style: normal;
-      }
       h5[id="days"], h5[id="dates"], h5[id="times"] {
         margin-bottom: -5px;
+      }
+      .days {
+        padding-top: 5px;
       }
     </style>
   </head>
@@ -100,10 +84,10 @@
     <br />
 
     <main>
-      <form id="calendarForm">
+      <form id="calendarForm" class="blue-grey lighten-4">
         <section class="section">
-          <div class="container">
-            <div id="search">
+          <div class="container grey lighten-5">
+            <!-- <div id="search"> -->
               <div id="section">Search Parameters</div>
               <!-- <br /> -->
 
@@ -126,7 +110,7 @@
 
               <h5 id="days">Letter Days</h5>
               <label>On which to add events</label>
-              <div id="table">
+              <div id="table" class="days">
                 <div id="row">
                   <div id="cell">
                     <label>
@@ -185,15 +169,15 @@
                 <label for="numberInput">Every one, two or three letter days</label>
               </div>
         
-            </div>
+            <!-- </div> -->
 
-            <br />
+            <!-- <br /> -->
 
           </div>
         </section>
-        <section class="section grey lighten-4">
-          <div class="container">
-            <div id="settings">
+        <section class="section blue-grey lighten-4">
+          <div class="container  grey lighten-5">
+            <!-- <div id="settings"> -->
               <div id="section">Event Settings</div>
               <!-- <br /> -->
 
@@ -277,7 +261,7 @@
               </div>
               <!-- prefilled for clarity -->
               <br/>
-            </div>
+            <!-- </div> -->
 
             <br />
 
