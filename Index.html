@@ -6,16 +6,16 @@
     <base target="_top" />
     <!-- <title>Add 加油 ("jiā yóu") Events</title> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
-      rel="stylesheet"
-    />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script>
     <style>
       /* Basic styling for the form */
       :root {
         /* use three root colors, based on material design */
         --border: black;
+        --reference: grey;
         --text: var(--border);
       }
       form {
@@ -41,6 +41,7 @@
       }
       .reference {
         font-size: smaller;
+        color: var(--reference);
       }
       div[id="section"],
       div[id="dry"],
@@ -49,10 +50,7 @@
         text-align: center;
       }
       .container {
-        padding-top: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
-        padding-bottom: 10px;
+        padding: 15px;
         border: 1.5px solid var(--border); /* more pop */
         border-radius: 15px; /* more fun-looking */
       }
@@ -68,10 +66,10 @@
         display: table-cell;
       }
       h5[id="days"], h5[id="dates"], h5[id="times"] {
-        margin-bottom: -5px;
+        margin-bottom: 0px;
       }
-      .days {
-        padding-top: 5px;
+      .days, .dates, .times {
+        padding-top: 10px;
       }
     </style>
   </head>
@@ -84,9 +82,9 @@
     <br />
 
     <main>
-      <form id="calendarForm" class="blue-grey lighten-4">
+      <form id="calendarForm" class="blue-grey lighten-3">
         <section class="section">
-          <div class="container grey lighten-5">
+          <div class="container grey lighten-3">
             <!-- <div id="search"> -->
               <div id="section">Search Parameters</div>
               <!-- <br /> -->
@@ -96,7 +94,7 @@
                 <select id="calendarName">
                   <option value="" disabled selected>Searching...</option>
                 </select>
-                <label>Must already exist</label>
+                <label for="calendarName">Must already exist</label>
               </div>
               <br/>
 
@@ -109,24 +107,24 @@
               <text id="howMany" name="howMany"></text>
 
               <h5 id="days">Letter Days</h5>
-              <label>On which to add events</label>
+              <label for="days">On which to add events</label>
               <div id="table" class="days">
                 <div id="row">
                   <div id="cell">
                     <label>
-                      <input type="checkbox" name="letters" value="J Day" unchecked />
+                      <input type="checkbox" class="filled-in" name="letters" value="J Day" unchecked />
                       <span>J</span>
                     </label>
                   </div>
                   <div id="cell">
                     <label>
-                      <input type="checkbox" name="letters" value="I Day" unchecked />
+                      <input type="checkbox" class="filled-in" name="letters" value="I Day" unchecked />
                       <span>I</span>
                     </label>
                   </div>
                   <div id="cell">
                     <label>
-                      <input type="checkbox" name="letters" value="A Day" unchecked />
+                      <input type="checkbox" class="filled-in" name="letters" value="A Day" unchecked />
                       <span>A</span>
                     </label>
                   </div>
@@ -134,19 +132,19 @@
                 <div id="row">
                   <div id="cell">
                     <label>
-                      <input type="checkbox" name="letters" value="Y Day" unchecked />
+                      <input type="checkbox" class="filled-in" name="letters" value="Y Day" unchecked />
                       <span>Y</span>
                     </label>
                   </div>
                   <div id="cell">
                     <label>
-                      <input type="checkbox" name="letters" value="O Day" unchecked />
+                      <input type="checkbox" class="filled-in" name="letters" value="O Day" unchecked />
                       <span>O</span>
                     </label>
                   </div>
                   <div id="cell">
                     <label>
-                      <input type="checkbox" name="letters" value="U Day" unchecked />
+                      <input type="checkbox" class="filled-in" name="letters" value="U Day" unchecked />
                       <span>U</span>
                     </label>
                   </div>
@@ -175,8 +173,8 @@
 
           </div>
         </section>
-        <section class="section blue-grey lighten-4">
-          <div class="container  grey lighten-5">
+        <section class="section blue-grey lighten-3">
+          <div class="container  grey lighten-3">
             <!-- <div id="settings"> -->
               <div id="section">Event Settings</div>
               <!-- <br /> -->
@@ -223,20 +221,24 @@
 
               <h5 id="dates">Date</h5>
               <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
-              <div id="table">
+              <div id="table" class="dates">
                 <div id="row">
                   <div id="cell">
-                    <input id="start" type="text" class="validate" placeholder="Optional" />
-                    <label for="start">Start</label>
-                    <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
+                    <div class="input-field">
+                      <input id="start" type="text" class="validate" placeholder="Optional" />
+                      <label for="start">Start</label>
+                      <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
+                    </div>
                   </div>
                   <div id="cell" class="mid">
                     &emsp;-&emsp;
                   </div>
                   <div id="cell">
-                    <input id="end" type="text" class="validate" placeholder="Optional" />
-                    <label for="end">End</label>                    
-                    <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
+                    <div class="input-field">
+                      <input id="end" type="text" class="validate" placeholder="Optional" />
+                      <label for="end">End</label>                    
+                      <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
+                    </div>
                   </div>
                 </div>
               </div>
@@ -244,18 +246,22 @@
 
               <h5 id="times">Time</h5>
               <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label>
-              <div id="table">
+              <div id="table" class="times">
                 <div id="row">
                   <div id="cell">
-                    <input id="startTime" type="text" class="validate" placeholder="Optional" value="10:00 AM" />
-                    <label for="startTime">Start</label>
+                    <div class="input-field">
+                      <input id="startTime" type="text" class="validate" placeholder="Optional" value="10:00 AM" />
+                      <label for="startTime">Start</label>
+                    </div>
                   </div>
                   <div id="cell" class="mid">
                     &emsp;-&emsp;
                   </div>
                   <div id="cell">
-                    <input id="endTime" type="text" class="validate" placeholder="Optional" value="11:00 AM" />
-                    <label for="endTime">End</label>                     
+                    <div class="input-field">
+                      <input id="endTime" type="text" class="validate" placeholder="Optional" value="11:00 AM" />
+                      <label for="endTime">End</label>
+                    </div>                   
                   </div>
                 </div>
               </div>
@@ -268,7 +274,7 @@
             <div id="dry">
               <label>
                 <!-- add "hidden" to label tag above to hide dryRun-->
-                <input type="checkbox" id="dryRun" unchecked/>
+                <input type="checkbox" class="filled-in" id="dryRun" unchecked/>
                 <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
                 <span>Dry Run</span>
               </label>
@@ -277,7 +283,7 @@
             <br />
 
             <div class="center-align">
-              <button class="btn waves-effect waves-light" type="submit">Submit</button>
+              <button class="btn filled rounded waves-effect waves-light" type="submit">Submit</button>
             </div>
 
             <div id="wait">&nbsp;</div>
