@@ -80,6 +80,10 @@
       .mid {
         border-bottom: 1px solid var(--border);
       }
+      .collapsible {
+        border: none;
+        box-shadow: none;
+      }
       .reference {
         font-size: smaller;
         color: var(--reference);
@@ -238,7 +242,7 @@
             <ul class="collapsible">
               <li>
                 <div class="collapsible-header">
-                  <span>Other</span>
+                  Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date
                 </div>
                 <div class="collapsible-body">
 
@@ -336,9 +340,9 @@
     <script>
 
       document.addEventListener("DOMContentLoaded", function () {
-        const elems = document.querySelectorAll("select");
-        M.FormSelect.init(elems);
-        M.AutoInit(); /* redundant */
+        // const elems = document.querySelectorAll(".collapsible");
+        // M.Collapsible.init(elems);
+        M.AutoInit();
         load();
       });
 
