@@ -337,7 +337,7 @@
             selectElement.innerHTML = ''; // Clear existing options
             for (const calendar of response.calendars) {
               // populate dropdown list
-              if (calendar === response.default)
+              if (calendar === response.defaultCal)
                 // select option with default calendar listed
                 document
                   .getElementById("calendarName")

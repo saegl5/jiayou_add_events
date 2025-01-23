@@ -47,7 +47,7 @@ function getCalendarNamesAndDefault() {
   return {
     username: userName,
     calendars: allCalendarNames,
-    default: defaultCalendarName,
+    defaultCal: defaultCalendarName,
     reference: calendarNameRef, // will pump to addEvents() instead of looping again
     conflict: howMany,
   };
