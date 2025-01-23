@@ -208,56 +208,6 @@
             <!-- prefilled for convenience -->
             <br>
 
-            <h5>Guests</h5>
-            <div class="input-field">
-              <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
-              <label for="guests">List email addresses, comma-separated</label>
-            </div>
-            <!-- send invitation emails manually -->
-            <br>
-
-            <h5>Location</h5>
-            <div class="input-field">
-              <input id="location" type="text" class="validate" placeholder="Optional" />
-              <label for="location">of events</label>
-            </div>
-            <br>
-
-            <h5>Description</h5>
-            <div class="input-field">
-              <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
-              <label for="description">String or full URL</label>
-            </div>
-            <!-- If full URL, then text to display will be "Agenda" -->
-            <br>
-
-            <h5>Date</h5>
-            <!-- <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label> -->
-            <div id="table">
-              <div id="row">
-                <div id="cell">
-                  <div class="input-field">
-                    <input id="start" type="text" class="validate" placeholder="Optional" />
-                    <label for="start">Start</label>
-                    <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
-                  </div>
-                </div>
-                <div id="cell" class="mid">
-                  &emsp;-&emsp;
-                </div>
-                <div id="cell">
-                  <div class="input-field">
-                    <input id="end" type="text" class="validate" placeholder="Optional" />
-                    <label for="end">End</label>                    
-                    <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
-                  </div>
-                </div>
-              </div>
-            </div>
-            <label for="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
-            <!-- Confine date range -->
-            <br>
-
             <h5>Time</h5>
             <!-- <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label> -->
             <div id="table">
@@ -281,10 +231,73 @@
             </div>
             <label for="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</label>
             <!-- prefilled for clarity -->
-            <br/>
+            <br/><br><br>
             <!-- </div> -->
 
-            <br /><br>
+            <!-- <div class="container"> -->
+            <ul class="collapsible">
+              <li>
+                <div class="collapsible-header">
+                  <span>Other</span>
+                </div>
+                <div class="collapsible-body">
+
+                  <h5>Guests</h5>
+                  <div class="input-field">
+                    <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
+                    <label for="guests">List email addresses, comma-separated</label>
+                  </div>
+                  <!-- send invitation emails manually -->
+                  <br>
+      
+                  <h5>Location</h5>
+                  <div class="input-field">
+                    <input id="location" type="text" class="validate" placeholder="Optional" />
+                    <label for="location">of events</label>
+                  </div>
+                  <br>
+      
+                  <h5>Description</h5>
+                  <div class="input-field">
+                    <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
+                    <label for="description">String or full URL</label>
+                  </div>
+                  <!-- If full URL, then text to display will be "Agenda" -->
+                  <br>
+      
+                  <h5>Date</h5>
+                  <!-- <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label> -->
+                  <div id="table">
+                    <div id="row">
+                      <div id="cell">
+                        <div class="input-field">
+                          <input id="start" type="text" class="validate" placeholder="Optional" />
+                          <label for="start">Start</label>
+                          <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
+                        </div>
+                      </div>
+                      <div id="cell" class="mid">
+                        &emsp;-&emsp;
+                      </div>
+                      <div id="cell">
+                        <div class="input-field">
+                          <input id="end" type="text" class="validate" placeholder="Optional" />
+                          <label for="end">End</label>                    
+                          <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <label for="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
+                  <!-- Confine date range -->
+                  <br><br><br>
+      
+                </div>
+              </li>
+            </ul>
+            <!-- </div> -->
+
+            <br />
 
             <div id="dry">
               <label>
