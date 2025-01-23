@@ -14,9 +14,26 @@
       /* Basic styling for the form */
       :root {
         /* use three root colors, based on material design */
+        --background: #e0e0e0; /* equal to "grey lighten-2" */
         --border: black;
-        --reference: grey;
+        --container: #fcfcff; /* equal to --md-sys-color-surface */
         --text: var(--border);
+        --reference: grey;
+      }
+      body {
+        background-color: var(--background);
+      }
+      header,
+      div[id="section"],
+      .mid,
+      div[id="dry"], /* associated checkbox also stylized in code */
+      .button, /* button also stylized in code */
+      div[id="wait"],
+      footer {
+        text-align: center;
+      }
+      div[id="user"] {
+        font-weight: bold;
       }
       form {
         max-width: 75%; /* allow expansion, was 529px; */
@@ -25,9 +42,14 @@
         padding-right: 5%; /* allow expansion */
         border-radius: 15px; /* more fun-looking */
       }
+      .container {
+        padding: 20px;
+        border: 2px solid var(--border); /* more pop */
+        border-radius: 15px; /* more fun-looking */
+        background-color: var(--container);
+      }
       input,
       textarea,
-      .input-field, 
       span,
       div[id="wait"] {
         font-family: monospace; /* preserve monospace fonts, so that users easily distinguish input fields from non-input fields */
@@ -35,26 +57,13 @@
         font-style: normal;
       }
       label {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-          sans-serif;
         font-style: italic;
       }
-      .reference {
-        font-size: smaller;
-        color: var(--reference);
+      h5[id="days"], h5[id="dates"], h5[id="times"] {
+        margin-bottom: 0px;
       }
-      div[id="section"],
-      div[id="dry"],
-      div[id="wait"],
-      .mid {
-        text-align: center;
-      }
-      .container {
-        padding: 20px;
-        border: 1.5px solid var(--border); /* more pop */
-        border-radius: 15px; /* more fun-looking */
-        background-color: #fcfcff; /* equal to --md-sys-color-surface */
+      .days, .dates, .times {
+        padding-top: 10px;
       }
       div[id="table"] {
         display: table;
@@ -67,19 +76,15 @@
       .mid {
         display: table-cell;
       }
-      h5[id="days"], h5[id="dates"], h5[id="times"] {
-        margin-bottom: 0px;
-      }
-      .days, .dates, .times {
-        padding-top: 10px;
-      }
-      div[id="user"] {
-        font-weight: bold;
+      .reference {
+        font-size: smaller;
+        color: var(--reference);
+        font-family: monospace;
       }
     </style>
   </head>
-  <body onload="load()" class="grey lighten-2">
-    <header class="center-align">
+  <body onload="load()">
+    <header>
       <h1>Add 加油 ("jiā yóu") Events</h1>
       <div id="user">&nbsp;</div>
     </header>
@@ -91,190 +96,186 @@
         <section class="section">
           <div class="container">
             <!-- <div id="search"> -->
-              <div id="section">Search Parameters</div>
-              <!-- <br /> -->
-
-              <h5>Calendar</h5>
-              <div class="input-field">
-                <select id="calendarName">
-                  <option value="" disabled selected>Searching...</option>
-                </select>
-                <label for="calendarName">Must already exist</label>
-              </div>
-              <br/>
-
-              <label for="calendarNameRef"></label>
-              <text id="calendarNameRef" name="calendarNameRef"></text>
-              <!-- <text>Calendar must already exist</text> -->
-              <!-- <br /><br /> -->
-              
-              <label for="howMany"></label>
-              <text id="howMany" name="howMany"></text>
-
-              <h5 id="days">Letter Days</h5>
-              <label for="days">On which to add events</label>
-              <div id="table" class="days">
-                <div id="row">
-                  <div id="cell">
-                    <label>
-                      <input type="checkbox" class="filled-in" name="letters" value="J Day" unchecked />
-                      <span>J</span>
-                    </label>
-                  </div>
-                  <div id="cell">
-                    <label>
-                      <input type="checkbox" class="filled-in" name="letters" value="I Day" unchecked />
-                      <span>I</span>
-                    </label>
-                  </div>
-                  <div id="cell">
-                    <label>
-                      <input type="checkbox" class="filled-in" name="letters" value="A Day" unchecked />
-                      <span>A</span>
-                    </label>
-                  </div>
-                </div>
-                <div id="row">
-                  <div id="cell">
-                    <label>
-                      <input type="checkbox" class="filled-in" name="letters" value="Y Day" unchecked />
-                      <span>Y</span>
-                    </label>
-                  </div>
-                  <div id="cell">
-                    <label>
-                      <input type="checkbox" class="filled-in" name="letters" value="O Day" unchecked />
-                      <span>O</span>
-                    </label>
-                  </div>
-                  <div id="cell">
-                    <label>
-                      <input type="checkbox" class="filled-in" name="letters" value="U Day" unchecked />
-                      <span>U</span>
-                    </label>
-                  </div>
-                </div>
-              </div>
-              <!-- prefilled for clarity -->
-              <br/>
-
-              <h5>Frequency</h5>
-              <div class="input-field">
-                <input
-                  id="frequency"
-                  type="number"
-                  name="frequency"
-                  value="1"
-                  min="1"
-                  max="3"
-                  step="1"
-                />
-                <label for="numberInput">Every one, two or three letter days</label>
-              </div>
-        
-            <!-- </div> -->
-
+            <div id="section">Search Parameters</div>
             <!-- <br /> -->
 
+            <h5>Calendar</h5>
+            <div class="input-field">
+              <select id="calendarName">
+                <option value="" disabled selected>Searching...</option>
+              </select>
+              <label for="calendarName">Must already exist</label>
+            </div>
+            <br/>
+
+            <label for="calendarNameRef"></label>
+            <text id="calendarNameRef" name="calendarNameRef"></text>
+            <!-- <text>Calendar must already exist</text> -->
+            <!-- <br /><br /> -->
+            
+            <label for="howMany"></label>
+            <text id="howMany" name="howMany"></text>
+
+            <h5 id="days">Letter Days</h5>
+            <label for="days">On which to add events</label>
+            <div id="table" class="days">
+              <div id="row">
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="J Day" unchecked />
+                    <span>J</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="I Day" unchecked />
+                    <span>I</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="A Day" unchecked />
+                    <span>A</span>
+                  </label>
+                </div>
+              </div>
+              <div id="row">
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="Y Day" unchecked />
+                    <span>Y</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="O Day" unchecked />
+                    <span>O</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="U Day" unchecked />
+                    <span>U</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+            <!-- prefilled for clarity -->
+            <br/>
+
+            <h5>Frequency</h5>
+            <div class="input-field">
+              <input
+                id="frequency"
+                type="number"
+                name="frequency"
+                value="1"
+                min="1"
+                max="3"
+                step="1"
+              />
+              <label for="numberInput">Every one, two or three letter days</label>
+            </div>
           </div>
         </section>
         <section class="section">
           <div class="container">
             <!-- <div id="settings"> -->
-              <div id="section">Event Settings</div>
-              <!-- <br /> -->
+            <div id="section">Event Settings</div>
+            <!-- <br /> -->
 
-              <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
-              <!-- <input -->
-              <!-- type="text" -->
-              <!-- id="calendarNameAlt" -->
-              <!-- name="calendarNameAlt" -->
-              <!-- placeholder="Optional" -->
-              <!-- /> -->
-              <!-- <text -->
-              <!-- >Create events on an alternate calendar on the same letter day</text -->
-              <!-- ><br /> -->
-              <!-- <br /> -->
+            <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
+            <!-- <input -->
+            <!-- type="text" -->
+            <!-- id="calendarNameAlt" -->
+            <!-- name="calendarNameAlt" -->
+            <!-- placeholder="Optional" -->
+            <!-- /> -->
+            <!-- <text -->
+            <!-- >Create events on an alternate calendar on the same letter day</text -->
+            <!-- ><br /> -->
+            <!-- <br /> -->
 
-              <h5>Title</h5>
-              <div class="input-field">
-                <input id="title" type="text" class="validate" value="New Meeting" required />
-                <label for="title">of events</label>
-              </div>
-              <!-- prefilled for convenience -->
-              <br>
+            <h5>Title</h5>
+            <div class="input-field">
+              <input id="title" type="text" class="validate" value="New Meeting" required />
+              <label for="title">of events</label>
+            </div>
+            <!-- prefilled for convenience -->
+            <br>
 
-              <h5>Guests</h5>
-              <div class="input-field">
-                <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
-                <label for="guests">List email addresses, comma-separated</label>
-              </div>
-              <!-- send invitation emails manually -->
-              <br>
+            <h5>Guests</h5>
+            <div class="input-field">
+              <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
+              <label for="guests">List email addresses, comma-separated</label>
+            </div>
+            <!-- send invitation emails manually -->
+            <br>
 
-              <h5>Location</h5>
-              <div class="input-field">
-                <input id="location" type="text" class="validate" placeholder="Optional" />
-                <label for="location">of events</label>
-              </div>
-              <br>
+            <h5>Location</h5>
+            <div class="input-field">
+              <input id="location" type="text" class="validate" placeholder="Optional" />
+              <label for="location">of events</label>
+            </div>
+            <br>
 
-              <h5>Description</h5>
-              <div class="input-field">
-                <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
-                <label for="description">String or full URL</label>
-              </div>
-              <!-- If full URL, then text to display will be "Agenda" -->
-              <br>
+            <h5>Description</h5>
+            <div class="input-field">
+              <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
+              <label for="description">String or full URL</label>
+            </div>
+            <!-- If full URL, then text to display will be "Agenda" -->
+            <br>
 
-              <h5 id="dates">Date</h5>
-              <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
-              <div id="table" class="dates">
-                <div id="row">
-                  <div id="cell">
-                    <div class="input-field">
-                      <input id="start" type="text" class="validate" placeholder="Optional" />
-                      <label for="start">Start</label>
-                      <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
-                    </div>
+            <h5 id="dates">Date</h5>
+            <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
+            <div id="table" class="dates">
+              <div id="row">
+                <div id="cell">
+                  <div class="input-field">
+                    <input id="start" type="text" class="validate" placeholder="Optional" />
+                    <label for="start">Start</label>
+                    <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
                   </div>
-                  <div id="cell" class="mid">
-                    &emsp;-&emsp;
-                  </div>
-                  <div id="cell">
-                    <div class="input-field">
-                      <input id="end" type="text" class="validate" placeholder="Optional" />
-                      <label for="end">End</label>                    
-                      <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
-                    </div>
+                </div>
+                <div id="cell" class="mid">
+                  &emsp;-&emsp;
+                </div>
+                <div id="cell">
+                  <div class="input-field">
+                    <input id="end" type="text" class="validate" placeholder="Optional" />
+                    <label for="end">End</label>                    
+                    <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
                   </div>
                 </div>
               </div>
-              <!-- Confine date range -->
-              <br>
-              <h5 id="times">Time</h5>
-              <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label>
-              <div id="table" class="times">
-                <div id="row">
-                  <div id="cell">
-                    <div class="input-field">
-                      <input id="startTime" type="text" class="validate" placeholder="Optional" value="10:00 AM" />
-                      <label for="startTime">Start</label>
-                    </div>
-                  </div>
-                  <div id="cell" class="mid">
-                    &emsp;-&emsp;
-                  </div>
-                  <div id="cell">
-                    <div class="input-field">
-                      <input id="endTime" type="text" class="validate" placeholder="Optional" value="11:00 AM" />
-                      <label for="endTime">End</label>
-                    </div>                   
+            </div>
+            <!-- Confine date range -->
+            <br>
+
+            <h5 id="times">Time</h5>
+            <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label>
+            <div id="table" class="times">
+              <div id="row">
+                <div id="cell">
+                  <div class="input-field">
+                    <input id="startTime" type="text" class="validate" placeholder="Optional" value="10:00 AM" />
+                    <label for="startTime">Start</label>
                   </div>
                 </div>
+                <div id="cell" class="mid">
+                  &emsp;-&emsp;
+                </div>
+                <div id="cell">
+                  <div class="input-field">
+                    <input id="endTime" type="text" class="validate" placeholder="Optional" value="11:00 AM" />
+                    <label for="endTime">End</label>
+                  </div>                   
+                </div>
               </div>
-              <!-- prefilled for clarity -->
-              <br/>
+            </div>
+            <!-- prefilled for clarity -->
+            <br/>
             <!-- </div> -->
 
             <br />
@@ -283,14 +284,14 @@
               <label>
                 <!-- add "hidden" to label tag above to hide dryRun-->
                 <input type="checkbox" class="filled-in" id="dryRun" unchecked/>
-                <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
                 <span>Dry Run</span>
+                <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
               </label>
             </div>
 
             <br />
 
-            <div class="center-align">
+            <div class="button">
               <button class="btn filled rounded waves-effect waves-light" type="submit">Submit</button>
             </div>
 
@@ -301,7 +302,10 @@
       </form>
     </main>
 
-    <footer class="center-align">
+
+
+    
+    <footer>
       <p>
         Technical difficulties? Search issues or open a new one on
         <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
@@ -309,8 +313,8 @@
         <text class="reference"
           >Reference ID: c68fc0476567ed3d50cc7af94afd7d915bb3ec12</text
         >
-      </p>
         <!-- Latest commit SHA from main branch that includes major updates, minor updates, or bug fixes -->
+      </p>
     </footer>
   
     <script>
@@ -318,7 +322,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         const elems = document.querySelectorAll("select");
         M.FormSelect.init(elems);
-        M.AutoInit();
+        M.AutoInit(); /* redundant */
         load();
       });
 
