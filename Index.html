@@ -13,7 +13,7 @@
     <style>
       /* Basic styling for the form */
       :root {
-        /* use three root colors, based on material design */
+        /* use few root colors, based on material design */
         --background: #e0e0e0; /* equal to "grey lighten-2" */
         --border: black;
         --container: #fcfcff; /* equal to --md-sys-color-surface */
@@ -59,11 +59,9 @@
       label {
         font-style: italic;
       }
-      h5[id="days"], h5[id="dates"], h5[id="times"] {
-        margin-bottom: 0px;
-      }
-      .days, .dates, .times {
-        padding-top: 10px;
+      .extra {
+        padding-left: 17px;
+        color: var(--reference);
       }
       .days {
         padding-left: 13px;
@@ -78,6 +76,9 @@
       div[id="cell"],
       .mid {
         display: table-cell;
+      }
+      .mid {
+        border-bottom: 1px solid var(--border);
       }
       .reference {
         font-size: smaller;
@@ -119,8 +120,8 @@
             <label for="howMany"></label>
             <text id="howMany" name="howMany"></text>
 
-            <h5 id="days">Letter Days</h5>
-            <label for="days">On which to add events</label>
+            <h5>Letter Days</h5>
+            <!-- <label for="days">On which to add events</label> -->
             <div id="table" class="days">
               <div id="row">
                 <div id="cell">
@@ -230,9 +231,9 @@
             <!-- If full URL, then text to display will be "Agenda" -->
             <br>
 
-            <h5 id="dates">Date</h5>
-            <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
-            <div id="table" class="dates">
+            <h5>Date</h5>
+            <!-- <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label> -->
+            <div id="table">
               <div id="row">
                 <div id="cell">
                   <div class="input-field">
@@ -253,12 +254,13 @@
                 </div>
               </div>
             </div>
+            <label for="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
             <!-- Confine date range -->
             <br>
 
-            <h5 id="times">Time</h5>
-            <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label>
-            <div id="table" class="times">
+            <h5>Time</h5>
+            <!-- <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label> -->
+            <div id="table">
               <div id="row">
                 <div id="cell">
                   <div class="input-field">
@@ -277,11 +279,12 @@
                 </div>
               </div>
             </div>
+            <label for="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</label>
             <!-- prefilled for clarity -->
             <br/>
             <!-- </div> -->
 
-            <br />
+            <br /><br>
 
             <div id="dry">
               <label>
