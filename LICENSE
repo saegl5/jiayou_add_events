@@ -6,9 +6,12 @@ Copyright (c) 2024 James Armstrong
 Some codes involving createEventSeries(), setRecurrence(), the calendar name dropdown list, the letter day checkboxes, and current date for start date
 No license
 
-MIT License
+Copyright (c) 2014-2019 Materialize (Alvin Wang)
+Copyright (c) 2014-2024 Materialize (Group of contributers)
+Material design theme
+License: MIT
 
-Copyright (c) 2024-2025 Ed Silkworth
+MIT License
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
