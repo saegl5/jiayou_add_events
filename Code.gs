@@ -18,7 +18,6 @@ function getCalendarNamesAndDefault() {
   }
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
   var calendarRef;
-  let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
   var endDate;
 
   // Hide reference calendar
@@ -32,7 +31,7 @@ function getCalendarNamesAndDefault() {
       var eventFind = allCalendars[i].getEvents(now, oneYearFromNow);
       for (var j = 0; j < eventFind.length; j++) {
         var event = eventFind[j];
-        // let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
+        let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
         if (query.includes(event.getTitle())) {
           calendarNameRef = String(allCalendars[i].getName()); // Assign the calendar ID
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
@@ -49,7 +48,7 @@ function getCalendarNamesAndDefault() {
   }
 
   // consolidated into nested function
-  var events;
+  // var events;
   // Set the search parameters
   var now = new Date();
   // var schoolDateEnd = new Date("2025-6-12"); <- again, redundant since internal calendar events end same date
@@ -60,21 +59,21 @@ function getCalendarNamesAndDefault() {
   search(now, oneYearFromNow);
   function search(from, to) {
     if (from > to) {
-      events = null;
+      // events = null;
       endDate = null;
     } else {
       var eventsAll = calendarRef.getEvents(from, to);
-      events = [];
-      for (var l = 0; l < eventsAll.length; l++) {
-        var event = eventsAll[l];
-        if (query.includes(event.getTitle())) {
-          // may also pick up shorter titles, but it is unlikely such shorter titles may exist
-          // MORE RELIABLE THAN `{ search: query }`!
-          // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
-          events.push(event); // <-- find way to do without
-        }
-      }
-      endDate = events[events.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
+      // events = [];
+      // for (var l = 0; l < eventsAll.length; l++) {
+      //   var event = eventsAll[l];
+      //   if (query.includes(event.getTitle())) {
+      //     // may also pick up shorter titles, but it is unlikely such shorter titles may exist
+      //     // MORE RELIABLE THAN `{ search: query }`!
+      //     // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
+      //     // events.push(event); // <-- find way to do without
+      //   }
+      // }
+      endDate = eventsAll[eventsAll.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
           year: "numeric",
