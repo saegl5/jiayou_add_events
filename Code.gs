@@ -61,6 +61,7 @@ function getCalendarNamesAndDefault() {
   function search(from, to) {
     if (from > to) {
       events = null;
+      endDate = null;
     } else {
       var eventsAll = calendarRef.getEvents(from, to);
       events = [];
@@ -81,7 +82,6 @@ function getCalendarNamesAndDefault() {
         .replace(/,/g, ""); // removes comma
       // Examples: Jan 4 2024, Mar 14 2025
       // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
-      // <-- what if endDate null?
     }
     return null;
   }

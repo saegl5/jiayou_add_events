@@ -377,7 +377,9 @@
               document.getElementById("wait").innerHTML = "Multiple calendars contain letter days!";
             }
             M.FormSelect.init(selectElement);
-            document.getElementById("end").value = response.endDate;
+            if (response.endDate !== null) {
+              document.getElementById("end").value = response.endDate;
+            }
           })
           .getCalendarNamesAndDefault();
       }
