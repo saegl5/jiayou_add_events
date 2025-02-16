@@ -200,6 +200,14 @@ function addEvents(
           events.push(event);
         }
       }
+      Logger.log(events[events.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+        .replace(/,/g, "")); // removes comma
+      // Examples: Jan 4 2024, Mar 14 2025
+      // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
     }
     return null;
   }
