@@ -330,7 +330,7 @@
         <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
         <br>
         <text class="reference"
-          >Reference ID: 854e3d3d752f6aed7e3b4208988c4f14595f9e42</text
+          >Reference ID: 4ec9c46a9766902986c00bbed2c8f06b17e4c512</text
         >
         <!-- Latest commit SHA from main branch that includes major updates, minor updates, or bug fixes -->
       </p>
@@ -377,6 +377,7 @@
               document.getElementById("wait").innerHTML = "Multiple calendars contain letter days!";
             }
             M.FormSelect.init(selectElement);
+            document.getElementById("end").value = response.endDate;
           })
           .getCalendarNamesAndDefault();
       }

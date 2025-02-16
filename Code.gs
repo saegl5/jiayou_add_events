@@ -19,6 +19,7 @@ function getCalendarNamesAndDefault() {
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
   var calendarRef;
   let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
+  var endDate;
 
   // Hide reference calendar
   var found = false;
@@ -37,7 +38,7 @@ function getCalendarNamesAndDefault() {
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
           found = true;
           howMany += 1;
-          calendarRef = allCalendars[i].getId();
+          calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the 
           break;
         }
         else {
@@ -72,14 +73,15 @@ function getCalendarNamesAndDefault() {
           events.push(event); // <-- find way to do without
         }
       }
-      Logger.log(events[events.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
+      endDate = events[events.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
           year: "numeric",
         })
-        .replace(/,/g, "")); // removes comma
+        .replace(/,/g, ""); // removes comma
       // Examples: Jan 4 2024, Mar 14 2025
       // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
+      // <-- what if endDate null?
     }
     return null;
   }
@@ -90,6 +92,7 @@ function getCalendarNamesAndDefault() {
     defaultCal: defaultCalendarName,
     reference: calendarNameRef, // will pump to addEvents() instead of looping again
     conflict: howMany,
+    endDate: endDate,
   };
 }
 
