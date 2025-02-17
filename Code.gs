@@ -17,10 +17,9 @@ function getCalendarNamesAndDefault() {
     allCalendarNames.push(calendar.getName());
   }
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
-  var calendarRef;
   var endDate;
 
-  // Hide but relay reference calendar
+  // Hide reference calendar
   var found = false;
   var howMany = 0;
   for (var i = 0; i < allCalendars.length; i++) {
@@ -37,7 +36,6 @@ function getCalendarNamesAndDefault() {
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
           found = true;
           howMany += 1;
-          calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden 
           break;
         }
         else {
@@ -47,7 +45,7 @@ function getCalendarNamesAndDefault() {
     }
   }
 
-  // Set the search parameters
+  // Search for the last event date
   var now = new Date();
   var oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
@@ -129,7 +127,7 @@ function addEvents(
 
   // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
-  var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // again, calendar is still hard-coded, but this way the ID is hidden
+  var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // calendar is still hard-coded, but this way the ID is hidden
 
   // handle additional exceptions
   if (start.includes(",") || end.includes(",")) {
@@ -216,7 +214,7 @@ function addEvents(
     if (from > to) {
       events = null;
     } else {
-      var eventsAll = calendarRef.getEvents(from, to);
+      var eventsAll = calendarRef.getEvents(from, to); // reusing
       events = [];
       for (var l = 0; l < eventsAll.length; l++) {
         var event = eventsAll[l];
