@@ -17,9 +17,10 @@ function getCalendarNamesAndDefault() {
     allCalendarNames.push(calendar.getName());
   }
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
+  var calendarRef;
   var endDate;
 
-  // Hide reference calendar
+  // Relay but hide reference calendar
   var found = false;
   var howMany = 0;
   for (var i = 0; i < allCalendars.length; i++) {
@@ -32,7 +33,8 @@ function getCalendarNamesAndDefault() {
         var event = eventFind[j];
         let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
         if (query.includes(event.getTitle())) {
-          calendarNameRef = String(allCalendars[i].getName()); // Assign the calendar ID
+          calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden 
+          calendarNameRef = String(allCalendars[i].getName());
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
           found = true;
           howMany += 1;
@@ -127,7 +129,7 @@ function addEvents(
 
   // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
-  var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // calendar is still hard-coded, but this way the ID is hidden
+  var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // again, calendar is still hard-coded, but this way the ID is hidden
 
   // handle additional exceptions
   if (start.includes(",") || end.includes(",")) {
