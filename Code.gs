@@ -20,7 +20,7 @@ function getCalendarNamesAndDefault() {
   var calendarRef;
   var endDate;
 
-  // Hide reference calendar
+  // Hide but relay reference calendar
   var found = false;
   var howMany = 0;
   for (var i = 0; i < allCalendars.length; i++) {
@@ -37,7 +37,7 @@ function getCalendarNamesAndDefault() {
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
           found = true;
           howMany += 1;
-          calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the 
+          calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden 
           break;
         }
         else {
@@ -47,32 +47,17 @@ function getCalendarNamesAndDefault() {
     }
   }
 
-  // consolidated into nested function
-  // var events;
   // Set the search parameters
   var now = new Date();
-  // var schoolDateEnd = new Date("2025-6-12"); <- again, redundant since internal calendar events end same date
   var oneYearFromNow = new Date();
   oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
-  // Search for events with title between now and one year from now
-  // search(now, schoolDateEnd);
+  // Search for all events between now and one year from now
   search(now, oneYearFromNow);
   function search(from, to) {
     if (from > to) {
-      // events = null;
       endDate = null;
     } else {
       var eventsAll = calendarRef.getEvents(from, to);
-      // events = [];
-      // for (var l = 0; l < eventsAll.length; l++) {
-      //   var event = eventsAll[l];
-      //   if (query.includes(event.getTitle())) {
-      //     // may also pick up shorter titles, but it is unlikely such shorter titles may exist
-      //     // MORE RELIABLE THAN `{ search: query }`!
-      //     // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
-      //     // events.push(event); // <-- find way to do without
-      //   }
-      // }
       endDate = eventsAll[eventsAll.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
@@ -144,7 +129,7 @@ function addEvents(
 
   // Access the user calendar and reference calendar
   var calendar = CalendarApp.getCalendarById(calendarId);
-  var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // calendar is still hard-coded, but this way the ID is hidden
+  var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // again, calendar is still hard-coded, but this way the ID is hidden
 
   // handle additional exceptions
   if (start.includes(",") || end.includes(",")) {
