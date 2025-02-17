@@ -86,6 +86,15 @@
         color: var(--reference);
         font-family: monospace;
       }
+      input[type="number"]::-webkit-inner-spin-button {
+        scale: 1.5; /* display larger arrows */
+      }
+      .collapsible-header::after {
+        content: "\25BC"; /* larger, unicode down arrow */
+      }
+      .active .collapsible-header::after {
+        content: "\25B2"; /* larger, unicode up arrow */
+      }
     </style>
   </head>
   <body onload="load()">
