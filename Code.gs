@@ -335,17 +335,19 @@ function addEvents(
   for (var datestr in date) { // every dictionary key in date, key is ordered too
     var eventDate = new Date(datestr); // "eventDate" above is isolated in its own loop
     if (!dryRun) {
+      // Check if description includes a space
+      let includesSpace = description.includes(" ");
       // Check if description is a link
       let includesHttp = description.includes("http");
 
       // Event uses color of calendar to which it is added
 
       // Create the new event
-      createEvent(frequency, includesHttp); // split up events, all of which have the same event details, into separate series
+      createEvent(frequency, includesSpace, includesHttp); // split up events, all of which have the same event details, into separate series
     }
 
     // function nested because it relies on many parameters
-    function createEvent(frequency, includesHttp) {
+    function createEvent(frequency, includesSpace, includesHttp) {
       if (eventIndex === indexKeep) {
         indexKeep++;
         if (indexKeep % eventSeries.length === 0) // jump every eventSeries.length
@@ -356,9 +358,10 @@ function addEvents(
         if (firstEvent) {
           var eventOptions = {
             location: location,
-            description: includesHttp
-              ? `<a href="${description}" target="_blank" >Agenda</a>`
-              : description,
+            description: 
+              includesSpace ? description :
+              includesHttp ? `<a href="${description}" target="_blank" >Agenda</a>` :
+              description,
             guests: guests,
           };
 
