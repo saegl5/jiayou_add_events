@@ -336,7 +336,7 @@ function addEvents(
     var eventDate = new Date(datestr); // "eventDate" above is isolated in its own loop
     if (!dryRun) {
       // Check if description includes a space
-      let includesSpace = description.includes(" ");
+      let includesSpace = description.includes(" "); // otherwise, links may break
       // Check if description is a link
       let includesHttp = description.includes("http");
 
