@@ -201,12 +201,14 @@ function addEvents(
     if (!dryRun) {
       // Check if description is a link
       var includesHttp = description.includes("http"); // "let" is fine, using "var" for flexibility
+      // Check if description includes a space
+      let includesSpace = description.includes(" "); // otherwise, links will break
       // Create the new event
-      createEvent(calendar, includesHttp);
+      createEvent(calendar, includesHttp, includesSpace);
     }
 
     // function nested because it relies on many parameters
-    function createEvent(calendar, includesHttp) {
+    function createEvent(calendar, includesHttp, includesSpace) {
       if (firstEvent) {
         if (includesHttp) {
           if (startTime === "" && endTime === "") {
@@ -218,8 +220,9 @@ function addEvents(
               {
                 location: location,
                 description:
-                  '<a href="' + description + '" target="_blank" >Agenda</a>',
-                guests: guests,
+                includesSpace ? description :
+                '<a href="' + description + '" target="_blank" >Agenda</a>',
+                  guests: guests,
               }
             );
           } else {
@@ -232,7 +235,8 @@ function addEvents(
               {
                 location: location,
                 description:
-                  '<a href="' + description + '" target="_blank" >Agenda</a>',
+                includesSpace ? description :
+                '<a href="' + description + '" target="_blank" >Agenda</a>',
                 guests: guests,
               }
             );
