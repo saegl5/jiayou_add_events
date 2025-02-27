@@ -118,7 +118,7 @@
         <section class="section">
           <div class="container">
             <!-- <div id="search"> -->
-            <div id="section">Search Parameters</div>
+            <div id="section" name="searchSection">Search Parameters</div>
             <!-- <br /> -->
 
             <h5 id="calendarHeader">Calendar</h5>
@@ -203,7 +203,7 @@
         <section class="section">
           <div class="container">
             <!-- <div id="settings"> -->
-            <div id="section">Event Settings</div>
+            <div id="section" name="eventSection">Event Settings</div>
             <!-- <br /> -->
 
             <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
@@ -424,6 +424,8 @@
             document.getElementById("locationHeader").innerHTML = "位置";
             document.getElementById("descriptionHeader").innerHTML = "描述";
             document.getElementById("dateHeader").innerHTML = "日期";
+            document.getElementsByName("searchSection")[0].innerHTML = "搜索参数";
+            document.getElementsByName("eventSection")[0].innerHTML = "事件设置";
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
@@ -435,6 +437,8 @@
             document.getElementById("locationHeader").innerHTML = "Location";
             document.getElementById("descriptionHeader").innerHTML = "Description";
             document.getElementById("dateHeader").innerHTML = "Date";
+            document.getElementsByName("searchSection")[0].innerHTML = "Search Parameters";
+            document.getElementsByName("eventSection")[0].innerHTML = "Event Settings";
           }
       }); 
 
