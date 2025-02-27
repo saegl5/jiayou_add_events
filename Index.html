@@ -356,9 +356,14 @@
     <script>
 
       document.addEventListener("DOMContentLoaded", function () {
-        // const elems = document.querySelectorAll(".collapsible");
-        // M.Collapsible.init(elems);
-        M.AutoInit();
+        const selectElems = document.querySelectorAll('select');
+        M.FormSelect.init(selectElems);
+
+        const collapsibleElems = document.querySelectorAll(".collapsible");
+        M.Collapsible.init(collapsibleElems);
+
+        // M.AutoInit(); // interferes with document.querySelector
+
         load();
       });
 
