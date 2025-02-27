@@ -104,7 +104,12 @@
     <header>
       <h1>Add 加油 ("jiā yóu") Events</h1>
       <div id="user">&nbsp;</div>
-    </header>
+      <br>
+      <label>
+        <input type="checkbox" class="filled-in" id="chinese" name="chinese" unchecked />
+        <span>中文</span>
+      </label>
+</header>
 
     <br />
 
@@ -116,7 +121,7 @@
             <div id="section">Search Parameters</div>
             <!-- <br /> -->
 
-            <h5>Calendar</h5>
+            <h5 id="calendarHeader">Calendar</h5>
             <div class="input-field">
               <select id="calendarName">
                 <option value="" disabled selected>Searching...</option>
@@ -133,7 +138,7 @@
             <label for="howMany"></label>
             <text id="howMany" name="howMany"></text>
 
-            <h5>Letter Days</h5>
+            <h5 id="letterDayHeader">Letter Days</h5>
             <!-- <label for="days">On which to add events</label> -->
             <div id="table" class="days">
               <div id="row">
@@ -180,7 +185,7 @@
             <!-- prefilled for clarity -->
             <br/>
 
-            <h5>Frequency</h5>
+            <h5 id="frequencyHeader">Frequency</h5>
             <div class="input-field">
               <input
                 id="frequency"
@@ -213,7 +218,7 @@
             <!-- ><br /> -->
             <!-- <br /> -->
 
-            <h5>Title</h5>
+            <h5 id="titleHeader">Title</h5>
             <div class="input-field">
               <input id="title" type="text" class="validate" value="New Meeting" required />
               <label for="title">of events</label>
@@ -221,7 +226,7 @@
             <!-- prefilled for convenience -->
             <br>
 
-            <h5>Time</h5>
+            <h5 id="timeHeader">Time</h5>
             <!-- <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label> -->
             <div id="table">
               <div id="row">
@@ -255,7 +260,7 @@
                 </div>
                 <div class="collapsible-body">
 
-                  <h5>Guests</h5>
+                  <h5 id="guestsHeader">Guests</h5>
                   <div class="input-field">
                     <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
                     <label for="guests">List email addresses, comma-separated</label>
@@ -263,14 +268,14 @@
                   <!-- send invitation emails manually -->
                   <br>
       
-                  <h5>Location</h5>
+                  <h5 id="locationHeader">Location</h5>
                   <div class="input-field">
                     <input id="location" type="text" class="validate" placeholder="Optional" />
                     <label for="location">of events</label>
                   </div>
                   <br>
       
-                  <h5>Description</h5>
+                  <h5 id="descriptionHeader">Description</h5>
                   <div class="input-field">
                     <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
                     <label for="description">String or full URL</label>
@@ -278,7 +283,7 @@
                   <!-- If full URL, then text to display will be "Agenda" -->
                   <br>
       
-                  <h5>Date</h5>
+                  <h5 id="dateHeader">Date</h5>
                   <!-- <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label> -->
                   <div id="table">
                     <div id="row">
@@ -405,6 +410,33 @@
         .replace(/,/g, ""); // removes comma
       // Examples: Jan 4 2024, Mar 14 2025
       // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
+
+      document
+        .getElementById("chinese")
+        .addEventListener("change", function () { 
+          if (this.checked) {
+            document.getElementById("calendarHeader").innerHTML = "日历";
+            document.getElementById("letterDayHeader").innerHTML = "字母日";
+            document.getElementById("frequencyHeader").innerHTML = "频率";
+            document.getElementById("titleHeader").innerHTML = "标题";
+            document.getElementById("timeHeader").innerHTML = "时间";
+            document.getElementById("guestsHeader").innerHTML = "客人";
+            document.getElementById("locationHeader").innerHTML = "位置";
+            document.getElementById("descriptionHeader").innerHTML = "描述";
+            document.getElementById("dateHeader").innerHTML = "日期";
+          }
+          else {
+            document.getElementById("calendarHeader").innerHTML = "Calendar";
+            document.getElementById("letterDayHeader").innerHTML = "Letter Days";
+            document.getElementById("frequencyHeader").innerHTML = "Frequency";
+            document.getElementById("titleHeader").innerHTML = "Title";
+            document.getElementById("timeHeader").innerHTML = "Time";
+            document.getElementById("guestsHeader").innerHTML = "Guests";
+            document.getElementById("locationHeader").innerHTML = "Location";
+            document.getElementById("descriptionHeader").innerHTML = "Description";
+            document.getElementById("dateHeader").innerHTML = "Date";
+          }
+      }); 
 
       document
         .getElementById("calendarName")
