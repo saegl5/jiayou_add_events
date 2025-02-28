@@ -13,6 +13,12 @@ function getCalendarNames() {
   return allCalendarsNames;
 }
 
+// Used to alert users if they select internal calendar
+function getInternalCalendarNameById(calendarId) {
+  var calendar = CalendarApp.getCalendarById(calendarId);
+    return calendar.getName();
+}
+
 function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index");
 }
