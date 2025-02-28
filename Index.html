@@ -1,89 +1,70 @@
-<!-- hide dryRun checkbox and update reference ID before deployment -->
+<!-- hide dryRun and update reference ID, before deployment -->
 
 <!DOCTYPE html>
 <html>
   <head>
     <base target="_top" />
+    <!-- <title>Add 加油 ("jiā yóu") Events</title> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/css/materialize.min.css">
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script>
     <style>
       /* Basic styling for the form */
       :root {
-        --border: silver;
-        --background: Gainsboro;
-        --foreground: #f8f8f8;
-        --section: darkgrey;
-        --description: darkgrey;
+        /* use few root colors, based on material design */
+        --background: #e0e0e0; /* equal to "grey lighten-2" */
+        --border: black;
+        --container: #fcfcff; /* equal to --md-sys-color-surface */
+        --text: var(--border);
+        --reference: grey;
       }
-      form {
-        max-width: 528px;
-        margin: 0 auto;
-        padding: 15px;
-        border: 1px solid var(--border);
-        border-radius: 5px;
+      body {
         background-color: var(--background);
       }
-      select,
-      input[type="text"],
-      input[type="submit"],
-      textarea {
-        display: block;
-        margin-bottom: 0px;
-        width: 100%;
-        -webkit-box-sizing: border-box;
-        box-sizing: border-box; /* compatibility */
+      header,
+      div[id="section"],
+      .mid,
+      div[id="dry"], /* associated checkbox also stylized in code */
+      .button, /* button also stylized in code */
+      div[id="wait"],
+      footer {
+        text-align: center;
       }
-      select,
+      div[id="user"] {
+        font-weight: bold;
+      }
+      form {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding-left: 5%; /* allow expansion */
+        padding-right: 5%; /* allow expansion */
+        border-radius: 15px; /* more fun-looking */
+      }
+      .container {
+        padding: 20px;
+        border: 2px solid var(--border); /* more pop */
+        border-radius: 15px; /* more fun-looking */
+        background-color: var(--container);
+      }
       input,
       textarea,
-      div {
-        font-family: system-ui;
-        font-size: medium;
+      span,
+      div[id="wait"] {
+        font-family: monospace; /* preserve monospace fonts, so that users easily distinguish input fields from non-input fields */
+        color: var(--text);
+        font-style: normal;
       }
-      h1,
-      label,
-      input[type="submit"],
-      text,
-      div[id="section"],
-      div[id="issues"] {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
-          sans-serif;
-      }
-      text {
-        font-size: smaller;
+      label {
         font-style: italic;
-        color: var(--description);
       }
-      div[id="section"],
-      div[id="dry"],
-      div[id="issues"],
-      div[id="wait"],
-      .mid {
-        text-align: center;
+      .extra {
+        padding-left: 17px;
+        color: var(--reference);
       }
-      div[id="search"],
-      div[id="settings"] {
-        text-align: left;
-        padding-top: 10px;
-        padding-left: 15px;
-        padding-right: 15px;
-        border: 1px solid var(--border);
-        border-radius: 5px;
-        background-color: var(--foreground);
-      }
-      div[id="section"] {
-        font-weight: bold;
-        font-size: smaller;
-        color: var(--section);
-      }
-      input[type="checkbox"] {
-        vertical-align: bottom;
-      }
-      input[type="submit"] {
-        border-color: var(--border);
-        border-radius: 5px;
-      }
-      h1 {
-        text-align: center;
+      .days {
+        padding-left: 13px;
       }
       div[id="table"] {
         display: table;
@@ -96,200 +77,341 @@
       .mid {
         display: table-cell;
       }
-      div[id="issues"] {
-        font-size: smaller;
+      .collapsible {
+        border: none;
+        box-shadow: none;
       }
       .reference {
-        font-style: normal;
+        font-size: smaller;
+        color: var(--reference);
+        font-family: monospace;
+      }
+      input[type="number"]::-webkit-inner-spin-button {
+        scale: 1.5; /* display larger arrows */
+      }
+      .collapsible-header, .collapsible-body {
+        border-bottom: none;
+      }
+      .collapsible-header::after {
+        content: "\25BC"; /* larger, unicode down arrow */
+      }
+      .active .collapsible-header::after {
+        content: "\25B2"; /* larger, unicode up arrow */
       }
     </style>
   </head>
   <body onload="load()">
-    <h1>Add 加油 ("jiā yóu") Events</h1>
-    <form id="calendarForm">
-      <div id="search">
-        <div id="section">Search Parameters</div>
-        <br />
+    <header>
+      <h1>Add 加油 ("jiā yóu") Events</h1>
+      <div id="user">&nbsp;</div>
+    </header>
 
-        <label for="calendarName">Calendar name:</label>
+    <br />
 
-        <select id="calendarName" required>
-        </select>
-        <text>Calendar must already exist</text>
-        <br /><br />
+    <main>
+      <form id="calendarForm">
+        <section class="section">
+          <div class="container">
+            <!-- <div id="search"> -->
+            <div id="section">Search Parameters</div>
+            <!-- <br /> -->
 
-        <p>JIAYOU Days:</p>
-        <input type="checkbox" id="j" name="query" value="J Day" /><label for="j">J</label><br />
-        <input type="checkbox" id="i" name="query" value="I Day" /><label for="i">I</label><br />
-        <input type="checkbox" id="a" name="query" value="A Day" /><label for="a">A</label><br />
-        <input type="checkbox" id="y" name="query" value="Y Day" /><label for="y">Y</label><br />
-        <input type="checkbox" id="o" name="query" value="O Day" /><label for="o">O</label><br />
-        <input type="checkbox" id="u" name="query" value="U Day" /><label for="u">U</label><br />
-        
-        <text>Letter day on which you want to create an event</text>
-        <!-- prefilled for clarity -->
-        <br /><br />
-      </div>
-
-      <br />
-
-      <div id="settings">
-        <div id="section">Event Settings</div>
-        <br />
-
-        <label for="title">Title:</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          value="New Meeting"
-          required
-        />
-        <!-- prefilled for convenience -->
-        <br />
-
-        <label for="guests">Guests:</label>
-        <textarea
-          type="text"
-          id="guests"
-          name="guests"
-          rows="2"
-          placeholder="Optional"
-        ></textarea>
-        <text>Accepted format: comma-separated list of email addresses</text>
-        <!-- send invitation emails manually -->
-        <br /><br />
-
-        <label for="location">Location:</label>
-        <input
-          type="text"
-          id="location"
-          name="location"
-          placeholder="Optional"
-        />
-        <br />
-
-        <label for="description">Description:</label>
-        <input
-          type="text"
-          id="description"
-          name="description"
-          placeholder="Optional"
-        />
-        <text>Accepted formats: string or full URL</text>
-        <!-- If full URL, then text to display will be "Agenda" -->
-        <br /><br />
-
-        <div id="table">
-          <div id="row">
-            <div id="cell">
-              <label for="start">Start date:</label>
+            <h5>Calendar</h5>
+            <div class="input-field">
+              <select id="calendarName">
+                <option value="" disabled selected>Searching...</option>
+              </select>
+              <label for="calendarName">Must already exist</label>
             </div>
-            <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-            <div id="cell">
-              <label for="end">End date:</label>
+            <br/>
+
+            <label for="calendarNameRef"></label>
+            <text id="calendarNameRef" name="calendarNameRef"></text>
+            <!-- <text>Calendar must already exist</text> -->
+            <!-- <br /><br /> -->
+            
+            <label for="howMany"></label>
+            <text id="howMany" name="howMany"></text>
+
+            <h5>Letter Days</h5>
+            <!-- <label for="days">On which to add events</label> -->
+            <div id="table" class="days">
+              <div id="row">
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="J Day" unchecked />
+                    <span>J</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="I Day" unchecked />
+                    <span>I</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="A Day" unchecked />
+                    <span>A</span>
+                  </label>
+                </div>
+              </div>
+              <div id="row">
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="Y Day" unchecked />
+                    <span>Y</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="O Day" unchecked />
+                    <span>O</span>
+                  </label>
+                </div>
+                <div id="cell">
+                  <label>
+                    <input type="checkbox" class="filled-in" name="letters" value="U Day" unchecked />
+                    <span>U</span>
+                  </label>
+                </div>
+              </div>
             </div>
-          </div>
-          <div id="row">
-            <div id="cell">
+            <!-- prefilled for clarity -->
+            <br/>
+
+            <h5>Frequency</h5>
+            <div class="input-field">
               <input
-                type="text"
-                id="start"
-                name="start"
+                id="frequency"
+                type="number"
+                name="frequency"
+                value="1"
+                min="1"
+                max="3"
+                step="1"
               />
-            </div>
-            <div id="cell" class="mid">
-              <!-- empty -->
-            </div>
-            <div id="cell">
-              <input type="text" id="end" name="end" placeholder="6/12/2025" />
+              <label for="numberInput">Every one, two or three letter days</label>
             </div>
           </div>
-        </div>
-        <!-- Confine date range -->
-        <text>Accepted formats: Mmm DD YYYY, MM/DD/YYYY, DD Mmm YYYY</text>
-        <!-- Why not accept YYYY/MM/DD ? Because it defaults to Coordinated Universal Time -->
-        <br /><br />
+        </section>
+        <section class="section">
+          <div class="container">
+            <!-- <div id="settings"> -->
+            <div id="section">Event Settings</div>
+            <!-- <br /> -->
 
-        <div id="table">
-          <div id="row">
-            <div id="cell">
-              <label for="startTime">Start time:</label>
+            <!-- <label for="calendarNameAlt">Alternate calendar name:</label> -->
+            <!-- <input -->
+            <!-- type="text" -->
+            <!-- id="calendarNameAlt" -->
+            <!-- name="calendarNameAlt" -->
+            <!-- placeholder="Optional" -->
+            <!-- /> -->
+            <!-- <text -->
+            <!-- >Create events on an alternate calendar on the same letter day</text -->
+            <!-- ><br /> -->
+            <!-- <br /> -->
+
+            <h5>Title</h5>
+            <div class="input-field">
+              <input id="title" type="text" class="validate" value="New Meeting" required />
+              <label for="title">of events</label>
             </div>
-            <div id="cell" class="mid">&nbsp;&nbsp;-&nbsp;&nbsp;</div>
-            <div id="cell">
-              <label for="endTime">End time:</label>
+            <!-- prefilled for convenience -->
+            <br>
+
+            <h5>Time</h5>
+            <!-- <label for="times">HH:MM AM/PM, HH:MM (24-hour)</label> -->
+            <div id="table">
+              <div id="row">
+                <div id="cell">
+                  <div class="input-field">
+                    <input id="startTime" type="text" class="validate" placeholder="Optional" value="10:00 AM" />
+                    <label for="startTime">Start</label>
+                  </div>
+                </div>
+                <div id="cell" class="mid">
+                  &emsp;-&emsp;
+                </div>
+                <div id="cell">
+                  <div class="input-field">
+                    <input id="endTime" type="text" class="validate" placeholder="Optional" value="11:00 AM" />
+                    <label for="endTime">End</label>
+                  </div>                   
+                </div>
+              </div>
             </div>
+            <label for="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</label>
+            <!-- prefilled for clarity -->
+            <br/><br><br>
+            <!-- </div> -->
+
+            <!-- <div class="container"> -->
+            <ul class="collapsible">
+              <li>
+                <div class="collapsible-header">
+                  Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date
+                </div>
+                <div class="collapsible-body">
+
+                  <h5>Guests</h5>
+                  <div class="input-field">
+                    <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
+                    <label for="guests">List email addresses, comma-separated</label>
+                  </div>
+                  <!-- send invitation emails manually -->
+                  <br>
+      
+                  <h5>Location</h5>
+                  <div class="input-field">
+                    <input id="location" type="text" class="validate" placeholder="Optional" />
+                    <label for="location">of events</label>
+                  </div>
+                  <br>
+      
+                  <h5>Description</h5>
+                  <div class="input-field">
+                    <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
+                    <label for="description">String or full URL</label>
+                  </div>
+                  <!-- If full URL, then text to display will be "Agenda" -->
+                  <br>
+      
+                  <h5>Date</h5>
+                  <!-- <label for="dates">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label> -->
+                  <div id="table">
+                    <div id="row">
+                      <div id="cell">
+                        <div class="input-field">
+                          <input id="start" type="text" class="validate" placeholder="Optional" />
+                          <label for="start">Start</label>
+                          <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
+                        </div>
+                      </div>
+                      <div id="cell" class="mid">
+                        &emsp;-&emsp;
+                      </div>
+                      <div id="cell">
+                        <div class="input-field">
+                          <input id="end" type="text" class="validate" placeholder="Optional" />
+                          <label for="end">End</label>                    
+                          <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <label for="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
+                  <!-- Confine date range -->
+                  <br><br><br>
+      
+                </div>
+              </li>
+            </ul>
+            <!-- </div> -->
+
+            <br />
+
+            <div id="dry">
+              <label>
+                <!-- add "hidden" to label tag above to hide dryRun-->
+                <input type="checkbox" class="filled-in" id="dryRun" unchecked/>
+                <span>Dry Run</span>
+                <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
+              </label>
+            </div>
+
+            <br />
+
+            <div class="button">
+              <button class="btn filled rounded waves-effect waves-light" type="submit">Submit</button>
+            </div>
+
+            <br>
+          
+            <div id="wait">&nbsp;</div>
+            <!-- id="wait" div displays function return messages -->
           </div>
-          <div id="row">
-            <div id="cell">
-              <input
-                type="text"
-                id="startTime"
-                name="startTime"
-                value="10:00"
-                placeholder="Optional"
-              />
-            </div>
-            <div id="cell" class="mid">
-              <!-- empty -->
-            </div>
-            <div id="cell">
-              <input
-                type="text"
-                id="endTime"
-                name="endTime"
-                value="11:00"
-                placeholder="Optional"
-              />
-            </div>
-          </div>
-        </div>
-        <!-- prefilled for clarity -->
-        <text>Accepted format: 24-hour</text>
-        <br /><br />
-      </div>
+        </section>
+      </form>
+    </main>
 
-      <br />
-
-      <div id="dry">
-        <input type="checkbox" id="dryRun" name="dryRun" unchecked />
-        <label for="dryRun">Dry run</label>
-        <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
-      </div>
-
-      <br />
-
-      <input type="submit" value="Submit" />
-      <div id="wait">&nbsp;</div>
-      <!-- id="wait" div displays function return messages -->
-    </form>
-
-    <div id="issues">
-      Technical difficulties? Search issues or open a new one on
-      <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
-
-      <br />
-
-      <text class="reference"
-        >Reference ID: bcf31f6cd21814eb054c74306b3b768e4a46c6cb</text
-      >
-      <!-- Latest commit SHA from main branch that includes major updates, minor updates, or bug fixes -->
-    </div>
-
+    <footer>
+      <p>
+        Technical difficulties? Search issues or open a new one on
+        <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
+        <br>
+        <text class="reference"
+          >Reference ID: f8406163e21d6653a8359abee7cdf17c71a3e539</text
+        >
+        <!-- Latest commit SHA from main branch that includes major updates, minor updates, or bug fixes -->
+      </p>
+    </footer>
+  
     <script>
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // const elems = document.querySelectorAll(".collapsible");
+        // M.Collapsible.init(elems);
+        M.AutoInit();
+        load();
+      });
+
       // JavaScript handles form submission and sends data to the Google Apps Script
       function load() {
-        let d = new Date();
-        document.getElementById("start").placeholder = d.getMonth() + "/" + d.getDay() + "/" + d.getFullYear();
+        // optimized by merging into one script
         google.script.run
-          .withSuccessHandler(function (x) {
-            for (const c of x) {
-              document.getElementById("calendarName").options.add( new Option(c,c) ) 
-            };
+          .withSuccessHandler(function (response) {
+            document.getElementById("user").innerHTML =
+              "Welcome, " + response.username + "!";
+            const selectElement = document.querySelector('select');
+            selectElement.innerHTML = ''; // Clear existing options
+            for (const calendar of response.calendars) {
+              // populate dropdown list
+              if (calendar === response.defaultCal)
+                // select option with default calendar listed
+                document
+                  .getElementById("calendarName")
+                  .options.add(
+                    new Option(calendar + " (default)", calendar, true, true)
+                  );
+              // syntax: new Option(text, value, defaultSelected, selected), so here this option will display the calendar name; its value will be that same name; it is selected by default; and is shown as selected
+              // do not select calendar listed
+              else
+                document
+                  .getElementById("calendarName")
+                  .options.add(new Option(calendar, calendar, false, false)); // likewise, each other option will display the calendar name, and their value will be that same name; however, they are not selected by default and are not shown as selected
+              // see also https://stackoverflow.com/questions/45379356/whats-the-difference-between-selected-and-defaultselected-when-constructing
+            }
+            document.getElementById("calendarNameRef").value = response.reference;
+            document.getElementById("howMany").value = response.conflict;
+            if (response.conflict > 1) {
+              document.getElementById("wait").innerHTML = "Multiple calendars contain letter days!";
+            }
+            M.FormSelect.init(selectElement);
+            if (response.endDate !== null) {
+              document.getElementById("end").value = response.endDate;
+            }
           })
-          .getCalendarNames();        
+          .getCalendarNamesAndDefault();
       }
+
+      document.getElementById("start").value = new Date()
+        .toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })
+        .replace(/,/g, ""); // removes comma
+      // Examples: Jan 4 2024, Mar 14 2025
+      // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
+
+      document
+        .getElementById("calendarName")
+        .addEventListener("change", function () { 
+          if (this.value === document.getElementById("calendarNameRef").value)
+            alert("\"" + this.value + "\" is an internal calendar!\n\nPlease kindly choose a different calendar to add events.");
+      }); 
 
       document
         .getElementById("calendarForm")
@@ -297,7 +419,15 @@
           event.preventDefault(); // Prevents the form from submitting the traditional way
 
           var calendarName = document.getElementById("calendarName").value;
-          var query = [...document.querySelectorAll('input[name=query]:checked')].map(({value}) => value);
+          var calendarNameRef = document.getElementById("calendarNameRef").value;
+          var howMany = document.getElementById("howMany").value;
+          var query = [
+            ...document.querySelectorAll("input[name=letters]:checked"),
+          ].map(({ value }) => value); // essentially, place the value of every letter day (that is checked) into an array called "letters", "..." is spread syntax
+
+          var frequency = document.getElementById("frequency").value;
+          // var calendarNameAlt =
+          //   document.getElementById("calendarNameAlt").value;
           var title = document.getElementById("title").value;
           var guests = document.getElementById("guests").value;
           var location = document.getElementById("location").value;
@@ -316,7 +446,10 @@
             })
             .addEvents(
               calendarName,
+              calendarNameRef,
+              howMany,
               query,
+              frequency,
               title,
               guests,
               location,
@@ -327,7 +460,7 @@
               endTime,
               dryRun
             );
-        });
+        }); // calendarNameAlt is now calendarName, and previous calendarName has been hard-coded
     </script>
   </body>
 </html>
