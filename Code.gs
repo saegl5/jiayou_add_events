@@ -20,6 +20,7 @@ function doGet() {
 function addEvents(
   calendarName,
   query,
+  frequency,
   title,
   guests,
   location,
@@ -178,6 +179,9 @@ function addEvents(
   // Track dates when events with title occur
   var date = {};
 
+  // Event counter
+  var eventIndex = 0;
+
   // Loop through each event found
   events.forEach(function (event) {
     var eventDate = event.getStartTime();
@@ -191,12 +195,15 @@ function addEvents(
 
   var firstEvent = true; // for first event, to which subsequent events will be chained
   var eventSeries = ""; // for chaining events
+  var indexKeep = query.length*(frequency-1); // start first date at this index
 
+  // every event will have the same first date
   var firstDate;
-  for (var k in date) {
-    firstDate = new Date(k);
-    break;
-  }
+  // for (var k in date) {
+    // firstDate = new Date(k);
+    // break;
+  // }
+  firstDate = new Date(Object.keys(date)[indexKeep]); // sort dictionary keys into an array, and select one at index
 
   var dateStartTime = new Date(
     firstDate.getFullYear(),
@@ -230,79 +237,84 @@ function addEvents(
 
     // function nested because it relies on many parameters
     function createEvent(calendar, includesHttp) {
-      if (firstEvent) {
-        if (includesHttp) {
-          if (startTime === "" && endTime === "") {
-            // make all-day event
-            eventSeries = calendar.createAllDayEventSeries(
-              title,
-              eventDate,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description:
-                  '<a href="' + description + '" target="_blank" >Agenda</a>',
-                guests: guests,
-              }
-            );
+      if (eventIndex === indexKeep) {
+        indexKeep++;
+        if (indexKeep % query.length === 0) // jump every query.length
+          indexKeep = indexKeep + query.length*(frequency-1);
+        if (firstEvent) {
+          if (includesHttp) {
+            if (startTime === "" && endTime === "") {
+              // make all-day event
+              eventSeries = calendar.createAllDayEventSeries(
+                title,
+                eventDate,
+                CalendarApp.newRecurrence().addDate(eventDate),
+                {
+                  location: location,
+                  description:
+                    '<a href="' + description + '" target="_blank" >Agenda</a>',
+                  guests: guests,
+                }
+              );
+            } else {
+              // make regular event
+              eventSeries = calendar.createEventSeries(
+                title,
+                dateStartTime,
+                dateEndTime,
+                CalendarApp.newRecurrence().addDate(eventDate),
+                {
+                  location: location,
+                  description:
+                    '<a href="' + description + '" target="_blank" >Agenda</a>',
+                  guests: guests,
+                }
+              );
+            }
           } else {
-            // make regular event
-            eventSeries = calendar.createEventSeries(
-              title,
-              dateStartTime,
-              dateEndTime,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description:
-                  '<a href="' + description + '" target="_blank" >Agenda</a>',
-                guests: guests,
-              }
-            );
+            if (startTime === "" && endTime === "") {
+              // make all-day event
+              eventSeries = calendar.createAllDayEventSeries(
+                title,
+                eventDate,
+                CalendarApp.newRecurrence().addDate(eventDate),
+                {
+                  location: location,
+                  description: description,
+                  guests: guests,
+                }
+              );
+            } else {
+              // make regular event
+              eventSeries = calendar.createEventSeries(
+                title,
+                dateStartTime,
+                dateEndTime,
+                CalendarApp.newRecurrence().addDate(eventDate),
+                {
+                  location: location,
+                  description: description,
+                  guests: guests,
+                }
+              );
+            }
           }
-        } else {
-          if (startTime === "" && endTime === "") {
-            // make all-day event
-            eventSeries = calendar.createAllDayEventSeries(
-              title,
-              eventDate,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description: description,
-                guests: guests,
-              }
-            );
-          } else {
-            // make regular event
-            eventSeries = calendar.createEventSeries(
-              title,
-              dateStartTime,
-              dateEndTime,
-              CalendarApp.newRecurrence().addDate(eventDate),
-              {
-                location: location,
-                description: description,
-                guests: guests,
-              }
-            );
-          }
-        }
-        firstEvent = false;
-      } // chain subsequent event to first event
-      else {
-        if (startTime === "" && endTime === "") {
-          eventSeries.setRecurrence(
-            CalendarApp.newRecurrence().addDate(eventDate),
-            firstDate
-          );
-        }
+          firstEvent = false;
+        } // chain subsequent event to first event
         else {
-          eventSeries.setRecurrence(
-            CalendarApp.newRecurrence().addDate(eventDate),
-            dateStartTime,
-            dateEndTime
-          );
+          if (startTime === "" && endTime === "") {
+            eventSeries.setRecurrence(
+              CalendarApp.newRecurrence().addDate(eventDate),
+              firstDate
+            );
+          }
+          else {
+            eventSeries.setRecurrence(
+              CalendarApp.newRecurrence().addDate(eventDate),
+              dateStartTime,
+              dateEndTime
+            );
+          }
         }
       }
       return null;
@@ -310,6 +322,7 @@ function addEvents(
 
     // Log which events were added
     Logger.log("Created a new event on " + eventDate);
+    eventIndex++;
   }
   return "Events created! Go to your Google Calendar...";
 }
