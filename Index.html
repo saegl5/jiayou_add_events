@@ -310,6 +310,18 @@
       }
 
       document
+        .getElementById("calendarName")
+        .addEventListener("change", function () { 
+          var selectedValue = this.value;
+          google.script.run
+            .withSuccessHandler(function (response) {
+              if (selectedValue === response)
+                alert("\"" + selectedValue + "\" is an internal calendar!\n\nPlease kindly choose a different calendar to add events.");
+            })
+            .getInternalCalendarNameById("cais.org_ameqcd19592e51dtlrqp67jtnc@group.calendar.google.com");
+      });
+
+      document
         .getElementById("calendarForm")
         .addEventListener("submit", function (event) {
           event.preventDefault(); // Prevents the form from submitting the traditional way
