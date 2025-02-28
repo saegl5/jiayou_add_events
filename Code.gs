@@ -254,9 +254,9 @@ function addEvents(
                 {
                   location: location,
                   description:
-                  includesSpace ? description :
-                '<a href="' + description + '" target="_blank" >Agenda</a>',
-                    guests: guests,
+                    includesSpace ? description :
+                    '<a href="' + description + '" target="_blank" >Agenda</a>',
+                  guests: guests,
                 }
               );
             } else {
@@ -269,8 +269,8 @@ function addEvents(
                 {
                   location: location,
                   description:
-                  includesSpace ? description :
-                '<a href="' + description + '" target="_blank" >Agenda</a>',
+                    includesSpace ? description :
+                    '<a href="' + description + '" target="_blank" >Agenda</a>',
                   guests: guests,
                 }
               );
