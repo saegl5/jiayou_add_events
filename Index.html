@@ -237,7 +237,7 @@
                 <div id="cell">
                   <div class="input-field">
                     <input id="startTime" type="text" class="validate" placeholder="Optional" value="10:00 AM" />
-                    <label for="startTime">Start</label>
+                    <!-- <label for="startTime">Start</label> -->
                   </div>
                 </div>
                 <div id="cell" class="mid">
@@ -246,7 +246,7 @@
                 <div id="cell">
                   <div class="input-field">
                     <input id="endTime" type="text" class="validate" placeholder="Optional" value="11:00 AM" />
-                    <label for="endTime">End</label>
+                    <!-- <label for="endTime">End</label> -->
                   </div>                   
                 </div>
               </div>
@@ -298,7 +298,7 @@
                       <div id="cell">
                         <div class="input-field">
                           <input id="start" type="text" class="validate" placeholder="Optional" />
-                          <label for="start">Start</label>
+                          <!-- <label for="start">Start</label> -->
                           <!-- replacing placeholder="Optional" with the current date is a good idea for convenience -->
                         </div>
                       </div>
@@ -308,7 +308,7 @@
                       <div id="cell">
                         <div class="input-field">
                           <input id="end" type="text" class="validate" placeholder="Optional" />
-                          <label for="end">End</label>                    
+                          <!-- <label for="end">End</label>                     -->
                           <!-- <input type="text" id="end" name="end" placeholder="6/12/2025" /> redundant since internal calendar events end same date -->
                         </div>
                       </div>
@@ -448,6 +448,7 @@
             document.getElementsByName("location")[0].innerHTML = "事件的位置";
             document.getElementsByName("description")[0].innerHTML = "字符串或完整URL";
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
+            // work on others (e.g., AM/PM to 24, -> ISO date)
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
