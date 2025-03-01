@@ -59,7 +59,9 @@
       label {
         font-style: italic;
       }
-      header > label > span, div[id="dry"] > label > span {
+      header > label > span,
+      div[id="dry"] > label > span,
+      .collapsible-header > span {
         font-family: unset;
       }
       .extra {
@@ -268,7 +270,7 @@
             <ul class="collapsible">
               <li>
                 <div class="collapsible-header">
-                  Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date
+                  <span name="collapsible-header">Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date</span>
                 </div>
                 <div class="collapsible-body">
 
@@ -441,6 +443,7 @@
             document.getElementById("frequencyHeader").innerHTML = "频率";
             document.getElementById("titleHeader").innerHTML = "标题";
             document.getElementById("timeHeader").innerHTML = "时间";
+            document.getElementsByName("collapsible-header")[0].innerHTML = "客人,&nbsp;位置,&nbsp;描述,&nbsp;日期";
             document.getElementById("guestsHeader").innerHTML = "客人";
             document.getElementById("locationHeader").innerHTML = "位置";
             document.getElementById("descriptionHeader").innerHTML = "描述";
@@ -463,6 +466,7 @@
             document.getElementById("frequencyHeader").innerHTML = "Frequency";
             document.getElementById("titleHeader").innerHTML = "Title";
             document.getElementById("timeHeader").innerHTML = "Time";
+            document.getElementsByName("collapsible-header")[0].innerHTML = "Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date";
             document.getElementById("guestsHeader").innerHTML = "Guests";
             document.getElementById("locationHeader").innerHTML = "Location";
             document.getElementById("descriptionHeader").innerHTML = "Description";
