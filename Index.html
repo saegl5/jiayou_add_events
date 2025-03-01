@@ -471,6 +471,7 @@
             document.getElementById("description").placeholder = "可选的";
             document.getElementById("start").placeholder = "可选的";
             document.getElementById("end").placeholder = "可选的";
+            document.getElementById("start").value = new Date().toISOString().split("T")[0]; // keeps just date            
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
@@ -503,6 +504,7 @@
             document.getElementById("description").placeholder = "Optional";
             document.getElementById("start").placeholder = "Optional";
             document.getElementById("end").placeholder = "Optional";
+            document.getElementById("start").value = localeDateString();
           }
       }); 
 
