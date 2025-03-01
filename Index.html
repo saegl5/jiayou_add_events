@@ -458,7 +458,7 @@
             document.getElementsByName("location")[0].innerHTML = "事件的位置";
             document.getElementsByName("description")[0].innerHTML = "字符串或完整URL";
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
-            // work on others (e.g., AM/PM to 24, -> ISO date)
+            document.getElementById("title").value = "新会议";
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
@@ -481,6 +481,7 @@
             document.getElementsByName("location")[0].innerHTML = "of events";
             document.getElementsByName("description")[0].innerHTML = "String or full URL";
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
+            document.getElementById("title").value = "New Meeting";
           }
       }); 
 
