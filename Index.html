@@ -108,6 +108,9 @@
       .collapsible-header > span {
         width: 100%;
       }
+      span::before, span::after {
+        box-sizing: unset; /* override Materialize CSS */
+      }
     </style>
   </head>
   <body onload="load()">
