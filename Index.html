@@ -460,7 +460,14 @@
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
             document.getElementById("title").value = "新会议";
             document.getElementById("startTime").value = "10:00";
+            document.getElementById("startTime").placeholder = "可选的";
             document.getElementById("endTime").value = "11:00";
+            document.getElementById("endTime").placeholder = "可选的";
+            document.getElementById("guests").placeholder = "可选的";
+            document.getElementById("location").placeholder = "可选的";
+            document.getElementById("description").placeholder = "可选的";
+            document.getElementById("start").placeholder = "可选的";
+            document.getElementById("end").placeholder = "可选的";
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
@@ -485,7 +492,14 @@
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
             document.getElementById("title").value = "New Meeting";
             document.getElementById("startTime").value = "10:00 AM";
+            document.getElementById("startTime").placeholder = "Optional";
             document.getElementById("endTime").value = "11:00 AM";
+            document.getElementById("endTime").placeholder = "Optional";
+            document.getElementById("guests").placeholder = "Optional";
+            document.getElementById("location").placeholder = "Optional";
+            document.getElementById("description").placeholder = "Optional";
+            document.getElementById("start").placeholder = "Optional";
+            document.getElementById("end").placeholder = "Optional";
           }
       }); 
 
