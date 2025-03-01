@@ -127,7 +127,8 @@
               <select id="calendarName">
                 <option value="" disabled selected>Searching...</option>
               </select>
-              <label for="calendarName">Must already exist</label>
+              <!-- <label for="calendarName">Must already exist</label> -->
+              <span name="calendarName">Must already exist</span>
             </div>
             <br/>
 
@@ -197,7 +198,8 @@
                 max="3"
                 step="1"
               />
-              <label for="numberInput">Every one, two or three letter days</label>
+              <!-- <label for="numberInput">Every one, two or three letter days</label> -->
+              <span name="numberInput">Every one, two or three letter days</span>
             </div>
           </div>
         </section>
@@ -222,7 +224,8 @@
             <h5 id="titleHeader">Title</h5>
             <div class="input-field">
               <input id="title" type="text" class="validate" value="New Meeting" required />
-              <label for="title">of events</label>
+              <!-- <label for="title">of events</label> -->
+              <span name="title">of events</span>
             </div>
             <!-- prefilled for convenience -->
             <br>
@@ -248,7 +251,8 @@
                 </div>
               </div>
             </div>
-            <label for="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</label>
+            <!-- <label for="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</label> -->
+            <span name="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</span>
             <!-- prefilled for clarity -->
             <br/><br><br>
             <!-- </div> -->
@@ -264,7 +268,8 @@
                   <h5 id="guestsHeader">Guests</h5>
                   <div class="input-field">
                     <textarea id="guests" class="materialize-textarea" placeholder="Optional"></textarea>
-                    <label for="guests">List email addresses, comma-separated</label>
+                    <!-- <label for="guests">List email addresses, comma-separated</label> -->
+                    <span name="guests">List email addresses, comma-separated</span>
                   </div>
                   <!-- send invitation emails manually -->
                   <br>
@@ -272,14 +277,16 @@
                   <h5 id="locationHeader">Location</h5>
                   <div class="input-field">
                     <input id="location" type="text" class="validate" placeholder="Optional" />
-                    <label for="location">of events</label>
+                    <!-- <label for="location">of events</label> -->
+                    <span name="location">of events</span>
                   </div>
                   <br>
       
                   <h5 id="descriptionHeader">Description</h5>
                   <div class="input-field">
                     <textarea id="description" class="materialize-textarea" placeholder="Optional"></textarea>
-                    <label for="description">String or full URL</label>
+                    <!-- <label for="description">String or full URL</label> -->
+                    <span name="description">String or full URL</span>
                   </div>
                   <!-- If full URL, then text to display will be "Agenda" -->
                   <br>
@@ -307,7 +314,8 @@
                       </div>
                     </div>
                   </div>
-                  <label for="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label>
+                  <!-- <label for="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label> -->
+                  <span name="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</span>
                   <!-- Confine date range -->
                   <br><br><br>
       
