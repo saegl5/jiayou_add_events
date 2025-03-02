@@ -361,7 +361,7 @@
             <br />
 
             <div class="button">
-              <button class="btn filled rounded waves-effect waves-light" type="submit">Submit</button>
+              <button class="btn filled rounded waves-effect waves-light" type="submit" id="button">Submit</button>
             </div>
 
             <br>
@@ -485,7 +485,8 @@
             document.getElementById("description").placeholder = "可选的";
             document.getElementById("start").placeholder = "可选的";
             document.getElementById("end").placeholder = "可选的";
-            document.getElementById("start").value = new Date().toISOString().split("T")[0]; // keeps just date            
+            document.getElementById("start").value = new Date().toISOString().split("T")[0]; // keeps just date    
+            document.getElementById("button").innerHTML = "提交";     
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
@@ -519,6 +520,7 @@
             document.getElementById("start").placeholder = "Optional";
             document.getElementById("end").placeholder = "Optional";
             document.getElementById("start").value = localeDateString();
+            document.getElementById("button").innerHTML = "Submit";
           }
       }); 
 
