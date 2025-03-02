@@ -442,8 +442,8 @@
           .getCalendarNamesAndDefault();
       }
 
-      function localeDateString() {
-        return new Date().toLocaleDateString("en-US", {
+      function localeDateString(dateString) {
+        return new Date(dateString).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",
           year: "numeric",
@@ -453,7 +453,7 @@
       // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
       }
 
-      document.getElementById("start").value = localeDateString();
+      document.getElementById("start").value = localeDateString(Date.now());
 
       document
         .getElementById("chinese")
@@ -490,7 +490,8 @@
             document.getElementById("start").placeholder = "可选的";
             document.getElementById("end").placeholder = "可选的";
             document.getElementById("start").value = new Date().toISOString().split("T")[0]; // keeps just date    
-            document.getElementById("button").innerHTML = "提交";     
+            document.getElementById("button").innerHTML = "提交";
+            document.getElementById("end").value = new Date(document.getElementById("end").value).toISOString().split("T")[0]; // keeps just date
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
@@ -523,8 +524,9 @@
             document.getElementById("description").placeholder = "Optional";
             document.getElementById("start").placeholder = "Optional";
             document.getElementById("end").placeholder = "Optional";
-            document.getElementById("start").value = localeDateString();
+            document.getElementById("start").value = localeDateString(Date.now());
             document.getElementById("button").innerHTML = "Submit";
+            document.getElementById("end").value = localeDateString(document.getElementById("end").value);
           }
       }); 
 
