@@ -108,11 +108,12 @@
       .collapsible-header > span {
         width: 100%;
       }
-      span::before, span::after {
-        box-sizing: unset; /* override Materialize CSS */
+      [type=checkbox]+span:not(.lever) {
+        line-height: 21px; /* override Materialize CSS */
       }
       header > label > span {
         font-size: large !important; /* override Materialize CSS */
+        line-height: 18px !important; /* override Materialize CSS */
       }
       input {
         padding-top: unset !important; /* override Materialize CSS */
@@ -121,6 +122,9 @@
       textarea.materialize-textarea {
         padding-top: 4px !important; /* override Materialize CSS */
         resize: vertical !important; /* override Materialize CSS */
+      }
+      span[id="dryRun"] {
+        line-height: 20px !important; /* override Materialize CSS */
       }
     </style>
   </head>
@@ -353,7 +357,7 @@
               <label>
                 <!-- add "hidden" to label tag above to hide dryRun-->
                 <input type="checkbox" class="filled-in" id="dryRun" unchecked/>
-                <span>Dry Run</span>
+                <span id="dryRun">Dry Run</span>
                 <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
               </label>
             </div>
