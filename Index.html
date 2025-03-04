@@ -345,6 +345,9 @@
                   <span name="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</span>
                   <!-- Confine date range -->
                   <br><br><br>
+
+                  <!-- <label for="endRef"></label> -->
+                  <text id="endRef" name="endRef"></text> <!-- to prevent date drift -->
       
                 </div>
               </li>
@@ -437,6 +440,7 @@
             M.FormSelect.init(selectElement);
             if (response.endDate !== null) {
               document.getElementById("end").value = response.endDate;
+              document.getElementById("endRef").value = document.getElementById("end").value; // backup
             }
           })
           .getCalendarNamesAndDefault();
@@ -491,7 +495,7 @@
             document.getElementById("end").placeholder = "可选的";
             document.getElementById("start").value = new Date().toISOString().split("T")[0]; // keeps just date    
             document.getElementById("button").innerHTML = "提交";
-            document.getElementById("end").value = new Date(document.getElementById("end").value).toISOString().split("T")[0]; // keeps just date
+            document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
           }
           else {
             document.getElementById("calendarHeader").innerHTML = "Calendar";
@@ -526,7 +530,7 @@
             document.getElementById("end").placeholder = "Optional";
             document.getElementById("start").value = localeDateString(Date.now());
             document.getElementById("button").innerHTML = "Submit";
-            document.getElementById("end").value = localeDateString(document.getElementById("end").value);
+            document.getElementById("end").value = localeDateString(document.getElementById("endRef").value);
           }
       }); 
 
