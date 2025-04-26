@@ -461,6 +461,24 @@
 
       document.getElementById("start").value = localeDateString(Date.now());
 
+      function parseTime(time) {
+        let [timePart, modifier] = time.split(" "); // modifier ignored if missing
+        time = timePart.split(":");
+
+        // Split strings into lists of hours and minutes
+        time[0] = parseInt(time[0]);
+        time[1] = parseInt(time[1]);
+
+        if (modifier === "AM" && time[0] === 12) time[0] = time[0] - 12;
+        else if (modifier === "PM" && time[0] !== 12) time[0] = time[0] + 12;
+
+        // add leading zero
+        if (time[0] < 10) time[0] = "0" + time[0];
+        if (time[1] < 10) time[1] = "0" + time[1];
+
+        return time;
+      }
+
       document
         .getElementById("chinese")
         .addEventListener("change", function () { 
@@ -486,9 +504,9 @@
             document.getElementsByName("description")[0].innerHTML = "字符串或完整URL";
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
             document.getElementById("title").value = "新会议";
-            document.getElementById("startTime").value = "10:00";
+            document.getElementById("startTime").value = parseTime(document.getElementById("startTime").value).join(":");
             document.getElementById("startTime").placeholder = "可选的";
-            document.getElementById("endTime").value = "11:00";
+            document.getElementById("endTime").value = parseTime(document.getElementById("endTime").value).join(":");
             document.getElementById("endTime").placeholder = "可选的";
             document.getElementById("guests").placeholder = "可选的";
             document.getElementById("location").placeholder = "可选的";
