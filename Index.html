@@ -475,6 +475,35 @@
         // add leading zero
         if (time[1] < 10) time[1] = "0" + time[1];
 
+        // exclude modifier
+
+        return time;
+      }
+
+      function parseTimeISO(time) {
+        time = time.split(":");
+        time[0] = parseInt(time[0]);
+        time[1] = parseInt(time[1]);
+        
+        let modifier = undefined;
+
+        if (time[0] === 0) {
+          time[0] = 12;
+          modifier = "AM";
+        }
+        else if (time[0] < 12) modifier = "AM";
+        else if (time[0] === 12) modifier = "PM";
+        else {
+          time[0] = time[0] - 12;
+          modifier = "PM";
+        }
+
+        // add leading zero
+        if (time[1] < 10) time[1] = "0" + time[1];
+
+        // append modifier
+        time[1] = time[1] + " " + modifier;
+
         return time;
       }
 
@@ -538,9 +567,9 @@
             document.getElementsByName("description")[0].innerHTML = "String or full URL";
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
             document.getElementById("title").value = "New Meeting";
-            document.getElementById("startTime").value = "10:00 AM";
+            document.getElementById("startTime").value = parseTimeISO(document.getElementById("startTime").value).join(":");
             document.getElementById("startTime").placeholder = "Optional";
-            document.getElementById("endTime").value = "11:00 AM";
+            document.getElementById("endTime").value = parseTimeISO(document.getElementById("endTime").value).join(":");
             document.getElementById("endTime").placeholder = "Optional";
             document.getElementById("guests").placeholder = "Optional";
             document.getElementById("location").placeholder = "Optional";
