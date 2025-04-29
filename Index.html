@@ -349,6 +349,9 @@
                   <!-- Confine date range -->
                   <br><br><br>
 
+                  <!-- <label for="startRef"></label> -->
+                  <text id="startRef" name="startRef"></text> <!-- to prevent date drift -->
+
                   <!-- <label for="endRef"></label> -->
                   <text id="endRef" name="endRef"></text> <!-- to prevent date drift -->
       
@@ -442,7 +445,7 @@
             M.FormSelect.init(selectElement);
             if (response.endDate !== null) {
               document.getElementById("end").value = response.endDate;
-              document.getElementById("endRef").value = document.getElementById("end").value; // backup
+              // document.getElementById("endRef").value = document.getElementById("end").value; // backup
             }
           })
           .getCalendarNamesAndDefault();
@@ -541,8 +544,10 @@
             document.getElementById("description").placeholder = "可选的";
             document.getElementById("start").placeholder = "可选的";
             document.getElementById("end").placeholder = "可选的";
-            document.getElementById("start").value = new Date().toISOString().split("T")[0]; // keeps just date    
+            document.getElementById("startRef").value = document.getElementById("start").value // backup, in case start date is changed
+            document.getElementById("start").value = new Date(document.getElementById("startRef").value).toISOString().split("T")[0]; // keeps just date
             document.getElementById("button").innerHTML = "提交";
+            document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
             document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
           }
           else {
