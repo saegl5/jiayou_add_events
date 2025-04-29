@@ -581,7 +581,7 @@
             document.getElementById("description").placeholder = "Optional";
             document.getElementById("start").placeholder = "Optional";
             document.getElementById("end").placeholder = "Optional";
-            document.getElementById("start").value = localeDateString(Date.now());
+            document.getElementById("start").value = localeDateString(document.getElementById("startRef").value);
             document.getElementById("button").innerHTML = "Submit";
             document.getElementById("end").value = localeDateString(document.getElementById("endRef").value);
           }
