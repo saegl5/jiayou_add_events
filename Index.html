@@ -534,7 +534,7 @@
             // document.getElementsByName("location")[0].innerHTML = "事件的位置";
             document.getElementsByName("description")[0].innerHTML = "字符串或完整URL";
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
-            document.getElementById("title").value = "新会议";
+            if (document.getElementById("title").value === "New Meeting") document.getElementById("title").value = "新会议"; // quirky in vscode preview
             document.getElementById("startTime").value = parseTimeLocal(document.getElementById("startTime").value).join(":");
             document.getElementById("startTime").placeholder = "可选的";
             document.getElementById("endTime").value = parseTimeLocal(document.getElementById("endTime").value).join(":");
@@ -571,7 +571,7 @@
             // document.getElementsByName("location")[0].innerHTML = "of events";
             document.getElementsByName("description")[0].innerHTML = "String or full URL";
             document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
-            document.getElementById("title").value = "New Meeting";
+            if (document.getElementById("title").value === "新会议") document.getElementById("title").value = "New Meeting"; // quirky in vscode preview
             document.getElementById("startTime").value = parseTimeISO(document.getElementById("startTime").value).join(":");
             document.getElementById("startTime").placeholder = "Optional";
             document.getElementById("endTime").value = parseTimeISO(document.getElementById("endTime").value).join(":");
