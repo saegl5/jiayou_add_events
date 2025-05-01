@@ -513,30 +513,28 @@
       document
         .getElementById("startTime")
         .addEventListener("input", function (event) {
-          const prohibitedText = ["24:00"]; // List of prohibited times
-          const inputValue = event.target.value; //
+          let inputValue = event.target.value;
+          let hour = inputValue.split(":")[0]; // Extract hour part
+          hour = parseInt(hour);
       
-          prohibitedText.forEach((time) => {
-            if (inputValue.includes(time)) {
-              event.target.value = inputValue.replace(time, ""); // Remove prohibited text
-              alert(`"${time}" starts the next day, use same-day times.`);
-            }
-          });
+          if (hour >= 24) {
+            alert(`"${inputValue}" starts the next day, use same-day times.`);
+            event.target.value = inputValue.replace(hour, "0"); // Replace prohibited text
+          }
         });
 
       document
-      .getElementById("endTime")
-      .addEventListener("input", function (event) {
-        const prohibitedText = ["24:00"]; // List of prohibited times
-        const inputValue = event.target.value; //
-    
-        prohibitedText.forEach((time) => {
-          if (inputValue.includes(time)) {
-            event.target.value = inputValue.replace(time, ""); // Remove prohibited text
-            alert(`"${time}" ends the next day, use same-day times.`);
+        .getElementById("endTime")
+        .addEventListener("input", function (event) {
+          let inputValue = event.target.value;
+          let hour = inputValue.split(":")[0]; // Extract hour part
+          hour = parseInt(hour);
+
+          if (hour >= 24) {
+            alert(`"${inputValue}" ends the next day, use same-day times.`);
+            event.target.value = inputValue.replace(hour, "0"); // Replace prohibited text
           }
         });
-      });
 
       document
         .getElementById("chinese")
