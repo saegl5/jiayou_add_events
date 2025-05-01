@@ -518,7 +518,7 @@
           hour = parseInt(hour);
       
           if (hour >= 24) {
-            alert(`"${inputValue}" starts the next day, use same-day times.`);
+            // alert(`"${inputValue}" starts the next day, use same-day times.`);
             event.target.value = inputValue.replace(hour, "0"); // Replace prohibited text
           }
         });
@@ -531,7 +531,7 @@
           hour = parseInt(hour);
 
           if (hour >= 24) {
-            alert(`"${inputValue}" ends the next day, use same-day times.`);
+            // alert(`"${inputValue}" ends the next day, use same-day times.`);
             event.target.value = inputValue.replace(hour, "0"); // Replace prohibited text
           }
         });
