@@ -511,6 +511,34 @@
       }
 
       document
+        .getElementById("startTime")
+        .addEventListener("input", function (event) {
+          const prohibitedText = ["24:00"]; // List of prohibited times
+          const inputValue = event.target.value; //
+      
+          prohibitedText.forEach((time) => {
+            if (inputValue.includes(time)) {
+              event.target.value = inputValue.replace(time, ""); // Remove prohibited text
+              alert(`"${time}" starts the next day, use same-day times.`);
+            }
+          });
+        });
+
+      document
+      .getElementById("endTime")
+      .addEventListener("input", function (event) {
+        const prohibitedText = ["24:00"]; // List of prohibited times
+        const inputValue = event.target.value; //
+    
+        prohibitedText.forEach((time) => {
+          if (inputValue.includes(time)) {
+            event.target.value = inputValue.replace(time, ""); // Remove prohibited text
+            alert(`"${time}" ends the next day, use same-day times.`);
+          }
+        });
+      });
+
+      document
         .getElementById("chinese")
         .addEventListener("change", function () { 
           if (this.checked) {
