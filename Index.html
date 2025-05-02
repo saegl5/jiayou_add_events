@@ -536,82 +536,86 @@
           }
         });
 
+      function translate(language) {
+        if (language === "Chinese") {
+          document.getElementById("calendarHeader").innerHTML = "日历";
+          document.getElementById("letterDayHeader").innerHTML = "字母日";
+          document.getElementById("frequencyHeader").innerHTML = "频率";
+          document.getElementById("titleHeader").innerHTML = "标题";
+          document.getElementById("timeHeader").innerHTML = "时间";
+          document.getElementsByName("collapsible-header")[0].innerHTML = "客人,&nbsp;位置,&nbsp;描述,&nbsp;日期";
+          document.getElementById("guestsHeader").innerHTML = "客人";
+          document.getElementById("locationHeader").innerHTML = "位置";
+          document.getElementById("descriptionHeader").innerHTML = "描述";
+          document.getElementById("dateHeader").innerHTML = "日期";
+          document.getElementsByName("searchSection")[0].innerHTML = "搜索参数";
+          document.getElementsByName("eventSection")[0].innerHTML = "事件设置";
+          document.getElementsByName("calendarName")[0].innerHTML = "必须已存在";
+          document.getElementsByName("numberInput")[0].innerHTML = "每一、两或三个字母日";
+          // document.getElementsByName("title")[0].innerHTML = "事件的标题";
+          document.getElementsByName("times")[0].innerHTML = "HH:MM AM/PM, HH:MM (24小时)";
+          document.getElementsByName("guests")[0].innerHTML = "客人的电子邮件地址列表，以逗号分隔";
+          // document.getElementsByName("location")[0].innerHTML = "事件的位置";
+          document.getElementsByName("description")[0].innerHTML = "字符串或完整URL";
+          document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
+          if (document.getElementById("title").value === "New Meeting") document.getElementById("title").value = "新会议"; // quirky in vscode preview
+          document.getElementById("startTime").value = parseTimeLocal(document.getElementById("startTime").value).join(":");
+          document.getElementById("startTime").placeholder = "可选的";
+          document.getElementById("endTime").value = parseTimeLocal(document.getElementById("endTime").value).join(":");
+          document.getElementById("endTime").placeholder = "可选的";
+          document.getElementById("guests").placeholder = "可选的";
+          document.getElementById("location").placeholder = "可选的";
+          document.getElementById("description").placeholder = "可选的";
+          document.getElementById("start").placeholder = "可选的";
+          document.getElementById("end").placeholder = "可选的";
+          document.getElementById("startRef").value = document.getElementById("start").value // backup, in case start date is changed
+          document.getElementById("start").value = new Date(document.getElementById("startRef").value).toISOString().split("T")[0]; // keeps just date
+          document.getElementById("button").innerHTML = "提交";
+          document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
+          document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
+        } else if (language === "English") { // default
+          document.getElementById("calendarHeader").innerHTML = "Calendar";
+          document.getElementById("letterDayHeader").innerHTML = "Letter Days";
+          document.getElementById("frequencyHeader").innerHTML = "Frequency";
+          document.getElementById("titleHeader").innerHTML = "Title";
+          document.getElementById("timeHeader").innerHTML = "Time";
+          document.getElementsByName("collapsible-header")[0].innerHTML = "Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date";
+          document.getElementById("guestsHeader").innerHTML = "Guests";
+          document.getElementById("locationHeader").innerHTML = "Location";
+          document.getElementById("descriptionHeader").innerHTML = "Description";
+          document.getElementById("dateHeader").innerHTML = "Date";
+          document.getElementsByName("searchSection")[0].innerHTML = "Search Parameters";
+          document.getElementsByName("eventSection")[0].innerHTML = "Event Settings";
+          document.getElementsByName("calendarName")[0].innerHTML = "Must already exist";
+          document.getElementsByName("numberInput")[0].innerHTML = "Every one, two or three letter days";
+          // document.getElementsByName("title")[0].innerHTML = "of events";
+          document.getElementsByName("times")[0].innerHTML = "HH:MM AM/PM, HH:MM (24-hour)";
+          document.getElementsByName("guests")[0].innerHTML = "List email addresses, comma-separated";
+          // document.getElementsByName("location")[0].innerHTML = "of events";
+          document.getElementsByName("description")[0].innerHTML = "String or full URL";
+          document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
+          if (document.getElementById("title").value === "新会议") document.getElementById("title").value = "New Meeting"; // quirky in vscode preview
+          document.getElementById("startTime").value = parseTimeISO(document.getElementById("startTime").value).join(":");
+          document.getElementById("startTime").placeholder = "Optional";
+          document.getElementById("endTime").value = parseTimeISO(document.getElementById("endTime").value).join(":");
+          document.getElementById("endTime").placeholder = "Optional";
+          document.getElementById("guests").placeholder = "Optional";
+          document.getElementById("location").placeholder = "Optional";
+          document.getElementById("description").placeholder = "Optional";
+          document.getElementById("start").placeholder = "Optional";
+          document.getElementById("end").placeholder = "Optional";
+          document.getElementById("start").value = localeDateString(document.getElementById("startRef").value);
+          document.getElementById("button").innerHTML = "Submit";
+          document.getElementById("end").value = localeDateString(document.getElementById("endRef").value);
+        }
+      }
+
       document
         .getElementById("chinese")
         .addEventListener("change", function () { 
-          if (this.checked) {
-            document.getElementById("calendarHeader").innerHTML = "日历";
-            document.getElementById("letterDayHeader").innerHTML = "字母日";
-            document.getElementById("frequencyHeader").innerHTML = "频率";
-            document.getElementById("titleHeader").innerHTML = "标题";
-            document.getElementById("timeHeader").innerHTML = "时间";
-            document.getElementsByName("collapsible-header")[0].innerHTML = "客人,&nbsp;位置,&nbsp;描述,&nbsp;日期";
-            document.getElementById("guestsHeader").innerHTML = "客人";
-            document.getElementById("locationHeader").innerHTML = "位置";
-            document.getElementById("descriptionHeader").innerHTML = "描述";
-            document.getElementById("dateHeader").innerHTML = "日期";
-            document.getElementsByName("searchSection")[0].innerHTML = "搜索参数";
-            document.getElementsByName("eventSection")[0].innerHTML = "事件设置";
-            document.getElementsByName("calendarName")[0].innerHTML = "必须已存在";
-            document.getElementsByName("numberInput")[0].innerHTML = "每一、两或三个字母日";
-            // document.getElementsByName("title")[0].innerHTML = "事件的标题";
-            document.getElementsByName("times")[0].innerHTML = "HH:MM AM/PM, HH:MM (24小时)";
-            document.getElementsByName("guests")[0].innerHTML = "客人的电子邮件地址列表，以逗号分隔";
-            // document.getElementsByName("location")[0].innerHTML = "事件的位置";
-            document.getElementsByName("description")[0].innerHTML = "字符串或完整URL";
-            document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
-            if (document.getElementById("title").value === "New Meeting") document.getElementById("title").value = "新会议"; // quirky in vscode preview
-            document.getElementById("startTime").value = parseTimeLocal(document.getElementById("startTime").value).join(":");
-            document.getElementById("startTime").placeholder = "可选的";
-            document.getElementById("endTime").value = parseTimeLocal(document.getElementById("endTime").value).join(":");
-            document.getElementById("endTime").placeholder = "可选的";
-            document.getElementById("guests").placeholder = "可选的";
-            document.getElementById("location").placeholder = "可选的";
-            document.getElementById("description").placeholder = "可选的";
-            document.getElementById("start").placeholder = "可选的";
-            document.getElementById("end").placeholder = "可选的";
-            document.getElementById("startRef").value = document.getElementById("start").value // backup, in case start date is changed
-            document.getElementById("start").value = new Date(document.getElementById("startRef").value).toISOString().split("T")[0]; // keeps just date
-            document.getElementById("button").innerHTML = "提交";
-            document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
-            document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
-          }
-          else {
-            document.getElementById("calendarHeader").innerHTML = "Calendar";
-            document.getElementById("letterDayHeader").innerHTML = "Letter Days";
-            document.getElementById("frequencyHeader").innerHTML = "Frequency";
-            document.getElementById("titleHeader").innerHTML = "Title";
-            document.getElementById("timeHeader").innerHTML = "Time";
-            document.getElementsByName("collapsible-header")[0].innerHTML = "Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date";
-            document.getElementById("guestsHeader").innerHTML = "Guests";
-            document.getElementById("locationHeader").innerHTML = "Location";
-            document.getElementById("descriptionHeader").innerHTML = "Description";
-            document.getElementById("dateHeader").innerHTML = "Date";
-            document.getElementsByName("searchSection")[0].innerHTML = "Search Parameters";
-            document.getElementsByName("eventSection")[0].innerHTML = "Event Settings";
-            document.getElementsByName("calendarName")[0].innerHTML = "Must already exist";
-            document.getElementsByName("numberInput")[0].innerHTML = "Every one, two or three letter days";
-            // document.getElementsByName("title")[0].innerHTML = "of events";
-            document.getElementsByName("times")[0].innerHTML = "HH:MM AM/PM, HH:MM (24-hour)";
-            document.getElementsByName("guests")[0].innerHTML = "List email addresses, comma-separated";
-            // document.getElementsByName("location")[0].innerHTML = "of events";
-            document.getElementsByName("description")[0].innerHTML = "String or full URL";
-            document.getElementsByName("dates")[0].innerHTML = "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD";
-            if (document.getElementById("title").value === "新会议") document.getElementById("title").value = "New Meeting"; // quirky in vscode preview
-            document.getElementById("startTime").value = parseTimeISO(document.getElementById("startTime").value).join(":");
-            document.getElementById("startTime").placeholder = "Optional";
-            document.getElementById("endTime").value = parseTimeISO(document.getElementById("endTime").value).join(":");
-            document.getElementById("endTime").placeholder = "Optional";
-            document.getElementById("guests").placeholder = "Optional";
-            document.getElementById("location").placeholder = "Optional";
-            document.getElementById("description").placeholder = "Optional";
-            document.getElementById("start").placeholder = "Optional";
-            document.getElementById("end").placeholder = "Optional";
-            document.getElementById("start").value = localeDateString(document.getElementById("startRef").value);
-            document.getElementById("button").innerHTML = "Submit";
-            document.getElementById("end").value = localeDateString(document.getElementById("endRef").value);
-          }
-      }); 
+          if (this.checked) translate("Chinese");
+          else translate("English");
+        }); 
 
       document
         .getElementById("calendarName")
