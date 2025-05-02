@@ -137,7 +137,7 @@
       <div id="user">&nbsp;</div>
       <br>
       <label>
-        <input type="checkbox" class="filled-in" id="chinese" name="chinese" unchecked />
+        <input type="checkbox" class="filled-in" id="chinese" name="chinese" />
         <span>中文</span>
       </label>
 </header>
@@ -449,6 +449,15 @@
             }
           })
           .getCalendarNamesAndDefault();
+
+        function isChineseLanguage() {
+          const language = navigator.language || navigator.languages[0];
+          return language.startsWith("zh"); // examples: zh-CN and zh-TW
+        }
+
+        if (isChineseLanguage() === true) {
+          document.getElementById("chinese").checked = true;
+        }
       }
 
       function localeDateString(dateString) {
