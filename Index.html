@@ -527,10 +527,8 @@
           let hour = inputValue.split(":")[0]; // Extract hour part
           hour = parseInt(hour);
       
-          if (hour >= 24) {
-            // alert(`"${inputValue}" starts the next day, use same-day times.`);
-            event.target.value = inputValue.replace(hour, "0"); // Replace prohibited text
-          }
+          if (hour >= 24)
+            event.target.value = inputValue.replace(hour, hour % 24); // Replace prohibited text
         });
 
       document
@@ -540,10 +538,8 @@
           let hour = inputValue.split(":")[0]; // Extract hour part
           hour = parseInt(hour);
 
-          if (hour >= 24) {
-            // alert(`"${inputValue}" ends the next day, use same-day times.`);
-            event.target.value = inputValue.replace(hour, "0"); // Replace prohibited text
-          }
+          if (hour >= 24)
+            event.target.value = inputValue.replace(hour, hour % 24); // Replace prohibited text
         });
 
       function translate(language) {
