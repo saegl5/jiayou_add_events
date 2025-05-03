@@ -530,9 +530,14 @@
           let inputValue = event.target.value;
           let hour = inputValue.split(":")[0]; // Extract hour part
           hour = parseInt(hour);
-      
-          if (hour >= 24)
+          let modifier = inputValue.split(" ")[1]; // Extract AM/PM part, if exists
+
+          if (modifier === undefined && hour >= 24)
             event.target.value = inputValue.replace(hour, hour % 24); // Replace prohibited text
+          else if (modifier !== undefined && hour === 0)
+            event.target.value = inputValue.replace(hour, 12); // Replace prohibited text
+          else if (modifier !== undefined && hour > 12)
+            event.target.value = inputValue.replace(hour, hour % 12); // Replace prohibited text
         });
 
       document
@@ -541,9 +546,14 @@
           let inputValue = event.target.value;
           let hour = inputValue.split(":")[0]; // Extract hour part
           hour = parseInt(hour);
+          let modifier = inputValue.split(" ")[1]; // Extract AM/PM part, if exists
 
-          if (hour >= 24)
+          if (modifier === undefined && hour >= 24)
             event.target.value = inputValue.replace(hour, hour % 24); // Replace prohibited text
+          else if (modifier !== undefined && hour === 0)
+            event.target.value = inputValue.replace(hour, 12); // Replace prohibited text
+          else if (modifier !== undefined && hour > 12)
+            event.target.value = inputValue.replace(hour, hour % 12); // Replace prohibited text
         });
 
       function translate(language) {
