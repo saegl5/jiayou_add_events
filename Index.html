@@ -446,6 +446,10 @@
             if (response.endDate !== null) {
               document.getElementById("end").value = response.endDate;
               // document.getElementById("endRef").value = document.getElementById("end").value; // backup
+              if (isChineseLanguage() === true) { // tail back
+                document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
+                document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
+              }
             }
           })
           .getCalendarNamesAndDefault();
@@ -457,7 +461,7 @@
 
         if (isChineseLanguage() === true) {
           document.getElementById("chinese").checked = true;
-          translate("Chinese"); // translate text to Chinese
+          translate("Chinese"); // translate text to Chinese, if endDate is not null then tail back above
         }
       }
 
