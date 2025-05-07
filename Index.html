@@ -534,7 +534,7 @@
           let minute = inputValue.split(" ")[0].split(":")[1]; // Extract minute part
           minute = parseInt(minute);
 
-          // Ignoring negative numbers, leading 0, minimum hour in 24-hour format, and minimum minute
+          // Ignoring negative numbers, minimum hour in 24-hour format, and minimum minute
 
           // 12-hour format -----------
           if (modifier !== undefined && hour === 0) { // Minimum hour is 12
@@ -570,7 +570,7 @@
           let minute = inputValue.split(" ")[0].split(":")[1]; // Extract minute part
           minute = parseInt(minute);
 
-          // Ignoring negative numbers, leading 0, minimum hour in 24-hour format, and minimum minute
+          // Ignoring negative numbers, minimum hour in 24-hour format, and minimum minute
 
           // 12-hour format -----------
           if (modifier !== undefined && hour === 0) { // Minimum hour is 12
@@ -706,7 +706,33 @@
           var start = document.getElementById("start").value;
           var end = document.getElementById("end").value;
           var startTime = document.getElementById("startTime").value;
+
+          // Add leading zero to minute, if missing
+          var hour = startTime.split(":")[0]; // Extract hour part
+          hour = parseInt(hour);
+          var modifier = startTime.split(" ")[1]; // Extract AM/PM part, if exists
+          var minute = startTime.split(" ")[0].split(":")[1]; // Extract minute part
+          minute = parseInt(minute);
+          if (minute < 10) {
+            minute = "0" + minute; // add leading zero
+            startTime = hour + ":" + minute + " " + modifier; // update input
+            document.getElementById("startTime").value = startTime; // update input field
+          }
+
           var endTime = document.getElementById("endTime").value;
+
+          // Add leading zero to minute, if missing
+          hour = endTime.split(":")[0]; // Extract hour part
+          hour = parseInt(hour);
+          modifier = endTime.split(" ")[1]; // Extract AM/PM part, if exists
+          minute = endTime.split(" ")[0].split(":")[1]; // Extract minute part
+          minute = parseInt(minute);
+          if (minute < 10) {
+            minute = "0" + minute; // add leading zero
+            endTime = hour + ":" + minute + " " + modifier; // update input
+            document.getElementById("endTime").value = endTime; // update input field
+          }
+
           var dryRun = document.getElementById("dryRun").checked; // by default, checkbox is unchecked, meaning .checked is false
 
           document.getElementById("wait").innerHTML = "Please wait...";
