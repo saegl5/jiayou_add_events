@@ -715,7 +715,8 @@
           minute = parseInt(minute);
           if (minute < 10) {
             minute = "0" + minute; // add leading zero
-            startTime = hour + ":" + minute + " " + modifier; // update input
+            if (modifier !== undefined) startTime = hour + ":" + minute + " " + modifier; // update input
+            else startTime = hour + ":" + minute; // update input
             document.getElementById("startTime").value = startTime; // update input field
           }
 
@@ -729,7 +730,8 @@
           minute = parseInt(minute);
           if (minute < 10) {
             minute = "0" + minute; // add leading zero
-            endTime = hour + ":" + minute + " " + modifier; // update input
+            if (modifier !== undefined) endTime = hour + ":" + minute + " " + modifier; // update input
+            else endTime = hour + ":" + minute;
             document.getElementById("endTime").value = endTime; // update input field
           }
 
