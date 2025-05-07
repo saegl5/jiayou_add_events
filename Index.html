@@ -529,32 +529,32 @@
         let hour = inputValue.split(":")[0]; // Extract hour part
         hour = parseInt(hour);
         let modifier = inputValue.split(" ")[1]; // Extract AM/PM part, if exists
-        let minute = inputValue.split(":")[1]?.split(" ")[0]; // Extract minute part
-        minute = parseInt(minute);
+        // let minute = inputValue.split(":")[1]?.split(" ")[0]; // Extract minute part
+        // minute = parseInt(minute);
 
-        // Ignoring negative numbers, minimum hour in 24-hour format, and minimum minute
+        // Ignoring negative numbers, minimum hour, cross formatting, hourly roll over, minimum and maximum minute, since maximum hour restriction is most important 
 
         // 12-hour format -----------
-        if (modifier !== undefined && hour === 0) { // Minimum hour is 12
-          event.target.value = event.target.value.replace(hour, 12); // Replace prohibited text
-          event.target.value = event.target.value.replace(modifier, "AM"); // Reset modifier
-        } 
-        else if (modifier !== undefined && hour >= 24) { // Cap hour at 11 (PM), since 12 (AM) and later is next day
-          event.target.value = event.target.value.replace(hour, 11); // Replace prohibited text
-          event.target.value = event.target.value.replace(modifier, "PM"); // Reset modifier
-        } 
-        else if (modifier !== undefined && hour > 12) { // Otherwise, since maximum hour is also 12, roll over hour
-          event.target.value = event.target.value.replace(hour, hour % 12); // Replace prohibited text
-          event.target.value = event.target.value.replace(modifier, "PM"); // Reset modifier, although 12 ideally would change modifier
-        }
+        // if (modifier !== undefined && hour === 0) { // Minimum hour is 12
+        //   event.target.value = event.target.value.replace(hour, 12); // Replace prohibited text
+        //   event.target.value = event.target.value.replace(modifier, "AM"); // Reset modifier
+        // } 
+        // if (modifier !== undefined && hour >= 24) { // Cap hour at 11 (PM), since 12 (AM) and later is next day
+        //   event.target.value = event.target.value.replace(hour, 11); // Replace prohibited text
+        //   event.target.value = event.target.value.replace(modifier, "PM"); // Reset modifier
+        // } 
+        // else if (modifier !== undefined && hour > 12) { // Otherwise, since maximum hour is also 12, roll over hour
+        //   event.target.value = event.target.value.replace(hour, hour % 12); // Replace prohibited text
+        //   event.target.value = event.target.value.replace(modifier, "PM"); // Reset modifier, although 12 ideally would change modifier
+        // }
 
         // 24-hour format -----------
         if (modifier === undefined && hour >= 24) // Cap hour at 23, since 24 and greater is next day
           event.target.value = event.target.value.replace(hour, 23); // Replace prohibited text
 
         // 12-hour and 24-hour format -----------
-        if (minute >= 60) // Cap minute at 59, since 60 and greater is next hour
-          event.target.value = event.target.value.replace(minute, 59); // Replace prohibited text
+        // if (minute >= 60) // Cap minute at 59, since 60 and greater is next hour
+        //   event.target.value = event.target.value.replace(minute, 59); // Replace prohibited text
       }
 
       // Attach the reusable function to both startTime and endTime inputs
