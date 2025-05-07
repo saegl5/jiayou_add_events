@@ -649,6 +649,20 @@
             alert("\"" + this.value + "\" is an internal calendar!\n\nPlease kindly choose a different calendar to add events.");
       }); 
 
+      function addLeadingZero(time) {
+        let hour = time.split(":")[0]; // Extract hour part
+        hour = parseInt(hour);
+        let modifier = time.split(" ")[1]; // Extract AM/PM part, if exists
+        let minute = time.split(" ")[0].split(":")[1]; // Extract minute part
+        minute = parseInt(minute);
+        if (minute < 10) {
+          minute = "0" + minute; // add leading zero
+          if (modifier !== undefined) time = hour + ":" + minute + " " + modifier; // update input
+          else time = hour + ":" + minute; // update input
+        }
+        return time; // return updated time
+      }
+
       document
         .getElementById("calendarForm")
         .addEventListener("submit", function (event) {
@@ -671,34 +685,9 @@
           var start = document.getElementById("start").value;
           var end = document.getElementById("end").value;
           var startTime = document.getElementById("startTime").value;
-
-          // Add leading zero to minute, if missing
-          var hour = startTime.split(":")[0]; // Extract hour part
-          hour = parseInt(hour);
-          var modifier = startTime.split(" ")[1]; // Extract AM/PM part, if exists
-          var minute = startTime.split(" ")[0].split(":")[1]; // Extract minute part
-          minute = parseInt(minute);
-          if (minute < 10) {
-            minute = "0" + minute; // add leading zero
-            if (modifier !== undefined) startTime = hour + ":" + minute + " " + modifier; // update input
-            else startTime = hour + ":" + minute; // update input
-            document.getElementById("startTime").value = startTime; // update input field
-          }
-
+          document.getElementById("startTime").value = addLeadingZero(startTime); // Add leading zero to minute, if missing
           var endTime = document.getElementById("endTime").value;
-
-          // Add leading zero to minute, if missing
-          hour = endTime.split(":")[0]; // Extract hour part
-          hour = parseInt(hour);
-          modifier = endTime.split(" ")[1]; // Extract AM/PM part, if exists
-          minute = endTime.split(" ")[0].split(":")[1]; // Extract minute part
-          minute = parseInt(minute);
-          if (minute < 10) {
-            minute = "0" + minute; // add leading zero
-            if (modifier !== undefined) endTime = hour + ":" + minute + " " + modifier; // update input
-            else endTime = hour + ":" + minute;
-            document.getElementById("endTime").value = endTime; // update input field
-          }
+          document.getElementById("endTime").value = addLeadingZero(endTime); // Add leading zero to minute, if missing
 
           var dryRun = document.getElementById("dryRun").checked; // by default, checkbox is unchecked, meaning .checked is false
 
