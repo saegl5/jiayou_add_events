@@ -388,8 +388,8 @@
 
     <footer>
       <p>
-        Technical difficulties? Search issues or open a new one on
-        <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.
+        <text name="difficulties">Technical difficulties? Search issues or open a new one on
+        <a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>.</text>
         <br>
         <text class="reference"
           >Reference ID: 7048e66a5f11a409710155ad2548bdc02d13a3ab</text
@@ -596,6 +596,7 @@
           document.getElementById("startRef").value = document.getElementById("start").value // backup, in case start date is changed
           document.getElementById("start").value = new Date(document.getElementById("startRef").value).toISOString().split("T")[0]; // keeps just date
           document.getElementById("button").innerHTML = "提交";
+          document.getElementsByName("difficulties")[0].innerHTML = "技术问题？在" + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + "上搜索问题或打开一个新问题。";
           document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
           document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
         } else if (language === "English") { // default
@@ -631,6 +632,7 @@
           document.getElementById("end").placeholder = "Optional";
           document.getElementById("start").value = localeDateString(document.getElementById("startRef").value);
           document.getElementById("button").innerHTML = "Submit";
+          document.getElementsByName("difficulties")[0].innerHTML = "Technical difficulties? Search issues or open a new one on " + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + ".";
           document.getElementById("end").value = localeDateString(document.getElementById("endRef").value);
         }
       }
