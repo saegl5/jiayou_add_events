@@ -412,12 +412,19 @@
       });
 
       // JavaScript handles form submission and sends data to the Google Apps Script
+      
+      // make var to carry over value
+      var username;
+      
       function load() {
         // optimized by merging into one script
         google.script.run
           .withSuccessHandler(function (response) {
-            document.getElementById("user").innerHTML =
-              "Welcome, " + response.username + "!";
+            if (isChineseLanguage() === true) 
+              document.getElementById("user").innerHTML = "欢迎，" + response.username + "！";
+            else
+              document.getElementById("user").innerHTML = "Welcome, " + response.username + "!";
+            username = response.username; // backup
             const selectElement = document.querySelector('select');
             selectElement.innerHTML = ''; // Clear existing options
             for (const calendar of response.calendars) {
@@ -563,6 +570,7 @@
 
       function translate(language) {
         if (language === "Chinese") {
+          if (username !== undefined) document.getElementById("user").innerHTML = "欢迎，" + username + "！";
           document.getElementById("calendarHeader").innerHTML = "日历";
           document.getElementById("letterDayHeader").innerHTML = "字母日";
           document.getElementById("frequencyHeader").innerHTML = "频率";
@@ -600,6 +608,7 @@
           document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
           document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
         } else if (language === "English") { // default
+          if (username !== undefined) document.getElementById("user").innerHTML = "Welcome, " + username + "!";
           document.getElementById("calendarHeader").innerHTML = "Calendar";
           document.getElementById("letterDayHeader").innerHTML = "Letter Days";
           document.getElementById("frequencyHeader").innerHTML = "Frequency";
