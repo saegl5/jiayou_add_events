@@ -22,18 +22,20 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 3. Run the script to acquire authorization.
 4. Create an HTML file, and name it "Index."
 5. Copy and paste [the markup text](./Index.html) into the editor, and save the file.
-6. Deploy the project as a Web app, and open the assigned URL.
+6. Create another Script file, but name it "Script."
+7. Copy and paste [the other script](./Script.gs) into the editor, and save the file.
+8. Deploy the project as a Web app, and open the assigned URL.
 
 ### How to Use
 
-7. Check the username to ensure that you opened the URL in the correct account.
-8. Select the checkbox to view the form in Mandarin.
-9. Select your calendar name; choose letter days on which you want to add events, and optionally skip one or two letter days. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate and hide the 加油 calendar.)
-10. Modify the events' title, start time and end time. (If both times are removed, events will be added as all-day events. For 24-hour time formats, if users input hours of 24 or later it will default hours to 23, for example 24:30 -> 23:30).
-11. Expand the collapsible region to modify the events' guests, location, and description. (If you input just a URL for the description, text to display will be "Agenda.")
-12. Expand the collapsible region, as well, to confine the date range by modifying the start date and end date. (If either is empty, events will be added to all chosen letter days, starting from either today or ending one year from today.)
-13. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
-14. Press submit. (Requires another authorization. **_Note also that creating recurring events is subject to a [use limit](https://support.google.com/calendar/answer/37115)._**)
+9. Check the username to ensure that you opened the URL in the correct account.
+10. Select the checkbox to view the form in Mandarin.
+11. Select your calendar name; choose letter days on which you want to add events, and optionally skip one or two letter days. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate and hide the 加油 calendar.)
+12. Modify the events' title, start time and end time. (If both times are removed, events will be added as all-day events. For 24-hour time formats, if users input hours of 24 or later it will default hours to 23, for example 24:30 -> 23:30).
+13. Expand the collapsible region to modify the events' guests, location, and description. (If you input just a URL for the description, text to display will be "Agenda.")
+14. Expand the collapsible region, as well, to confine the date range by modifying the start date and end date. (If either is empty, events will be added to all chosen letter days, starting from either today or ending one year from today.)
+15. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
+16. Press submit. (Requires another authorization. **_Note also that creating recurring events is subject to a [use limit](https://support.google.com/calendar/answer/37115)._**)
 
 ## Next Steps
 
