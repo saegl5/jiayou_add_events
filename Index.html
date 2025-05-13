@@ -485,6 +485,7 @@
 
       document.getElementById("start").value = localeDateString(Date.now());
 
+      // Convert Local to ISO
       function parseTimeLocal(time) {
         let [timePart, modifier] = time.split(" "); // modifier ignored if missing
         time = timePart.split(":");
@@ -504,6 +505,7 @@
         return time;
       }
 
+      // Convert ISO to Local
       function parseTimeISO(time) {
         time = time.split(":");
         time[0] = parseInt(time[0]);
@@ -568,6 +570,7 @@
       document.getElementById("startTime").addEventListener("input", validateTimeInput);
       document.getElementById("endTime").addEventListener("input", validateTimeInput);
 
+      // Function to translate text
       function translate(language) {
         if (language === "Chinese") {
           if (username !== undefined) document.getElementById("user").innerHTML = "欢迎，" + username + "！";
