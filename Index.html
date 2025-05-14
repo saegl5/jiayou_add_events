@@ -590,12 +590,9 @@
             eventSection: "事件设置",
             calendarName: "必须已存在",
             numberInput: "每一、两或三个字母日",
-            // document.getElementsByName("title")[0].innerHTML = "事件的标题";
             times: "HH:MM AM/PM, HH:MM (24小时)",
             guestsName: "客人的电子邮件地址列表，以逗号分隔",          
-            // document.getElementsByName("location")[0].innerHTML = "事件的位置";
             descriptionName: "字符串或完整URL",
-            // dates: "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD",
             title: "新会议", // quirky in vscode preview
             startTime: parseTimeLocal(document.getElementById("startTime").value).join(":"),
             startTimeOpt: "可选的",
@@ -606,14 +603,12 @@
             descriptionId: "可选的",
             startOpt: "可选的",
             endOpt: "可选的",
-            // startRef: document.getElementById("start").value, // backup, in case start date is changed
             start: document.getElementById("startRef").value
               ? new Date(document.getElementById("startRef").value).toISOString().split("T")[0] // keeps just date
               : "", // skip
             button: "提交",
             difficulties: "技术问题？在" + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + "上搜索问题或打开一个新问题。",
             reference: "版本 ",
-            // endRef: document.getElementById("end").value, // backup here, in case end date is changed
             end: document.getElementById("endRef").value
               ? new Date(document.getElementById("endRef").value).toISOString().split("T")[0] // keeps just date
               : "", // skip
@@ -635,12 +630,9 @@
             eventSection: "Event Settings",
             calendarName: "Must already exist",
             numberInput: "Every one, two or three letter days",
-            // document.getElementsByName("title")[0].innerHTML = "of events";
             times: "HH:MM AM/PM, HH:MM (24-hour)",
             guestsName: "List email addresses, comma-separated",
-            // document.getElementsByName("location")[0].innerHTML = "of events";
             descriptionName: "String or full URL",
-            // dates: "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD",
             title: "New Meeting", // quirky in vscode preview
             startTime: parseTimeISO(document.getElementById("startTime").value).join(":"),
             startTimeOpt: "Optional",
@@ -678,12 +670,9 @@
         document.getElementsByName("eventSection")[0].innerHTML = response.eventSection;
         document.getElementsByName("calendarName")[0].innerHTML = response.calendarName;
         document.getElementsByName("numberInput")[0].innerHTML = response.numberInput;
-        // document.getElementsByName("title")[0].innerHTML = "事件的标题";
         document.getElementsByName("times")[0].innerHTML = response.times;
         document.getElementsByName("guests")[0].innerHTML = response.guestsName;
-        // document.getElementsByName("location")[0].innerHTML = "事件的位置";
         document.getElementsByName("description")[0].innerHTML = response.descriptionName;
-        // document.getElementsByName("dates")[0].innerHTML = response.dates; // redundant
         if (document.getElementById("title").value === "New Meeting" || document.getElementById("title").value === "新会议")
           document.getElementById("title").value = response.title; // quirky in vscode preview
         if (document.getElementById("startTime").value !== "") // fixes NaN
@@ -697,17 +686,13 @@
         document.getElementById("description").placeholder = response.descriptionId;
         document.getElementById("start").placeholder = response.startOpt;
         document.getElementById("end").placeholder = response.endOpt;
-        if (document.getElementById("start").value !== "") { // fixes Invalid Date
-          // document.getElementById("startRef").value = response.startRef; // backup, in case start date is changed
+        if (document.getElementById("start").value !== "") // fixes Invalid Date
           document.getElementById("start").value = response.start; // keeps just date
-        }
         document.getElementById("button").innerHTML = response.button;
         document.getElementsByName("difficulties")[0].innerHTML = response.difficulties;
         document.getElementsByName("reference")[0].innerHTML = response.reference;
-        if (document.getElementById("end").value !== "") { // fixes Invalid Date
-          // document.getElementById("endRef").value = response.endRef; // backup here, in case end date is changed
+        if (document.getElementById("end").value !== "") // fixes Invalid Date
           document.getElementById("end").value = response.end; // keeps just date
-        }
       }
 
       document
@@ -727,7 +712,6 @@
       document
         .getElementById("start")
         .addEventListener("change", function () {
-          // document.getElementById("startRef").value = this.value; // what if ISO already
           const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
           if (regex.test(this.value) === true) // adjust reference date
             document.getElementById("startRef").value 
@@ -741,7 +725,6 @@
       document
         .getElementById("end")
         .addEventListener("change", function () {
-          // document.getElementById("endRef").value = this.value; // what if ISO already
           const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
           if (regex.test(this.value) === true) // adjust reference date
             document.getElementById("endRef").value 
