@@ -727,13 +727,29 @@
       document
         .getElementById("start")
         .addEventListener("change", function () {
-          document.getElementById("startRef").value = this.value;
+          // document.getElementById("startRef").value = this.value; // what if ISO already
+          const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
+          if (regex.test(this.value) === true) // adjust reference date
+            document.getElementById("startRef").value 
+              = this.value.split("-")[1] + "/" +
+                this.value.split("-")[2] + "/" +
+                this.value.split("-")[0];
+          else
+            document.getElementById("startRef").value = this.value;
         });
       
       document
         .getElementById("end")
         .addEventListener("change", function () {
-          document.getElementById("endRef").value = this.value;
+          // document.getElementById("endRef").value = this.value; // what if ISO already
+          const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
+          if (regex.test(this.value) === true) // adjust reference date
+            document.getElementById("endRef").value 
+              = this.value.split("-")[1] + "/" +
+                this.value.split("-")[2] + "/" +
+                this.value.split("-")[0];
+          else
+            document.getElementById("endRef").value = this.value;
         });
 
       function addLeadingZero(time) {
