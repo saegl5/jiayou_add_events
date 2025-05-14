@@ -452,9 +452,9 @@
             M.FormSelect.init(selectElement);
             if (response.endDate !== null) {
               document.getElementById("end").value = response.endDate;
-              // document.getElementById("endRef").value = document.getElementById("end").value; // backup
+              document.getElementById("endRef").value = document.getElementById("end").value; // backup
               if (isChineseLanguage() === true) { // tail back
-                document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
+                // document.getElementById("endRef").value = document.getElementById("end").value; // backup here, in case end date is changed
                 document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
               }
             }
@@ -484,6 +484,7 @@
       }
 
       document.getElementById("start").value = localeDateString(Date.now());
+      document.getElementById("startRef").value = document.getElementById("start").value;
 
       // Convert Local to ISO
       function parseTimeLocal(time) {
@@ -611,7 +612,9 @@
             difficulties: "技术问题？在" + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + "上搜索问题或打开一个新问题。",
             reference: "版本 ",
             endRef: document.getElementById("end").value, // backup here, in case end date is changed
-            end: new Date(document.getElementById("endRef").value).toISOString().split("T")[0], // keeps just date
+            end: document.getElementById("endRef").value
+              ? new Date(document.getElementById("endRef").value).toISOString().split("T")[0] // keeps just date
+              : "", // skip
           }
         } else if (language === "English") { // default
           return {
@@ -650,11 +653,13 @@
             button: "Submit",
             difficulties: "Technical difficulties? Search issues or open a new one on " + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + ".",
             reference: "Version ",
-            end: localeDateString(document.getElementById("endRef").value),
+            end: document.getElementById("endRef").value
+              ? localeDateString(document.getElementById("endRef").value)
+              : "", // skip
           }
         }
       }
-      
+
       function callTranslate(language) {
         let response = translate(language);
         if (username !== undefined)
@@ -692,13 +697,17 @@
         document.getElementById("description").placeholder = response.descriptionId;
         document.getElementById("start").placeholder = response.startOpt;
         document.getElementById("end").placeholder = response.endOpt;
-        document.getElementById("startRef").value = response.startRef; // backup, in case start date is changed
-        document.getElementById("start").value = response.start; // keeps just date
+        if (document.getElementById("start").value !== "") { // fixes Invalid Date
+          // document.getElementById("startRef").value = response.startRef; // backup, in case start date is changed
+          document.getElementById("start").value = response.start; // keeps just date
+        }
         document.getElementById("button").innerHTML = response.button;
         document.getElementsByName("difficulties")[0].innerHTML = response.difficulties;
         document.getElementsByName("reference")[0].innerHTML = response.reference;
-        document.getElementById("endRef").value = response.endRef; // backup here, in case end date is changed
-        document.getElementById("end").value = response.end; // keeps just date
+        if (document.getElementById("end").value !== "") { // fixes Invalid Date
+          // document.getElementById("endRef").value = response.endRef; // backup here, in case end date is changed
+          document.getElementById("end").value = response.end; // keeps just date
+        }
       }
 
       document
