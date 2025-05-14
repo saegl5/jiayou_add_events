@@ -653,9 +653,7 @@
             button: "Submit",
             difficulties: "Technical difficulties? Search issues or open a new one on " + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + ".",
             reference: "Version ",
-            end: document.getElementById("endRef").value
-              ? localeDateString(document.getElementById("endRef").value)
-              : "", // skip
+            end: localeDateString(document.getElementById("endRef").value),
           }
         }
       }
