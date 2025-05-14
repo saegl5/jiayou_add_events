@@ -595,7 +595,7 @@
             guestsName: "客人的电子邮件地址列表，以逗号分隔",          
             // document.getElementsByName("location")[0].innerHTML = "事件的位置";
             descriptionName: "字符串或完整URL",
-            dates: "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD",
+            // dates: "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD",
             title: "新会议", // quirky in vscode preview
             startTime: parseTimeLocal(document.getElementById("startTime").value).join(":"),
             startTimeOpt: "可选的",
@@ -640,7 +640,7 @@
             guestsName: "List email addresses, comma-separated",
             // document.getElementsByName("location")[0].innerHTML = "of events";
             descriptionName: "String or full URL",
-            dates: "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD",
+            // dates: "Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD",
             title: "New Meeting", // quirky in vscode preview
             startTime: parseTimeISO(document.getElementById("startTime").value).join(":"),
             startTimeOpt: "Optional",
@@ -683,7 +683,7 @@
         document.getElementsByName("guests")[0].innerHTML = response.guestsName;
         // document.getElementsByName("location")[0].innerHTML = "事件的位置";
         document.getElementsByName("description")[0].innerHTML = response.descriptionName;
-        document.getElementsByName("dates")[0].innerHTML = response.dates; // redundant
+        // document.getElementsByName("dates")[0].innerHTML = response.dates; // redundant
         if (document.getElementById("title").value === "New Meeting" || document.getElementById("title").value === "新会议")
           document.getElementById("title").value = response.title; // quirky in vscode preview
         if (document.getElementById("startTime").value !== "") // fixes NaN
