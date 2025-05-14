@@ -606,14 +606,14 @@
             descriptionId: "可选的",
             startOpt: "可选的",
             endOpt: "可选的",
-            startRef: document.getElementById("start").value, // backup, in case start date is changed
+            // startRef: document.getElementById("start").value, // backup, in case start date is changed
             start: document.getElementById("startRef").value
               ? new Date(document.getElementById("startRef").value).toISOString().split("T")[0] // keeps just date
               : "", // skip
             button: "提交",
             difficulties: "技术问题？在" + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + "上搜索问题或打开一个新问题。",
             reference: "版本 ",
-            endRef: document.getElementById("end").value, // backup here, in case end date is changed
+            // endRef: document.getElementById("end").value, // backup here, in case end date is changed
             end: document.getElementById("endRef").value
               ? new Date(document.getElementById("endRef").value).toISOString().split("T")[0] // keeps just date
               : "", // skip
