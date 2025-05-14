@@ -722,7 +722,19 @@
         .addEventListener("change", function () { 
           if (this.value === document.getElementById("calendarNameRef").value)
             alert("\"" + this.value + "\" is an internal calendar!\n\nPlease kindly choose a different calendar to add events.");
-      }); 
+        }); 
+      
+      document
+        .getElementById("start")
+        .addEventListener("change", function () {
+          document.getElementById("startRef").value = this.value;
+        });
+      
+      document
+        .getElementById("end")
+        .addEventListener("change", function () {
+          document.getElementById("endRef").value = this.value;
+        });
 
       function addLeadingZero(time) {
         let hour = time.split(":")[0]; // Extract hour part
