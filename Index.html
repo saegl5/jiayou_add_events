@@ -459,7 +459,7 @@
         // optimized by merging into one script
         google.script.run
           .withSuccessHandler(function (response) {
-            if (isChineseLanguage() === true) 
+            if (isChineseLanguage() === true || document.getElementById("chinese").checked === true) 
               document.getElementById("user").innerHTML = "欢迎，" + response.username;
             else
               document.getElementById("user").innerHTML = "Welcome, " + response.username;
