@@ -155,7 +155,7 @@
             <h5 id="calendarHeader">Calendar</h5>
             <div class="input-field">
               <select id="calendarName">
-                <option value="" disabled selected>Searching... (搜索中)</option>
+                <!-- <option value="" disabled selected>Searching... (搜索中)</option> populate later in DOMContentLoaded event listener --> 
               </select>
               <!-- <label for="calendarName">Must already exist</label> -->
               <span name="calendarName" class="extra">Must already exist</span>
@@ -399,11 +399,27 @@
     </footer>
   
     <script>
+    
+      function isChineseLanguage() { // place here so DOMContentLoaded event listener and load() can access it
+        const language = navigator.language || navigator.languages[0];
+        return language.startsWith("zh"); // examples: zh-CN and zh-TW
+      }
 
       document.addEventListener("DOMContentLoaded", function () {
         // const selectElems = document.querySelectorAll('select');
         // M.FormSelect.init(selectElems);
 
+        const selectElement = document.getElementById("calendarName");         
+        var optionText;
+        if (isChineseLanguage() === true)
+          optionText = "搜索中。。。";
+        else
+          optionText = "Searching...";
+        const newOption = new Option(optionText, "", true, true);
+        // syntax: new Option(text, value, defaultSelected, selected)
+        newOption.disabled = true; // Ensure the option is disabled
+        selectElement.appendChild(newOption);
+        
         // const collapsibleElems = document.querySelectorAll(".collapsible");
         // M.Collapsible.init(collapsibleElems);
 
@@ -460,11 +476,6 @@
             }
           })
           .getCalendarNamesAndDefault();
-
-        function isChineseLanguage() {
-          const language = navigator.language || navigator.languages[0];
-          return language.startsWith("zh"); // examples: zh-CN and zh-TW
-        }
 
         if (isChineseLanguage() === true) {
           document.getElementById("chinese").checked = true;
@@ -575,6 +586,7 @@
       function translate(language) {
         if (language === "Chinese") {
           return {
+            option: "搜索中。。。",
             user: "欢迎，" + username + "！",
             calendarHeader: "日历",
             letterDayHeader: "字母日",
@@ -615,6 +627,7 @@
           }
         } else if (language === "English") { // default
           return {
+            option: "Searching...",
             user: "Welcome, " + username + "!",
             calendarHeader: "Calendar",
             letterDayHeader: "Letter Days",
@@ -654,6 +667,9 @@
 
       function callTranslate(language) {
         let response = translate(language);
+        if ((document.getElementById("calendarName").options[0].text).includes("搜索中") || (document.getElementById("calendarName").options[0].text).includes("Searching"))
+          document.getElementById("calendarName").options[0].text = response.option; // update dropdown list
+          M.AutoInit(); // reinitialize dropdown list
         if (username !== undefined)
           document.getElementById("user").innerHTML = response.user;
         document.getElementById("calendarHeader").innerHTML = response.calendarHeader;
