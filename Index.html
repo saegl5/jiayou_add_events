@@ -460,9 +460,9 @@
         google.script.run
           .withSuccessHandler(function (response) {
             if (isChineseLanguage() === true) 
-              document.getElementById("user").innerHTML = "欢迎，" + response.username + "！";
+              document.getElementById("user").innerHTML = "欢迎，" + response.username;
             else
-              document.getElementById("user").innerHTML = "Welcome, " + response.username + "!";
+              document.getElementById("user").innerHTML = "Welcome, " + response.username;
             username = response.username; // backup
             const selectElement = document.querySelector('select');
             selectElement.innerHTML = ''; // Clear existing options
@@ -606,7 +606,7 @@
           return {
             fontFamily: '"Noto Serif SC", serif', // font is accessible in macOS Safari, Windows Microsoft Edge, iOS Safari and (presumably) Android Google Chrome
             option: "搜索中。。。",
-            user: "欢迎，" + username + "！",
+            user: "欢迎，" + username,
             calendarHeader: "日历",
             letterDayHeader: "字母日",
             frequencyHeader: "频率",
@@ -648,7 +648,7 @@
           return {
             fontFamily: 'system-ui',
             option: "Searching...",
-            user: "Welcome, " + username + "!",
+            user: "Welcome, " + username,
             calendarHeader: "Calendar",
             letterDayHeader: "Letter Days",
             frequencyHeader: "Frequency",
