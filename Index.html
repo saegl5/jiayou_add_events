@@ -26,8 +26,8 @@
       }
       body {
         background-color: var(--background);
-        font-family: system-ui, "Noto Serif SC", serif; /* sans-serif for English, serif for Chinese */
-        /* worked in google chrome, but not safari: safari can't access either Kai font */
+        /* font-family: system-ui, "Noto Serif SC", serif; /* sans-serif for English, serif for Chinese */ */
+        /* worked in google chrome, but not safari: safari can't access either Kai font, and it only displays one font at a time */
         font-optical-sizing: auto; /* suggested by google font */
       }
       header,
@@ -136,11 +136,21 @@
       .active .collapsible-body {
         max-height: 1000px !important; /* override Materialize CSS */
       }
+      h1 {
+          display: inline;
+      }
+      h1[id="sansFixed"] {
+          font-family: system-ui;
+      }
+      h1[id="serifFixed"], header > label > span {
+          font-family: "Noto Serif SC", serif;
+      }      
     </style>
   </head>
   <body onload="load()">
     <header>
-      <h1>Add 加油 ("jiā yóu") Events</h1>
+      <h1 id="sansFixed">Add</h1><h1 id="serifFixed"> 加油 </h1><h1 id="sansFixed">("jiā yóu") Events</h1>
+      <br><br>
       <div id="user">&nbsp;</div>
       <br>
       <label>
@@ -593,6 +603,7 @@
       function translate(language) {
         if (language === "Chinese") {
           return {
+            fontFamily: '"Noto Serif SC", serif', // font is accessible in macOS Safari, Windows Microsoft Edge, iOS Safari and (presumably) Android Google Chrome
             option: "搜索中。。。",
             user: "欢迎，" + username + "！",
             calendarHeader: "日历",
@@ -634,6 +645,7 @@
           }
         } else if (language === "English") { // default
           return {
+            fontFamily: 'system-ui',
             option: "Searching...",
             user: "Welcome, " + username + "!",
             calendarHeader: "Calendar",
@@ -674,6 +686,8 @@
 
       function callTranslate(language) {
         let response = translate(language);
+        document.body.style.fontFamily = response.fontFamily;
+        button.style.fontFamily = response.fontFamily; // button font
         if ((document.getElementById("calendarName").options[0].text).includes("搜索中") || (document.getElementById("calendarName").options[0].text).includes("Searching"))
           document.getElementById("calendarName").options[0].text = response.option; // update dropdown list
           M.AutoInit(); // reinitialize dropdown list
