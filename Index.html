@@ -422,7 +422,12 @@
         
         // const collapsibleElems = document.querySelectorAll(".collapsible");
         // M.Collapsible.init(collapsibleElems);
-
+                        
+        if (isChineseLanguage() === true) { // makes more sense to place here
+          document.getElementById("chinese").checked = true;
+          callTranslate("Chinese"); // translate text to Chinese, if endDate is not null then tail back above
+        }
+        
         M.AutoInit();
         load();
       });
@@ -476,11 +481,6 @@
             }
           })
           .getCalendarNamesAndDefault();
-
-        if (isChineseLanguage() === true) {
-          document.getElementById("chinese").checked = true;
-          callTranslate("Chinese"); // translate text to Chinese, if endDate is not null then tail back above
-        }
       }
 
       function localeDateString(dateString) {
