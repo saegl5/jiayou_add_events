@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap" rel="stylesheet">    
     <style>
       /* Basic styling for the form */
       :root {
@@ -22,7 +26,9 @@
       }
       body {
         background-color: var(--background);
-        font-family: system-ui, "STKaiti", "KaiTi"; // san-serif for English, script for Chinese 
+        font-family: system-ui, "Noto Serif SC", serif; /* sans-serif for English, serif for Chinese */
+        /* worked in google chrome, but not safari: safari can't access either Kai font */
+        font-optical-sizing: auto; /* suggested by google font */
       }
       header,
       div[id="section"],
