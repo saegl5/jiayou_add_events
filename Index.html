@@ -485,9 +485,11 @@
             }
             document.getElementById("calendarNameRef").value = response.reference;
             document.getElementById("howMany").value = response.conflict;
-            if (response.conflict > 1) {
+            if (response.conflict > 1 && document.getElementById("chinese").checked === false)
               document.getElementById("wait").innerHTML = "Multiple calendars contain letter days!";
-            }
+            else if (response.conflict > 1 && document.getElementById("chinese").checked === true)
+              document.getElementById("wait").innerHTML = "多个日历包含字母日！";
+            // check down below
             M.FormSelect.init(selectElement);
             if (response.endDate !== null) {
               document.getElementById("end").value = response.endDate;
@@ -644,6 +646,11 @@
               ? new Date(document.getElementById("endRef").value).toISOString().split("T")[0] // keeps just date
               : "", // skip
             dryRun: "干运行",
+            wait: document.getElementById("wait").innerHTML === "Multiple calendars contain letter days!" 
+              ? "多个日历包含字母日！" 
+              : document.getElementById("wait").innerHTML === "Please wait..." 
+                ? "请稍等。。。"
+                : "",
           }
         } else if (language === "English") { // default
           return {
@@ -683,6 +690,11 @@
             reference: "Version ",
             end: localeDateString(document.getElementById("endRef").value),
             dryRun: "Dry Run",
+            wait: document.getElementById("wait").innerHTML === "多个日历包含字母日！" 
+              ? "Multiple calendars contain letter days!" 
+              : document.getElementById("wait").innerHTML === "请稍等。。。" 
+                ? "Please wait..."
+                : "",
           }
         }
       }
@@ -734,6 +746,8 @@
         if (document.getElementById("end").value !== "") // fixes Invalid Date
           document.getElementById("end").value = response.end; // keeps just date
         document.getElementById("dryRunText").innerHTML = response.dryRun;
+        if (document.getElementById("wait").innerHTML !== "&nbsp;")
+          document.getElementById("wait").innerHTML = response.wait; // update message
       }
 
       document
@@ -817,8 +831,11 @@
           document.getElementById("endTime").value = addLeadingZero(endTime); // Add leading zero to minute, if missing
 
           var dryRun = document.getElementById("dryRun").checked; // by default, checkbox is unchecked, meaning .checked is false
-
-          document.getElementById("wait").innerHTML = "Please wait...";
+          
+          if (document.getElementById("chinese").checked === true)
+            document.getElementById("wait").innerHTML = "请稍等。。。";
+          else
+            document.getElementById("wait").innerHTML = "Please wait...";
 
           google.script.run
             .withSuccessHandler(function (response) {
