@@ -131,7 +131,7 @@
         padding-top: 4px !important; /* override Materialize CSS */
         resize: vertical !important; /* override Materialize CSS */
       }
-      span[id="dryRun"] {
+      span[id="dryRunText"] {
         line-height: 20px !important; /* override Materialize CSS */
       }
       .active .collapsible-body {
@@ -384,7 +384,7 @@
               <label>
                 <!-- add "hidden" to label tag above to hide dryRun-->
                 <input type="checkbox" class="filled-in" id="dryRun" unchecked/>
-                <span id="dryRun">Dry Run</span>
+                <span id="dryRunText">Dry Run</span>
                 <!-- test script before running it in production, hide for production by commenting or removing these lines of code -->
               </label>
             </div>
@@ -643,6 +643,7 @@
             end: document.getElementById("endRef").value
               ? new Date(document.getElementById("endRef").value).toISOString().split("T")[0] // keeps just date
               : "", // skip
+            dryRun: "干运行",
           }
         } else if (language === "English") { // default
           return {
@@ -681,6 +682,7 @@
             difficulties: "Technical difficulties? Search issues or open a new one on " + `<a href="https://github.com/saegl5/jiayou_add_events/issues">GitHub</a>` + ".",
             reference: "Version ",
             end: localeDateString(document.getElementById("endRef").value),
+            dryRun: "Dry Run",
           }
         }
       }
@@ -731,6 +733,7 @@
         document.getElementsByName("reference")[0].innerHTML = response.reference;
         if (document.getElementById("end").value !== "") // fixes Invalid Date
           document.getElementById("end").value = response.end; // keeps just date
+        document.getElementById("dryRunText").innerHTML = response.dryRun;
       }
 
       document
