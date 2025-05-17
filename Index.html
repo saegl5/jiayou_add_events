@@ -430,7 +430,7 @@
         const selectElement = document.getElementById("calendarName");         
         var optionText;
         if (isChineseLanguage() === true)
-          optionText = "搜索中…";
+          optionText = "搜索中……";
         else
           optionText = "Searching...";
         const newOption = new Option(optionText, "", true, true);
@@ -607,7 +607,7 @@
         if (language === "Chinese") {
           return {
             fontFamily: '"Noto Serif SC", serif', // font is accessible in macOS Safari, Windows Microsoft Edge, iOS Safari and (presumably) Android Google Chrome
-            option: "搜索中…",
+            option: "搜索中……",
             user: "欢迎，" + username,
             calendarHeader: "日历",
             letterDayHeader: "字母日",
@@ -649,7 +649,7 @@
             wait: document.getElementById("wait").innerHTML === "Multiple calendars contain letter days!" 
               ? "多个日历包含字母日！" 
               : document.getElementById("wait").innerHTML === "Please wait..." 
-                ? "请稍等…"
+                ? "请稍等……"
                 : "",
           }
         } else if (language === "English") { // default
@@ -692,7 +692,7 @@
             dryRun: "Dry Run",
             wait: document.getElementById("wait").innerHTML === "多个日历包含字母日！" 
               ? "Multiple calendars contain letter days!" 
-              : document.getElementById("wait").innerHTML === "请稍等…" 
+              : document.getElementById("wait").innerHTML === "请稍等……" 
                 ? "Please wait..."
                 : "",
           }
@@ -833,7 +833,7 @@
           var dryRun = document.getElementById("dryRun").checked; // by default, checkbox is unchecked, meaning .checked is false
           
           if (document.getElementById("chinese").checked === true)
-            document.getElementById("wait").innerHTML = "请稍等…";
+            document.getElementById("wait").innerHTML = "请稍等……";
           else
             document.getElementById("wait").innerHTML = "Please wait...";
 
