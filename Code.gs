@@ -137,21 +137,51 @@ function addEvents(
     return "Use accepted date formats!"; // for consistency
   }
   if (
-    startTime !== "" &&
-    (startTime.includes("am") ||
-      startTime.includes("pm") ||
-      !startTime.includes(":") ||
-      !startTime.includes(" "))
+    startTime !== "" && // chinese === true &&
+    !startTime.includes(":")    
   )
-    return "Use accepted time formats!"; // for consistency
+    return "Use accepted time formats!"; // for consistency, any format
+  if (
+    startTime !== "" &&
+    startTime.includes(" ") &&
+    (!startTime.includes("AM") &&
+      !startTime.includes("am") &&
+      !startTime.includes("PM") &&
+      !startTime.includes("pm"))
+  )
+    return "Use accepted time formats!"; // for consistency, 12-hour time format
+  if (
+    startTime !== "" && // chinese === false &&
+    (startTime.includes("AM") ||
+      startTime.includes("am") ||
+      startTime.includes("PM") ||
+      startTime.includes("pm")) && 
+    !startTime.includes(" ")
+  ) 
+    return "Use accepted time formats!"; // for consistency, 12-hour time format
+  if (
+    endTime !== "" && // chinese === true &&
+    !endTime.includes(":")    
+  )
+    return "Use accepted time formats!"; // for consistency, any format
   if (
     endTime !== "" &&
-    (endTime.includes("am") ||
-      endTime.includes("pm") ||
-      !endTime.includes(":") ||
-      !endTime.includes(" "))
+    endTime.includes(" ") &&
+    (!endTime.includes("AM") &&
+      !endTime.includes("am") &&
+      !endTime.includes("PM") &&
+      !endTime.includes("pm"))
   )
-    return "Use accepted time formats!"; // for consistency
+    return "Use accepted time formats!"; // for consistency, 12-hour time format
+  if (
+    endTime !== "" && // chinese === false &&
+    (endTime.includes("AM") ||
+      endTime.includes("am") || 
+      endTime.includes("PM") ||
+      endTime.includes("pm")) && 
+    !endTime.includes(" ")
+  ) 
+    return "Use accepted time formats!"; // for consistency, 12-hour time format
 
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
