@@ -149,17 +149,17 @@ function addEvents(
     startTime !== "" &&
     startTime.includes(" ") &&
     (!startTime.includes("AM") &&
-      !startTime.includes("am") &&
+      !startTime.includes("am") && // relaxed requirement
       !startTime.includes("PM") &&
-      !startTime.includes("pm"))
+      !startTime.includes("pm")) // relaxed requirement
   )
     return "Start time is missing AM/PM!"; // for consistency, 12-hour time format
   if (
     startTime !== "" && // chinese === false &&
     (startTime.includes("AM") ||
-      startTime.includes("am") ||
+      startTime.includes("am") || // relaxed requirement
       startTime.includes("PM") ||
-      startTime.includes("pm")) && 
+      startTime.includes("pm")) && // relaxed requirement
     !startTime.includes(" ")
   ) 
     return "Add finger space between start time and AM/PM!"; // for consistency, 12-hour time format
@@ -172,17 +172,17 @@ function addEvents(
     endTime !== "" &&
     endTime.includes(" ") &&
     (!endTime.includes("AM") &&
-      !endTime.includes("am") &&
+      !endTime.includes("am") && // relaxed requirement
       !endTime.includes("PM") &&
-      !endTime.includes("pm"))
+      !endTime.includes("pm")) // relaxed requirement
   )
     return "End time is missing AM/PM!"; // for consistency, 12-hour time format
   if (
     endTime !== "" && // chinese === false &&
     (endTime.includes("AM") ||
-      endTime.includes("am") || 
+      endTime.includes("am") || // relaxed requirement
       endTime.includes("PM") ||
-      endTime.includes("pm")) && 
+      endTime.includes("pm")) && // relaxed requirement
     !endTime.includes(" ")
   ) 
     return "Add finger space between end time and AM/PM!"; // for consistency, 12-hour time format
