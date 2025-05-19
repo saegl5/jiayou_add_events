@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/css/materialize.min.css">
     <!-- Compiled and minified JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/@materializecss/materialize@2.1.1/dist/js/materialize.min.js"></script>
-    <!-- Google Font -->
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200..900&display=swap" rel="stylesheet">    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Symbols+2&display=swap" rel="stylesheet">
     <style>
       /* Basic styling for the form */
       :root {
@@ -108,10 +109,12 @@
         border-bottom: none;
       }
       .collapsible-header::after {
-        content: "\25BC"; /* larger, unicode down arrow */
+        font-family: "Noto Sans Symbols 2", sans-serif !important;
+        font-size: 0.9em;
+        content: "\1F783"; /* unicode down arrow matches dropdown arrow */
       }
       .active .collapsible-header::after {
-        content: "\25B2"; /* larger, unicode up arrow */
+        content: "\1F781"; /* unicode up arrow in same style as up arrow */
       }
       .collapsible-header > span {
         width: 100%;
