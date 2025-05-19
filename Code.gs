@@ -133,14 +133,17 @@ function addEvents(
   var calendarRef = CalendarApp.getCalendarById(calendarIdRef); // again, calendar is still hard-coded, but this way the ID is hidden
 
   // handle additional exceptions
-  if (start.includes(",") || end.includes(",")) {
-    return "Use accepted date formats!"; // for consistency
+  if (start.includes(",")) {
+    return "Remove comma from start date!"; // for consistency
+  }
+  if (end.includes(",")) {
+    return "Remove comma from end date!"; // for consistency
   }
   if (
     startTime !== "" && // chinese === true &&
     !startTime.includes(":")    
   )
-    return "Use accepted time formats!"; // for consistency, any format
+    return "Start time is missing colon!"; // for consistency, any format
   if (
     startTime !== "" &&
     startTime.includes(" ") &&
@@ -149,7 +152,7 @@ function addEvents(
       !startTime.includes("PM") &&
       !startTime.includes("pm"))
   )
-    return "Use accepted time formats!"; // for consistency, 12-hour time format
+    return "Start time is missing AM/PM!"; // for consistency, 12-hour time format
   if (
     startTime !== "" && // chinese === false &&
     (startTime.includes("AM") ||
@@ -158,12 +161,12 @@ function addEvents(
       startTime.includes("pm")) && 
     !startTime.includes(" ")
   ) 
-    return "Use accepted time formats!"; // for consistency, 12-hour time format
+    return "Add finger space between time and AM/PM!"; // for consistency, 12-hour time format
   if (
     endTime !== "" && // chinese === true &&
     !endTime.includes(":")    
   )
-    return "Use accepted time formats!"; // for consistency, any format
+    return "End time is missing colon!"; // for consistency, any format
   if (
     endTime !== "" &&
     endTime.includes(" ") &&
@@ -172,7 +175,7 @@ function addEvents(
       !endTime.includes("PM") &&
       !endTime.includes("pm"))
   )
-    return "Use accepted time formats!"; // for consistency, 12-hour time format
+    return "End time is missing AM/PM!"; // for consistency, 12-hour time format
   if (
     endTime !== "" && // chinese === false &&
     (endTime.includes("AM") ||
@@ -181,7 +184,7 @@ function addEvents(
       endTime.includes("pm")) && 
     !endTime.includes(" ")
   ) 
-    return "Use accepted time formats!"; // for consistency, 12-hour time format
+    return "Add finger space between time and AM/PM!"; // for consistency, 12-hour time format
 
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
