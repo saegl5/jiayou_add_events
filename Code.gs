@@ -95,7 +95,8 @@ function addEvents(
   end,
   startTime,
   endTime,
-  dryRun
+  dryRun,
+  // chinese
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
   var calendarId = ""; // Initially null
@@ -161,7 +162,7 @@ function addEvents(
       startTime.includes("pm")) && 
     !startTime.includes(" ")
   ) 
-    return "Add finger space between time and AM/PM!"; // for consistency, 12-hour time format
+    return "Add finger space between start time and AM/PM!"; // for consistency, 12-hour time format
   if (
     endTime !== "" && // chinese === true &&
     !endTime.includes(":")    
@@ -184,7 +185,7 @@ function addEvents(
       endTime.includes("pm")) && 
     !endTime.includes(" ")
   ) 
-    return "Add finger space between time and AM/PM!"; // for consistency, 12-hour time format
+    return "Add finger space between end time and AM/PM!"; // for consistency, 12-hour time format
 
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 

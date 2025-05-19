@@ -833,6 +833,8 @@
           var dryRun = document.getElementById("dryRun").checked; // by default, checkbox is unchecked, meaning .checked is false
           
           if (document.getElementById("chinese").checked === true)
+          // var chinese = document.getElementById("chinese").checked;
+          // if (chinese === true)
             document.getElementById("wait").innerHTML = "请稍等……";
           else
             document.getElementById("wait").innerHTML = "Please wait...";
@@ -855,7 +857,8 @@
               end,
               startTime,
               endTime,
-              dryRun
+              dryRun,
+              // chinese
             );
         }); // calendarNameAlt is now calendarName, and previous calendarName has been hard-coded
     </script>
