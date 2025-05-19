@@ -273,7 +273,7 @@ function addEvents(
 
   // Check if query finds no events
   if (events.length === 0) {
-    return 'No "' + query + '" events exist!';
+    return 'No "' + query.join(", ") + '" events exist!';
   }
 
   // Check if times are null
