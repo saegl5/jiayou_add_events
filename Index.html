@@ -608,6 +608,57 @@
       document.getElementById("startTime").addEventListener("input", validateTimeInput);
       document.getElementById("endTime").addEventListener("input", validateTimeInput);
 
+      function callTranslate(language) {
+        let response = translate(language);
+        document.body.style.fontFamily = response.fontFamily;
+        button.style.fontFamily = response.fontFamily; // button font
+        if ((document.getElementById("calendarName").options[0].text).includes("搜索中") || (document.getElementById("calendarName").options[0].text).includes("Searching"))
+          document.getElementById("calendarName").options[0].text = response.option; // update dropdown list
+          M.AutoInit(); // reinitialize dropdown list
+        if (username !== undefined)
+          document.getElementById("user").innerHTML = response.user;
+        document.getElementById("calendarHeader").innerHTML = response.calendarHeader;
+        document.getElementById("letterDayHeader").innerHTML = response.letterDayHeader;
+        document.getElementById("frequencyHeader").innerHTML = response.frequencyHeader;
+        document.getElementById("titleHeader").innerHTML = response.titleHeader;
+        document.getElementById("timeHeader").innerHTML = response.timeHeader;
+        document.getElementsByName("collapsible-header")[0].innerHTML = response.collapsibleHeader;
+        document.getElementById("guestsHeader").innerHTML = response.guestsHeader;
+        document.getElementById("locationHeader").innerHTML = response.locationHeader;
+        document.getElementById("descriptionHeader").innerHTML = response.descriptionHeader;
+        document.getElementById("dateHeader").innerHTML = response.dateHeader;
+        document.getElementsByName("searchSection")[0].innerHTML = response.searchSection;
+        document.getElementsByName("eventSection")[0].innerHTML = response.eventSection;
+        document.getElementsByName("calendarName")[0].innerHTML = response.calendarName;
+        document.getElementsByName("numberInput")[0].innerHTML = response.numberInput;
+        document.getElementsByName("times")[0].innerHTML = response.times;
+        document.getElementsByName("guests")[0].innerHTML = response.guestsName;
+        document.getElementsByName("description")[0].innerHTML = response.descriptionName;
+        if (document.getElementById("title").value === "New Meeting" || document.getElementById("title").value === "新会议")
+          document.getElementById("title").value = response.title; // quirky in vscode preview
+        if (document.getElementById("startTime").value !== "") // fixes NaN
+          document.getElementById("startTime").value = response.startTime;
+        document.getElementById("startTime").placeholder = response.startTimeOpt;
+        if (document.getElementById("endTime").value !== "") // fixes NaN
+          document.getElementById("endTime").value = response.endTime;
+        document.getElementById("endTime").placeholder = response.endTimeOpt;
+        document.getElementById("guests").placeholder = response.guestsId;
+        document.getElementById("location").placeholder = response.location;
+        document.getElementById("description").placeholder = response.descriptionId;
+        document.getElementById("start").placeholder = response.startOpt;
+        document.getElementById("end").placeholder = response.endOpt;
+        if (document.getElementById("start").value !== "") // fixes Invalid Date
+          document.getElementById("start").value = response.start; // keeps just date
+        document.getElementById("button").innerHTML = response.button;
+        document.getElementsByName("difficulties")[0].innerHTML = response.difficulties;
+        document.getElementsByName("reference")[0].innerHTML = response.reference;
+        if (document.getElementById("end").value !== "") // fixes Invalid Date
+          document.getElementById("end").value = response.end; // keeps just date
+        document.getElementById("dryRunText").innerHTML = response.dryRun;
+        if (document.getElementById("wait").innerHTML !== "&nbsp;")
+          document.getElementById("wait").innerHTML = response.wait; // update message
+      }
+      
       // Function to translate text
       function translate(language) {
         const waitText = document.getElementById("wait").innerHTML;
@@ -734,57 +785,6 @@
               :"")
           }
         }
-      }
-
-      function callTranslate(language) {
-        let response = translate(language);
-        document.body.style.fontFamily = response.fontFamily;
-        button.style.fontFamily = response.fontFamily; // button font
-        if ((document.getElementById("calendarName").options[0].text).includes("搜索中") || (document.getElementById("calendarName").options[0].text).includes("Searching"))
-          document.getElementById("calendarName").options[0].text = response.option; // update dropdown list
-          M.AutoInit(); // reinitialize dropdown list
-        if (username !== undefined)
-          document.getElementById("user").innerHTML = response.user;
-        document.getElementById("calendarHeader").innerHTML = response.calendarHeader;
-        document.getElementById("letterDayHeader").innerHTML = response.letterDayHeader;
-        document.getElementById("frequencyHeader").innerHTML = response.frequencyHeader;
-        document.getElementById("titleHeader").innerHTML = response.titleHeader;
-        document.getElementById("timeHeader").innerHTML = response.timeHeader;
-        document.getElementsByName("collapsible-header")[0].innerHTML = response.collapsibleHeader;
-        document.getElementById("guestsHeader").innerHTML = response.guestsHeader;
-        document.getElementById("locationHeader").innerHTML = response.locationHeader;
-        document.getElementById("descriptionHeader").innerHTML = response.descriptionHeader;
-        document.getElementById("dateHeader").innerHTML = response.dateHeader;
-        document.getElementsByName("searchSection")[0].innerHTML = response.searchSection;
-        document.getElementsByName("eventSection")[0].innerHTML = response.eventSection;
-        document.getElementsByName("calendarName")[0].innerHTML = response.calendarName;
-        document.getElementsByName("numberInput")[0].innerHTML = response.numberInput;
-        document.getElementsByName("times")[0].innerHTML = response.times;
-        document.getElementsByName("guests")[0].innerHTML = response.guestsName;
-        document.getElementsByName("description")[0].innerHTML = response.descriptionName;
-        if (document.getElementById("title").value === "New Meeting" || document.getElementById("title").value === "新会议")
-          document.getElementById("title").value = response.title; // quirky in vscode preview
-        if (document.getElementById("startTime").value !== "") // fixes NaN
-          document.getElementById("startTime").value = response.startTime;
-        document.getElementById("startTime").placeholder = response.startTimeOpt;
-        if (document.getElementById("endTime").value !== "") // fixes NaN
-          document.getElementById("endTime").value = response.endTime;
-        document.getElementById("endTime").placeholder = response.endTimeOpt;
-        document.getElementById("guests").placeholder = response.guestsId;
-        document.getElementById("location").placeholder = response.location;
-        document.getElementById("description").placeholder = response.descriptionId;
-        document.getElementById("start").placeholder = response.startOpt;
-        document.getElementById("end").placeholder = response.endOpt;
-        if (document.getElementById("start").value !== "") // fixes Invalid Date
-          document.getElementById("start").value = response.start; // keeps just date
-        document.getElementById("button").innerHTML = response.button;
-        document.getElementsByName("difficulties")[0].innerHTML = response.difficulties;
-        document.getElementsByName("reference")[0].innerHTML = response.reference;
-        if (document.getElementById("end").value !== "") // fixes Invalid Date
-          document.getElementById("end").value = response.end; // keeps just date
-        document.getElementById("dryRunText").innerHTML = response.dryRun;
-        if (document.getElementById("wait").innerHTML !== "&nbsp;")
-          document.getElementById("wait").innerHTML = response.wait; // update message
       }
 
       document
