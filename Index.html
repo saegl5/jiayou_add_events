@@ -610,7 +610,24 @@
 
       // Function to translate text
       function translate(language) {
+        const waitText = document.getElementById("wait").innerHTML;
         if (language === "Chinese") {
+          const waitMessages = {
+            "Multiple calendars contain letter days!": "多个日历包含字母日！",
+            "Please wait...": "请稍等……",
+            "Select a letter day!": "选择一个字母日！",
+            "Cannot locate JIA YOU calendar!": "无法找到加油日历！",
+            "Remove comma from start date!": "从开始日期中删除逗号！",
+            "Remove comma from end date!": "从结束日期中删除逗号！",
+            "Start time is missing colon!": "开始时间缺少冒号！",
+            "Start time is missing AM/PM!": "开始时间缺少AM/PM！",
+            "Add finger space between start time and AM/PM!": "在时间和AM/PM之间添加手指空间！",
+            "End time is missing colon!": "结束时间缺少冒号！",
+            "End time is missing AM/PM!": "结束时间缺少AM/PM！",
+            "Add finger space between end time and AM/PM!": "在时间和AM/PM之间添加手指空间！",
+            "Event start time must be before event end time": "事件开始时间必须在事件结束时间之前",
+            "Events created! Go to your Google Calendar...": "事件已创建！转到您的Google日历……"
+           };       
           return {
             fontFamily: '"Noto Serif SC", serif', // font is accessible in macOS Safari, Windows Microsoft Edge, iOS Safari and (presumably) Android Google Chrome
             option: "搜索中……",
@@ -652,41 +669,28 @@
               ? new Date(document.getElementById("endRef").value).toISOString().split("T")[0] // keeps just date
               : "", // skip
             dryRun: "干运行",
-            wait: document.getElementById("wait").innerHTML === "Multiple calendars contain letter days!" 
-              ? "多个日历包含字母日！" 
-              : document.getElementById("wait").innerHTML === "Please wait..." 
-                ? "请稍等……"
-                : document.getElementById("wait").innerHTML === "Select a letter day!" 
-                  ? "选择一个字母日！"
-                  : document.getElementById("wait").innerHTML === "Cannot locate JIA YOU calendar!" 
-                    ? "无法找到加油日历！"
-                    : document.getElementById("wait").innerHTML === "Remove comma from start date!"
-                      ? "从开始日期中删除逗号！" 
-                      : document.getElementById("wait").innerHTML === "Remove comma from end date!"
-                        ? "从结束日期中删除逗号！"
-                        : document.getElementById("wait").innerHTML === "Start time is missing colon!"
-                          ? "开始时间缺少冒号！"
-                          : document.getElementById("wait").innerHTML === "Start time is missing AM/PM!"
-                            ? "开始时间缺少AM/PM！"
-                            : document.getElementById("wait").innerHTML === "Add finger space between start time and AM/PM!"
-                              ? "在时间和AM/PM之间添加手指空间！"
-                              : document.getElementById("wait").innerHTML === "End time is missing colon!"
-                                ? "结束时间缺少冒号！"
-                                : document.getElementById("wait").innerHTML === "End time is missing AM/PM!"
-                                  ? "结束时间缺少AM/PM！"
-                                  : document.getElementById("wait").innerHTML === "Add finger space between end time and AM/PM!"
-                                    ? "在时间和AM/PM之间添加手指空间！"
-                                    : document.getElementById("wait").innerHTML === "Event start time must be before event end time" 
-                                      ? "事件开始时间必须在事件结束时间之前"
-                                      : document.getElementById("wait").innerHTML === "Events created! Go to your Google Calendar..." 
-                                        ? "事件已创建！转到您的Google日历……"
-                                        : (document.getElementById("wait").innerHTML).includes("No ") || (document.getElementById("wait").innerHTML).includes(" events exist!")
-                                          ? document.getElementById("wait").innerHTML
-                                            .replace("No ", "没有")
-                                            .replace(" events exist!", "事件存在！")
-                                          : "",
+            wait: waitMessages[waitText]
+              ?? (waitText.includes("No ") || waitText.includes(" events exist!")
+              ? waitText.replace("No ", "没有").replace(" events exist!", "事件存在！")
+              :"")
           }
         } else if (language === "English") { // default
+          const waitMessages = {
+            "多个日历包含字母日！": "Multiple calendars contain letter days!",
+            "请稍等……": "Please wait...",
+            "选择一个字母日！": "Select a letter day!",
+            "无法找到加油日历！": "Cannot locate JIA YOU calendar!",
+            "从开始日期中删除逗号！": "Remove comma from start date!",
+            "从结束日期中删除逗号！": "Remove comma from end date!",
+            "开始时间缺少冒号！": "Start time is missing colon!",
+            "开始时间缺少AM/PM！": "Start time is missing AM/PM!",
+            "在时间和AM/PM之间添加手指空间！": "Add finger space between start time and AM/PM!",
+            "结束时间缺少冒号！": "End time is missing colon!",
+            "结束时间缺少AM/PM！": "End time is missing AM/PM!",
+            "在时间和AM/PM之间添加手指空间！": "Add finger space between end time and AM/PM!",
+            "事件开始时间必须在事件结束时间之前": "Event start time must be before event end time",
+            "事件已创建！转到您的Google日历……": "Events created! Go to your Google Calendar..."
+          };
           return {
             fontFamily: 'system-ui',
             option: "Searching...",
@@ -724,39 +728,10 @@
             reference: "Version ",
             end: localeDateString(document.getElementById("endRef").value),
             dryRun: "Dry Run",
-            wait: document.getElementById("wait").innerHTML === "多个日历包含字母日！" 
-              ? "Multiple calendars contain letter days!" 
-              : document.getElementById("wait").innerHTML === "请稍等……" 
-                ? "Please wait..."
-                : document.getElementById("wait").innerHTML === "选择一个字母日！" 
-                  ? "Select a letter day!"
-                  : document.getElementById("wait").innerHTML === "无法找到加油日历！" 
-                    ? "Cannot locate JIA YOU calendar!"
-                    : document.getElementById("wait").innerHTML === "从开始日期中删除逗号！"
-                      ? "Remove comma from start date!"
-                      : document.getElementById("wait").innerHTML === "从结束日期中删除逗号！"
-                        ? "Remove comma from end date!"
-                        : document.getElementById("wait").innerHTML === "开始时间缺少冒号！"
-                          ? "Start time is missing colon!"
-                          : document.getElementById("wait").innerHTML === "开始时间缺少AM/PM！"
-                            ? "Start time is missing AM/PM!"
-                            : document.getElementById("wait").innerHTML === "在时间和AM/PM之间添加手指空间！"
-                              ? "Add finger space between start time and AM/PM!"
-                              : document.getElementById("wait").innerHTML === "结束时间缺少冒号！"
-                                ? "End time is missing colon!"
-                                : document.getElementById("wait").innerHTML === "结束时间缺少AM/PM！"
-                                  ? "End time is missing AM/PM!"
-                                  : document.getElementById("wait").innerHTML === "在时间和AM/PM之间添加手指空间！"
-                                    ? "Add finger space between end time and AM/PM!"
-                                    : document.getElementById("wait").innerHTML === "事件开始时间必须在事件结束时间之前" 
-                                      ? "Event start time must be before event end time"
-                                      : document.getElementById("wait").innerHTML === "事件已创建！转到您的Google日历……" 
-                                        ? "Events created! Go to your Google Calendar..."
-                                        : (document.getElementById("wait").innerHTML).includes("没有") || (document.getElementById("wait").innerHTML).includes("事件存在！")
-                                          ? document.getElementById("wait").innerHTML
-                                            .replace("没有", "No ")
-                                            .replace("事件存在！", " events exist!")
-                                          : "",
+            wait: waitMessages[waitText]
+              ?? (waitText.includes("没有") || waitText.includes("事件存在！")
+              ? waitText.replace("没有", "No ").replace("事件存在！", " events exist!")  
+              :"")
           }
         }
       }
