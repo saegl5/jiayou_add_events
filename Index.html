@@ -19,11 +19,23 @@
       /* Basic styling for the form */
       /* use few root colors, based on material design */
       :root {
-        --background: #e0e0e0; /* equal to "grey lighten-2" */
+        /* Light mode colors (default) */
+        --background: #e0e0e0ff; /* equal to "grey lighten-2" */
         --border: black;
-        --container: #fcfcff; /* equal to --md-sys-color-surface */
-        --text: var(--border);
+        --container: #fcfcffff; /* equal to --md-sys-color-surface */
+        --text: black;
         --reference: grey;
+      }
+
+      /* Dark mode colors */
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --background: #e0e0e011; /* dark background */
+          --border: white; /* light border for contrast */
+          --container: #fcfcff11; /* dark container */
+          --text: white; /* light text */
+          --reference: grey; /* keep */
+        }
       }
       body {
         background-color: var(--background);
