@@ -22,6 +22,7 @@
         /* Light mode colors (default) */
         --background: #e0e0e0ff; /* equal to "grey lighten-2" */
         --border: black;
+        --border-textarea: lightgrey;
         --container: #fcfcffff; /* equal to --md-sys-color-surface */
         --text: black;
         --reference: grey;
@@ -32,6 +33,7 @@
         :root {
           --background: #e0e0e011; /* dark background */
           --border: white; /* light border for contrast */
+          --border-textarea: dimgrey;
           --container: #fcfcff11; /* dark container */
           --text: white; /* light text */
           --reference: grey; /* keep */
@@ -79,6 +81,11 @@
         font-family: monospace; /* preserve monospace fonts, so that users easily distinguish input fields from non-input fields */
         color: var(--text);
         font-style: normal;
+      }
+
+      textarea:focus {
+        outline: 1px solid var(--border-textarea);
+        outline-offset: 2px;
       }
       label {
         font-style: italic;
