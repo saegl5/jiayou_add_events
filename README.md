@@ -4,9 +4,17 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 
 ## Visual Example
 
-<img src="screenshots/calendarForm.png" alt="screenshot of calendar form" width="500"><br>Form for creating additional "JIA YOU" events. (Username and calendar name are hidden.)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="screenshots/calendarFormDark.png">
+  <source media="(prefers-color-scheme: light)" srcset="screenshots/calendarForm.png">
+  <img src="screenshots/calendarForm.png" alt="screenshot of calendar form" width="500">
+</picture>Form for creating additional "JIA YOU" events. (Username and calendar name are hidden.)<br><br>
 
-<img src="screenshots/calendar.png" alt="screenshot of calendar" width="800"><br>Additional events on only "J Day's" were created.
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="screenshots/calendarDark.png">
+  <source media="(prefers-color-scheme: light)" srcset="screenshots/calendar.png">
+  <img src="screenshots/calendar.png" alt="screenshot of calendar" width="800">
+</picture>Additional events on only "J Day's" were created.
 
 ## Prerequisites
 
