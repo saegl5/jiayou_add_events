@@ -4,7 +4,7 @@
 
 function doGet() {
   return HtmlService.createHtmlOutputFromFile("Index").setTitle(
-    'Add 加油 ("jiā yóu") Events'
+    'Add 加油 Events'
   );
 }
 

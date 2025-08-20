@@ -1,6 +1,8 @@
-# Add 加油 ("jiā yóu") Events
+# Add 加油 Events
 
-Google Web app for creating recurring events on only certain letter days (e.g., on only "J Day's"). Modify as needed, and back up your calendars before you run the app. Without an app script, one would need to add these events manually.
+加油 is a common Chinese expression consisting of two characters, pronounced *jiā yóu* in Mandarin; it is often used as an encouragement.
+
+Add 加油 Events is a Google Web app for creating recurring events on only certain letter days (e.g., on only "J Day's") of a [加油 calendar](https://github.com/saegl5/jiayou_create_calendar). Modify as needed, and back up your calendars before you run the app. Without an app script, one would need to add these events manually.
 
 ## Visual Example
 
@@ -19,7 +21,7 @@ Google Web app for creating recurring events on only certain letter days (e.g., 
 ## Prerequisites
 
 1. Access to [Google Apps Script](https://script.google.com/)
-2. 加油 ("jiā yóu") calendar must already exist. If it doesn't, consult the [Web app for creating the calendar](https://github.com/saegl5/jiayou_create_calendar).
+2. 加油 calendar must already exist. If it doesn't, consult the [Web app for creating the calendar](https://github.com/saegl5/jiayou_create_calendar).
 
 ## Getting Started
 
