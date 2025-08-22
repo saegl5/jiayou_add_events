@@ -121,7 +121,7 @@ function addEvents(
 
   // check if reference calendar doesn't exist
   if (calendarIdRef === "") {
-    return "Cannot locate JIA YOU calendar!"; // handle error differently, since sometimes calendar exists but backend service may be down
+    return "No calendars contain letter days!"; // handle error differently, since sometimes calendar exists but backend service may be down
   }
 
   // check for multiple (i.e., conflicting) reference calendars
