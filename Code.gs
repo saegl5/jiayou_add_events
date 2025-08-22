@@ -121,14 +121,14 @@ function addEvents(
     }
   }
 
-  // check if reference calendar doesn't exist
+  // recheck if reference calendar doesn't exist
   if (calendarIdRef === "") {
-    return "No calendars contain letter days!"; // handle error differently, since sometimes calendar exists but backend service may be down
+    return "Again, no calendars contain letter days!"; // handle error differently, since sometimes calendar exists but backend service may be down
   }
 
-  // check for multiple (i.e., conflicting) reference calendars
+  // recheck for multiple (i.e., conflicting) reference calendars
   if (howMany > 1) {
-    return "Multiple calendars contain letter days!"; // handle error
+    return "Again, multiple calendars contain letter days!"; // handle error
   }
 
   // Access the user calendar and reference calendar
