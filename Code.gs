@@ -48,27 +48,29 @@ function getCalendarNamesAndDefault() {
     }
   }
 
-  // Search for the last event date
-  var now = new Date();
-  var oneYearFromNow = new Date();
-  oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
-  // Search for all events between now and one year from now
-  search(now, oneYearFromNow);
-  function search(from, to) {
-    if (from > to) {
-      endDate = null;
-    } else {
-      var eventsAll = calendarRef.getEvents(from, to);
-      endDate = eventsAll[eventsAll.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })
-        .replace(/,/g, ""); // removes comma
-      // Examples: Jan 4 2024, Mar 14 2025
-      // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
+  // Search for the last event date, if calendarNameRef exists
+  if (calendarNameRef !== "") {
+    var now = new Date();
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
+    // Search for all events between now and one year from now
+    search(now, oneYearFromNow);
+    function search(from, to) {
+      if (from > to) {
+        endDate = null;
+      } else {
+        var eventsAll = calendarRef.getEvents(from, to);
+        endDate = eventsAll[eventsAll.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })
+          .replace(/,/g, ""); // removes comma
+        // Examples: Jan 4 2024, Mar 14 2025
+        // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
+      }
+      return null;
     }
-    return null;
   }
 
   return {
