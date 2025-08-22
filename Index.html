@@ -516,6 +516,10 @@
               // see also https://stackoverflow.com/questions/45379356/whats-the-difference-between-selected-and-defaultselected-when-constructing
             }
             document.getElementById("calendarNameRef").value = response.reference;
+            if (response.reference === "" && document.getElementById("chinese").checked === false)
+              document.getElementById("wait").innerHTML = "No calendars contain letter days!";
+            else if (response.reference === "" && document.getElementById("chinese").checked === true)
+              document.getElementById("wait").innerHTML = "没有日历包含字母日！";
             document.getElementById("howMany").value = response.conflict;
             if (response.conflict > 1 && document.getElementById("chinese").checked === false)
               document.getElementById("wait").innerHTML = "Multiple calendars contain letter days!";
@@ -690,6 +694,7 @@
         const waitText = document.getElementById("wait").innerHTML;
         if (language === "Chinese") {
           const waitMessages = {
+            "No calendars contain letter days!": "没有日历包含字母日！",
             "Multiple calendars contain letter days!": "多个日历包含字母日！",
             "Please wait...": "请稍等……",
             "Select a letter day!": "选择一个字母日！",
@@ -753,6 +758,7 @@
           }
         } else if (language === "English") { // default
           const waitMessages = {
+            "没有日历包含字母日！": "No calendars contain letter days!",
             "多个日历包含字母日！": "Multiple calendars contain letter days!",
             "请稍等……": "Please wait...",
             "选择一个字母日！": "Select a letter day!",
