@@ -18,7 +18,7 @@ function getCalendarNamesAndDefault() {
   }
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
   var calendarRef;
-  var calendarNameRef;
+  var calendarNameRef = "";
   var endDate;
 
   // Relay but hide reference calendar
@@ -41,9 +41,9 @@ function getCalendarNamesAndDefault() {
           howMany += 1;
           break;
         }
-        else {
-          calendarNameRef = "";
-        }
+        // else {
+        //   calendarNameRef = ""; <-- don't do this! if found = true and howMany = 1 and loop runs again, then calendarNameRef = "" again
+        // }
       }
     }
   }
