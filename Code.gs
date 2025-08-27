@@ -48,33 +48,35 @@ function getCalendarNamesAndDefault() {
     }
   }
 
-  // Search for the last event date
-  var now = new Date();
-  var oneYearFromNow = new Date();
-  oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
-  // Search for all events between now and one year from now
-  search(now, oneYearFromNow);
-  function search(from, to) {
-    if (from > to) {
-      endDate = null;
-    } else {
-      var eventsAll = calendarRef.getEvents(from, to);
-        let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
-        for (var i = eventsAll.length-1; i >= 0; i--) {
-          if (query.includes(eventsAll[i].getTitle())) {
-            endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              })
-              .replace(/,/g, ""); // removes comma
-            // Examples: Jan 4 2024, Mar 14 2025
-            // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
-            break;
+  // Search for the last event date, if calendarNameRef exists
+  if (calendarNameRef !== "") {
+    var now = new Date();
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
+    // Search for all events between now and one year from now
+    search(now, oneYearFromNow);
+    function search(from, to) {
+      if (from > to) {
+        endDate = null;
+      } else {
+        var eventsAll = calendarRef.getEvents(from, to);
+          let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
+          for (var i = eventsAll.length-1; i >= 0; i--) {
+            if (query.includes(eventsAll[i].getTitle())) {
+              endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })
+                .replace(/,/g, ""); // removes comma
+              // Examples: Jan 4 2024, Mar 14 2025
+              // Format is consistent with default date format in Create 加油 ("jiā yóu") Calendar web app
+              break;
+            }
           }
-        }
+      }
+      return null;
     }
-    return null;
   }
 
   return {
