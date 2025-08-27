@@ -343,6 +343,7 @@ function addEvents(
       // Event uses color of calendar to which it is added
 
       // Create the new event
+      Utilities.sleep(1000); // mitigate use limit
       createEvent(frequency, includesSpace, includesHttp); // split up events, all of which have the same event details, into separate series
     }
 
