@@ -62,7 +62,7 @@ function getCalendarNamesAndDefault() {
         var eventsAll = calendarRef.getEvents(from, to);
         for (var i = eventsAll.length-1; i >= 0; i--) {
           if (query.includes(eventsAll[i].getTitle())) {
-            endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events
+            endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events, now that checking query we could reuse getAllDayStartDate() again
                 month: "short",
                 day: "numeric",
                 year: "numeric",
