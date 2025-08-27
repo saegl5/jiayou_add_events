@@ -60,7 +60,7 @@ function getCalendarNamesAndDefault() {
         endDate = null;
       } else {
         var eventsAll = calendarRef.getEvents(from, to);
-        endDate = eventsAll[eventsAll.length-1].getAllDayStartDate().toLocaleDateString("en-US", {
+        endDate = eventsAll[eventsAll.length-1].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events
             month: "short",
             day: "numeric",
             year: "numeric",
