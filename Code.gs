@@ -19,6 +19,7 @@ function getCalendarNamesAndDefault() {
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
   var calendarRef;
   var calendarNameRef = "";
+  let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
   var endDate;
 
   // Relay but hide reference calendar
@@ -32,7 +33,6 @@ function getCalendarNamesAndDefault() {
       var eventFind = allCalendars[i].getEvents(now, oneYearFromNow);
       for (var j = 0; j < eventFind.length; j++) {
         var event = eventFind[j];
-        let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
         if (query.includes(event.getTitle())) {
           calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden 
           calendarNameRef = String(allCalendars[i].getName());
@@ -60,7 +60,6 @@ function getCalendarNamesAndDefault() {
         endDate = null;
       } else {
         var eventsAll = calendarRef.getEvents(from, to);
-        let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
         for (var i = eventsAll.length-1; i >= 0; i--) {
           if (query.includes(eventsAll[i].getTitle())) {
             endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events
