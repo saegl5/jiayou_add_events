@@ -307,7 +307,8 @@ function addEvents(
   // https://github.com/saegl5/jiayou_add_events/issues/4
 
   // Counter for only events keep
-  var indexKeep = eventSeries.length*(frequency-1); // start very first date at this index
+  // var indexKeep = eventSeries.length*(frequency-1); // start very first date at this index <-- uncomment to skip first instance(s)
+  var indexKeep = 0; // always start very first date at this index <-- comment out to skip first instance(s)
 
   // extract the first date from the dictionary
   var firstDate = []; // may have multiple first dates
@@ -315,7 +316,8 @@ function addEvents(
   var dateEndTime = []; // subsequently, may have multiple dateEndTimes
 
   // not all letter days may be used, but it is still easy to pair up firstDate with the letter
-  var firstDateIndex = eventSeries.length*(frequency-1); // equal to indexKeep but only incremented here
+  // var firstDateIndex = eventSeries.length*(frequency-1); // equal to indexKeep initially but then incremented below <-- uncomment to skip first instance(s)
+  var firstDateIndex = 0; // equal to indexKeep initially but then incremented below <-- comment out to skip first instance(s)
   for (var n = 0; n < eventSeries.length; n++) {
     firstDate[n] = new Date(Object.keys(date)[firstDateIndex]); // need to sort dictionary keys into an array, select one key and cast it as a function 
     dateStartTime[n] = new Date(
