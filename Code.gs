@@ -3,9 +3,13 @@
 // The script below comes with absolutely no warranty. Use it at your own risk.
 
 function doGet() {
-  return HtmlService.createHtmlOutputFromFile("Index").setTitle(
-    'Add 加油 Events'
-  );
+  var template = HtmlService.createTemplateFromFile("Index"); // don't createHtmlOutputFromFile() yet
+  return template.evaluate().setTitle('Add 加油 Events');
+}
+
+// Function to include Stylesheet and JavaScript in Index
+function include(filename) {
+  return HtmlService.createHtmlOutputFromFile(filename).getContent(); // now createHtmlOutputFromFile()
 }
 
 // Used by Index.html for username, dropdown list of calendar names and default calendar name
