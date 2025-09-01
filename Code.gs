@@ -406,7 +406,7 @@ function addEvents(
           firstEvent = false;
 
         if (!dryRun) {
-          Utilities.sleep(1000); // mitigate use limit now
+          Utilities.sleep(500); // mitigate use limit
           if (firstEvent) {
             var eventOptions = {
               location: location,
