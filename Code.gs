@@ -23,7 +23,18 @@ function getCalendarNamesAndDefault() {
   let defaultCalendarName = CalendarApp.getDefaultCalendar().getName();
   var calendarRef;
   var calendarNameRef = "";
-  let query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
+  var query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
+  // let query = ["J Day (Wk 4)"]; // temporary
+  
+  // populate queryWeek, temporary
+  var queryWeek = [];
+  for (var w = 1; w <= 30; w++) { // start stop not defined yet, but 30 seems safe
+    for (var q = 0; q < query.length; q++) {
+      queryWeek.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
+      // Logger.log(queryWeek);
+    }
+  }
+  
   var endDate;
 
   // Relay but hide reference calendar
@@ -37,7 +48,7 @@ function getCalendarNamesAndDefault() {
       var eventFind = allCalendars[i].getEvents(now, oneYearFromNow);
       for (var j = 0; j < eventFind.length; j++) {
         var event = eventFind[j];
-        if (query.includes(event.getTitle())) {
+        if (queryWeek.includes(event.getTitle())) {
           calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden 
           calendarNameRef = String(allCalendars[i].getName());
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
@@ -65,7 +76,7 @@ function getCalendarNamesAndDefault() {
       } else {
         var eventsAll = calendarRef.getEvents(from, to);
         for (var i = eventsAll.length-1; i >= 0; i--) {
-          if (query.includes(eventsAll[i].getTitle())) {
+          if (queryWeek.includes(eventsAll[i].getTitle())) {
             endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events, now that checking query we could reuse getAllDayStartDate() again
                 month: "short",
                 day: "numeric",
@@ -98,6 +109,8 @@ function addEvents(
   howMany,
   query,
   frequency,
+  weekStart,
+  weekStop,
   title,
   guests,
   location,
@@ -198,6 +211,15 @@ function addEvents(
   ) 
     return "Add finger space between end time and AM/PM!"; // for consistency, 12-hour time format
 
+  // populate queryWeek
+  var queryWeek = [];
+  for (var w = parseInt(weekStart); w <= parseInt(weekStop); w++) {
+    for (var q = 0; q < query.length; q++) {
+      queryWeek.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
+    }
+  }
+  // looks good here
+    
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
   // Check for null dates
@@ -266,7 +288,8 @@ function addEvents(
       events = [];
       for (var l = 0; l < eventsAll.length; l++) {
         var event = eventsAll[l];
-        if (query.includes(event.getTitle())) {
+        if (queryWeek.includes(event.getTitle())) {
+        // if (query.includes(event.getTitle())) {
           // may also pick up shorter titles, but it is unlikely such shorter titles may exist
           // MORE RELIABLE THAN `{ search: query }`!
           // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
