@@ -224,15 +224,8 @@ function addEvents(
   // currently in second week
   // Logger.log("Week: " + week);
 
-  // populate queryWeek
-  var queryWeek = [];
-  for (var w = parseInt(weekStart); w <= parseInt(weekStop); w++) {
-    for (var q = 0; q < query.length; q++) {
-      queryWeek.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
-    }
-  }
-  // looks good here
-    
+  var events; // defines before function call
+
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
   // Check for null dates
@@ -292,7 +285,7 @@ function addEvents(
   }
 
   // consolidated into nested function
-  var events;
+  // var events; // define before function call
   function search(from, to) {
     if (from > to) {
       events = null;
