@@ -109,8 +109,8 @@ function addEvents(
   howMany,
   query,
   frequency,
-  weekStart,
-  weekStop,
+  // weekStart,
+  // weekStop,
   title,
   guests,
   location,
@@ -211,6 +211,20 @@ function addEvents(
   ) 
     return "Add finger space between end time and AM/PM!"; // for consistency, 12-hour time format
 
+  // expand query, in case weekly cycle is marked in JIAYOU calendar 
+  // var queryExpand = [];
+  // for (var w = parseInt(weekStart); w <= parseInt(weekStop); w++) {
+  //   for (var q = 0; q < query.length; q++) {
+  //     queryExpand.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
+  //   }
+  // }
+  // let queryLength = query.length; // Store the original query length
+  // query = query.concat(queryExpand);
+
+  // var week = 2; // in case weekly cycle is NOT marked in JIAYOU calendar
+  // currently in second week
+  // Logger.log("Week: " + week);
+
   // populate queryWeek
   var queryWeek = [];
   for (var w = parseInt(weekStart); w <= parseInt(weekStop); w++) {
@@ -288,13 +302,24 @@ function addEvents(
       events = [];
       for (var l = 0; l < eventsAll.length; l++) {
         var event = eventsAll[l];
+        // need to test some more!--------------
+        // if (query.slice(queryLength).includes(event.getTitle()))
+        //   events.push(event);
+        // else if (query.slice(0, queryLength).includes(event.getTitle()) && week >= parseInt(weekStart) && week <= parseInt(weekStop)) {
         if (queryWeek.includes(event.getTitle())) {
+          // Logger.log("Week: " + week);
+          events.push(event);
+
         // if (query.includes(event.getTitle())) {
           // may also pick up shorter titles, but it is unlikely such shorter titles may exist
           // MORE RELIABLE THAN `{ search: query }`!
           // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
           events.push(event);
         }
+        // if (event.getTitle() === query[queryLength - 1]) {
+          // week++;
+          // Logger.log("Week: " + week);
+        // }
       }
     }
     return null;
