@@ -24,17 +24,16 @@ function getCalendarNamesAndDefault() {
   var calendarRef;
   var calendarNameRef = "";
   var query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
-  // let query = ["J Day (Wk 4)"]; // temporary
   
-  // populate queryWeek, temporary
-  var queryWeek = [];
-  for (var w = 1; w <= 30; w++) { // start stop not defined yet, but 30 seems safe
-    for (var q = 0; q < query.length; q++) {
-      queryWeek.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
-      // Logger.log(queryWeek);
-    }
-  }
-  
+  // expand query, in case weekly cycle is marked in JIAYOU calendar 
+  // var queryExpand = [];
+  // for (var w = 1; w <= 30; w++) { // start stop not defined yet, but 30 seems safe
+    // for (var q = 0; q < query.length; q++) {
+      // queryExpand.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
+    // }
+  // }
+  // query = query.concat(queryExpand);
+
   var endDate;
 
   // Relay but hide reference calendar
@@ -48,7 +47,7 @@ function getCalendarNamesAndDefault() {
       var eventFind = allCalendars[i].getEvents(now, oneYearFromNow);
       for (var j = 0; j < eventFind.length; j++) {
         var event = eventFind[j];
-        if (queryWeek.includes(event.getTitle())) {
+        if (query.some(q => event.getTitle().includes(q))) { // substring check, case-sensitive
           calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden 
           calendarNameRef = String(allCalendars[i].getName());
           allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
@@ -76,7 +75,7 @@ function getCalendarNamesAndDefault() {
       } else {
         var eventsAll = calendarRef.getEvents(from, to);
         for (var i = eventsAll.length-1; i >= 0; i--) {
-          if (queryWeek.includes(eventsAll[i].getTitle())) {
+          if (query.some(q => eventsAll[i].getTitle().includes(q))) { // substring check, case-sensitive
             endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events, now that checking query we could reuse getAllDayStartDate() again
                 month: "short",
                 day: "numeric",
@@ -306,7 +305,7 @@ function addEvents(
         // if (query.slice(queryLength).includes(event.getTitle()))
         //   events.push(event);
         // else if (query.slice(0, queryLength).includes(event.getTitle()) && week >= parseInt(weekStart) && week <= parseInt(weekStop)) {
-        if (queryWeek.includes(event.getTitle())) {
+        if (query.some(q => event.getTitle().includes(q))) // substring check, case-sensitive
           // Logger.log("Week: " + week);
           events.push(event);
 
@@ -314,8 +313,7 @@ function addEvents(
           // may also pick up shorter titles, but it is unlikely such shorter titles may exist
           // MORE RELIABLE THAN `{ search: query }`!
           // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
-          events.push(event);
-        }
+        // }
         // if (event.getTitle() === query[queryLength - 1]) {
           // week++;
           // Logger.log("Week: " + week);
