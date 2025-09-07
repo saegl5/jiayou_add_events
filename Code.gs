@@ -35,6 +35,7 @@ function getCalendarNamesAndDefault() {
   // query = query.concat(queryExpand);
 
   var endDate;
+  var week;
 
   // Relay but hide reference calendar
   var found = false;
@@ -91,6 +92,32 @@ function getCalendarNamesAndDefault() {
       return null;
     }
   }
+
+    // compute current week, if calendarNameRef exists
+  if (calendarNameRef !== "") {
+    var now = new Date();
+    var oneYearFromNow = new Date();
+    oneYearFromNow.setFullYear(now.getFullYear() + 1);
+    var previousJuly = new Date(oneYearFromNow.getFullYear()-1, 6, 1); // previous July 1 one year from now (relative), monthIndex starts at 0
+    // Search for all events between the previous July and now
+    searchWeek(previousJuly, now);
+    function searchWeek(from, to) {
+      if (from > to) {
+        week = null;
+      } else {
+        week = 1;
+        var eventsAll = calendarRef.getEvents(from, to);
+        for (var i = 0; i < eventsAll.length; i++) {
+          if ([query[query.length - 1]].some(q => eventsAll[i].getTitle().includes(q))) { // substring check, case-sensitive
+            week++;
+          }
+        }
+      }
+      return null;
+    }
+  }
+
+  Logger.log("Week: " + week); // need to pass onto index
 
   return {
     username: userName,
