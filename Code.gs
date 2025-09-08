@@ -63,8 +63,11 @@ function getCalendarNamesAndDefault() {
     }
   }
 
-  // Search for the last event date, if calendarNameRef exists
+  
+
   if (calendarNameRef !== "") {
+
+    // Search for the last event date
     var now = new Date();
     var oneYearFromNow = new Date();
     oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
@@ -91,13 +94,8 @@ function getCalendarNamesAndDefault() {
       }
       return null;
     }
-  }
 
-    // compute current week, if calendarNameRef exists
-  if (calendarNameRef !== "") {
-    var now = new Date();
-    var oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(now.getFullYear() + 1);
+    // compute current week
     var previousJuly = new Date(oneYearFromNow.getFullYear()-1, 6, 1); // previous July 1 one year from now (relative), monthIndex starts at 0
     // Search for all events between the previous July and now
     searchWeek(previousJuly, now);
@@ -115,6 +113,7 @@ function getCalendarNamesAndDefault() {
       }
       return null;
     }
+
   }
 
   Logger.log("Week: " + week); // need to pass onto index
