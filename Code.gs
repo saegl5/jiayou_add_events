@@ -36,6 +36,7 @@ function getCalendarNamesAndDefault() {
 
   var endDate;
   var weekStart;
+  var weekStop;
 
   // Relay but hide reference calendar
   var found = false;
@@ -114,9 +115,25 @@ function getCalendarNamesAndDefault() {
       return null;
     }
 
-  }
+    // compute final week
+    searchFinalWeek(now, oneYearFromNow);
+    function searchFinalWeek(from, to) {
+      if (from > to) {
+        weekStop = null;
+      } else {
+        weekStop = weekStart; // from searchCurrentWeek()
+        var eventsAll = calendarRef.getEvents(from, to);
+        for (var i = 0; i < eventsAll.length; i++) {
+          if ([query[query.length - 1]].some(q => eventsAll[i].getTitle().includes(q))) { // substring check, case-sensitive
+            weekStop++;
+          }
+        }
+      }
+      return null;
+    }
 
-  Logger.log("Week: " + week); // need to pass onto index
+  }
+  // 
 
   return {
     username: userName,
