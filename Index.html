@@ -57,6 +57,12 @@
             <!-- <label for="howMany"></label> -->
             <text id="howMany" name="howMany"></text> <!-- hidden -->
 
+            <!-- <label for="weekStartRef"></label> -->
+            <text id="weekStartRef" name="weekStartRef"></text> <!-- hidden -->
+
+            <!-- <label for="weekStopRef"></label> -->
+            <text id="weekStopRef" name="weekStopRef"></text> <!-- hidden -->
+
             <h5 id="letterDayHeader">Letter Days</h5>
             <!-- <label for="days">On which to add events</label> -->
             <div id="table" class="days">
@@ -121,7 +127,7 @@
 
             <br/>
 
-            <!-- <h5 id="weeklyHeader">Week</h5>
+            <h5 id="weeklyHeader">Week</h5>
             <div id="table">
               <div id="row">
                 <div id="cell">
@@ -130,36 +136,37 @@
                       id="weekStart" 
                       type="number" 
                       name="weekStart"
-                      value="1" 
                       min="1"
-                      max="28"
+                      max="30"
                       step="1"
+                      placeholder="Optional"
                     />
+                    <!-- script will define value and update min and max, 30 is likely and arbitrary -->
                   </div>
-                </div> -->
-                <!-- need to use script to find value -->
-                <!-- need to use script to make min = value -->
-                <!-- <div id="cell" class="mid">
+                </div>
+                <div id="cell" class="mid">
                   &emsp;&ndash;&emsp;
-                </div> -->
-                <!-- <div id="cell">
+                </div>
+                <div id="cell">
                   <div class="input-field">
                     <input 
                       id="weekStop" 
                       type="number" 
                       name="weekStop"
-                      value="28" 
                       min="1"
-                      max="28"
+                      max="30"
                       step="1"
+                      placeholder="Optional"
                     />
+                    <!-- script will define value and update min and max, 30 is likely and arbitrary -->
                   </div>
-                </div> -->
-                <!-- need to use script to find value -->
-                <!-- need to use script to make max = value -->
+                </div>
               </div>
             </div>
           </div>
+
+          <br/>
+
         </section>
         <section class="section">
           <div class="container">

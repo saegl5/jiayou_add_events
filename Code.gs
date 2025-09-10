@@ -36,7 +36,9 @@ function getCalendarNamesAndDefault() {
 
   var endDate;
   var weekStart;
+  var weekStartRef;
   var weekStop;
+  var weekStopRef;
 
   // Relay but hide reference calendar
   var found = false;
@@ -63,8 +65,6 @@ function getCalendarNamesAndDefault() {
       }
     }
   }
-
-  
 
   if (calendarNameRef !== "") {
 
@@ -101,8 +101,8 @@ function getCalendarNamesAndDefault() {
     // Search for all events between the previous July and now
     searchCurrentWeek(previousJuly, now);
     function searchCurrentWeek(from, to) {
-      if (from > to) {
-        weekStart = null;
+      if (from > to) { // might be redundant
+        weekStart = null; // might be redundant
       } else {
         weekStart = 1;
         var eventsAll = calendarRef.getEvents(from, to);
@@ -111,6 +111,7 @@ function getCalendarNamesAndDefault() {
             weekStart++;
           }
         }
+        weekStartRef = weekStart;
       }
       return null;
     }
@@ -118,8 +119,8 @@ function getCalendarNamesAndDefault() {
     // compute final week
     searchFinalWeek(now, oneYearFromNow);
     function searchFinalWeek(from, to) {
-      if (from > to) {
-        weekStop = null;
+      if (from > to) { // might be redundant
+        weekStop = null; // might be redundant
       } else {
         weekStop = weekStart; // from searchCurrentWeek()
         var eventsAll = calendarRef.getEvents(from, to);
@@ -128,12 +129,12 @@ function getCalendarNamesAndDefault() {
             weekStop++;
           }
         }
+        weekStopRef = weekStop;
       }
       return null;
     }
 
   }
-  // 
 
   return {
     username: userName,
@@ -142,6 +143,10 @@ function getCalendarNamesAndDefault() {
     reference: calendarNameRef, // will pump to addEvents() instead of looping again
     conflict: howMany,
     endDate: endDate,
+    startWeek: weekStart,
+    referenceStartWeek: weekStartRef, // will pump to addEvents() instead of looping again
+    referenceStopWeek: weekStopRef, // will pump to addEvents() instead of looping again
+    endWeek: weekStop
   };
 }
 
@@ -151,8 +156,10 @@ function addEvents(
   howMany,
   query,
   frequency,
-  // weekStart,
-  // weekStop,
+  weekStart,
+  weekStartRef,
+  weekStop,
+  weekStopRef,
   title,
   guests,
   location,
@@ -271,6 +278,24 @@ function addEvents(
 
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
+  // Check for null weeks
+  weekStart = parseInt(weekStart);
+  weekStop = parseInt(weekStop);
+  if (weekStart !== "" && weekStop !== "") {
+    // Both weekStart and weekStop are provided
+    // keep them
+  } else if (weekStart !== "" && weekStop === "") {
+    // Only weekStart is provided
+    weekStop = weekStopRef;
+  } else if (weekStart === "" && weekStop !== "") {
+    // Only weekStop is provided
+    weekStart = weekStartRef;
+  } else {
+    // Neither weekStart nor weekStop is provided
+    weekStart = weekStartRef;
+    weekStop = weekStopRef;
+  }
+
   // Check for null dates
   if (start !== "" && end !== "") {
     // Set the search parameters
@@ -282,27 +307,28 @@ function addEvents(
     if (regex.test(end) === true) {
       end = new Date(end); // excluded from search
       end = adjustTime(end);
-      end.setDate(end.getDate() + 1); // include end date in search
+      // end.setDate(end.getDate() + 1); // include end date in search, interferes now
     } else {
       end = new Date(end); // excluded from search
-      end.setDate(end.getDate() + 1); // include end date in search
+      // end.setDate(end.getDate() + 1); // include end date in search, interferes now
     }
-    // Search for events with title between start and end dates
-    search(start, end);
+    // // Search for events with title between start and end dates
+    // search(start, end); narrow now inside search()
   } else if (start === "" && end !== "") {
     // Set the search parameters
-    var now = new Date();
+    // var now = new Date(); redundant
+    start = new Date();
     // test if date is ISO-formatted first
     if (regex.test(end) === true) {
       end = new Date(end); // excluded from search
       end = adjustTime(end);
-      end.setDate(end.getDate() + 1); // include end date in search
+      // end.setDate(end.getDate() + 1); // include end date in search, interferes now
     } else {
       end = new Date(end); // excluded from search
-      end.setDate(end.getDate() + 1); // include end date in search
+      // end.setDate(end.getDate() + 1); // include end date in search, interferes now
     }
-    // Search for events with title between now and end date
-    search(now, end);
+    // // Search for events with title between now and end date
+    // search(now, end); narrow now inside search()
   } else if (start !== "" && end === "") {
     // Set the search parameters
     // but test if date is ISO-formatted first
@@ -311,21 +337,32 @@ function addEvents(
       start = adjustTime(start);
     } else start = new Date(start);
     // var schoolDateEnd = new Date("2025-6-12"); <- redundant since internal calendar events end same date
-    var oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
-    // Search for events with title between start and one year from start
+    // var oneYearFromNow = new Date(); redundant
+    // oneYearFromNow.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off, redundant
+    end = new Date();
+    end.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off
+    // // Search for events with title between start and one year from start
     // search(start, schoolDateEnd);
-    search(start, oneYearFromNow);
+    // search(start, oneYearFromNow); narrow now inside search()
   } else {
     // Set the search parameters
-    var now = new Date();
+    // var now = new Date(); redundant
+    start = new Date();
     // var schoolDateEnd = new Date("2025-6-12"); <- again, redundant since internal calendar events end same date
-    var oneYearFromNow = new Date();
-    oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
+    // var oneYearFromNow = new Date(); redundant
+    // oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off, redundant
+    end = new Date();
+    end.setFullYear(start.getFullYear() + 1); // sooner, if calendar cuts off, start is essentially now
     // Search for events with title between now and one year from now
     // search(now, schoolDateEnd);
-    search(now, oneYearFromNow);
+    // search(now, oneYearFromNow); redundant
   }
+
+  // Search for events with title between now and one year from now, and narrow the search inside the function with week start, week end, start date and end date
+  var now = new Date();
+  var oneYearFromNow = new Date();
+  oneYearFromNow.setFullYear(now.getFullYear() + 1); // sooner, if calendar cuts off
+  search(now, oneYearFromNow);
 
   // consolidated into nested function
   // var events; // define before function call
@@ -333,18 +370,28 @@ function addEvents(
     if (from > to) {
       events = null;
     } else {
+      var week = weekStartRef;
       var eventsAll = calendarRef.getEvents(from, to); // reusing
       events = [];
       for (var l = 0; l < eventsAll.length; l++) {
         var event = eventsAll[l];
-        // need to test some more!--------------
         // if (query.slice(queryLength).includes(event.getTitle()))
         //   events.push(event);
         // else if (query.slice(0, queryLength).includes(event.getTitle()) && week >= parseInt(weekStart) && week <= parseInt(weekStop)) {
-        if (query.some(q => event.getTitle().includes(q))) // substring check, case-sensitive
-          // Logger.log("Week: " + week);
-          events.push(event);
-
+        // if (week >= weekStart && week <= weekStop) {
+        if (week >= weekStart && week <= weekStop &&
+          event.getStartTime() >= start && event.getStartTime() <= end) {
+          // comparisons between start time and date work because both are time stamps
+          if (query.some(q => event.getTitle().includes(q))) // substring check, case-sensitive
+            events.push(event);
+        }
+        // if ([query[query.length - 1]].some(q => event.getTitle().includes(q))) {
+        if (["U Day"].some(q => event.getTitle().includes(q))) {
+          week++;
+          if (week > weekStop) {
+            break;
+          }
+        }
         // if (query.includes(event.getTitle())) {
           // may also pick up shorter titles, but it is unlikely such shorter titles may exist
           // MORE RELIABLE THAN `{ search: query }`!

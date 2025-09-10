@@ -85,6 +85,14 @@
             document.getElementById("end").value = new Date(document.getElementById("endRef").value).toISOString().split("T")[0]; // keeps just date
             }
         }
+        document.getElementById("weekStart").value = response.startWeek;
+        document.getElementById("weekStartRef").value = response.referenceStartWeek;
+        document.getElementById("weekStart").min = response.startWeek;
+        document.getElementById("weekStart").max = response.endWeek;
+        document.getElementById("weekStop").value = response.endWeek;
+        document.getElementById("weekStopRef").value = response.referenceStopWeek;
+        document.getElementById("weekStop").min = response.startWeek;
+        document.getElementById("weekStop").max = response.endWeek;
         })
         .getCalendarNamesAndDefault();
     }
@@ -200,6 +208,9 @@
     document.getElementById("calendarHeader").innerHTML = response.calendarHeader;
     document.getElementById("letterDayHeader").innerHTML = response.letterDayHeader;
     document.getElementById("frequencyHeader").innerHTML = response.frequencyHeader;
+    document.getElementById("weeklyHeader").innerHTML = response.weeklyHeader;
+    document.getElementById("weekStart").placeholder = response.weekStart;
+    document.getElementById("weekStop").placeholder = response.weekStop;
     document.getElementById("titleHeader").innerHTML = response.titleHeader;
     document.getElementById("timeHeader").innerHTML = response.timeHeader;
     document.getElementsByName("collapsible-header")[0].innerHTML = response.collapsibleHeader;
@@ -269,6 +280,9 @@
         calendarHeader: "日历",
         letterDayHeader: "字母日",
         frequencyHeader: "频率",
+        weeklyHeader: "周",
+        weekStart: "可选的",
+        weekStop: "可选的",
         titleHeader: "标题",
         timeHeader: "时间",
         collapsibleHeader: "客人,&nbsp;位置,&nbsp;描述,&nbsp;日期",
@@ -335,6 +349,9 @@
         calendarHeader: "Calendar",
         letterDayHeader: "Letter Days",
         frequencyHeader: "Frequency",
+        weeklyHeader: "Week",
+        weekStart: "Optional",
+        weekStop: "Optional",
         titleHeader: "Title",
         timeHeader: "Time",
         collapsibleHeader: "Guests,&nbsp;Location,&nbsp;Description,&nbsp;Date",
@@ -442,8 +459,10 @@
         var frequency = document.getElementById("frequency").value;
         // var calendarNameAlt =
         //   document.getElementById("calendarNameAlt").value;
-        // var weekStart = document.getElementById("weekStart").value;
-        // var weekStop = document.getElementById("weekStop").value;
+        var weekStart = document.getElementById("weekStart").value;
+        var weekStartRef = document.getElementById("weekStartRef").value; // backup
+        var weekStop = document.getElementById("weekStop").value;
+        var weekStopRef = document.getElementById("weekStopRef").value; // backup
         var title = document.getElementById("title").value;
         var guests = document.getElementById("guests").value;
         var location = document.getElementById("location").value;
@@ -478,8 +497,10 @@
             howMany,
             query,
             frequency,
-            // weekStart,
-            // weekStop,
+            weekStart,
+            weekStartRef,
+            weekStop,
+            weekStopRef,
             title,
             guests,
             location,
