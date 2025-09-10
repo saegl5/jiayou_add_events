@@ -283,17 +283,20 @@ function addEvents(
   const regex = /^\d{4}-(\d{2})-(\d{2})$/; // regular expression for identifying a ISO-formatted date (YYYY-MM-DD)
 
   // Check for null weeks
-  weekStart = parseInt(weekStart);
-  weekStop = parseInt(weekStop);
+  weekStartRef = parseInt(weekStartRef);
+  weekStopRef = parseInt(weekStopRef);
   if (weekStart !== "" && weekStop !== "") {
     // Both weekStart and weekStop are provided
-    // keep them
+    weekStart = parseInt(weekStart);
+    weekStop = parseInt(weekStop);
   } else if (weekStart !== "" && weekStop === "") {
     // Only weekStart is provided
+    weekStart = parseInt(weekStart);
     weekStop = weekStopRef;
   } else if (weekStart === "" && weekStop !== "") {
     // Only weekStop is provided
     weekStart = weekStartRef;
+    weekStop = parseInt(weekStop);
   } else {
     // Neither weekStart nor weekStop is provided
     weekStart = weekStartRef;
