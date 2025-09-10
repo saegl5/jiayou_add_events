@@ -367,7 +367,8 @@ function addEvents(
   // consolidated into nested function
   // var events; // define before function call
   function search(from, to) {
-    if (from > to) {
+    // if (from > to) {
+    if (weekStart > weekStop || start > end) {
       events = null;
     } else {
       var week = weekStartRef;
@@ -406,8 +407,13 @@ function addEvents(
     return null;
   }
 
+  // check invalid week range
+  if (events === null && weekStart > weekStop) {
+    return "Event start week must be before event end week"; // handle error
+  }
+
   // check invalid date range
-  if (events === null) {
+  if (events === null && start > end) {
     return "Event start date must be before event end date"; // handle error
   }
 
