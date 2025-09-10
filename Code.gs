@@ -195,6 +195,7 @@ function addEvents(
   // check frequency
   if (frequency === "")
     frequency = 1; // default
+  // if not empty, no need to parseInt() since arithmetic will be performed on frequency (operators coerce string operands to numbers)
 
   // recheck if reference calendar doesn't exist
   if (calendarIdRef === "") {
