@@ -408,7 +408,7 @@ function addEvents(
 
   // check invalid date range
   if (events === null) {
-    return "Event start time must be before event end time"; // handle error
+    return "Event start date must be before event end date"; // handle error
   }
 
   // Check if query finds no events
