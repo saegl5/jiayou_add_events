@@ -126,6 +126,10 @@ function addEvents(
     }
   }
 
+  // check frequency
+  if (frequency === "")
+    frequency = 1; // default
+
   // recheck if reference calendar doesn't exist
   if (calendarIdRef === "") {
     return "Again, no calendars contain letter days!"; // handle error differently, since sometimes calendar exists but backend service may be down
