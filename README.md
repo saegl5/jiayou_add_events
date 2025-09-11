@@ -40,11 +40,12 @@ Add 加油 Events is a Google Web app for creating recurring events on only cert
 8. Check the username to ensure that you opened the URL in the correct account.
 9. Select the checkbox to view the form in Mandarin.
 10. Select your calendar name; choose letter days on which you want to add events, and optionally skip one or two letter days. (The Web app will automatically generate calendars that it can find and select your default one. In the background, it will also automatically locate and hide the 加油 calendar.)
-11. Modify the events' title, start time and end time. (If both times are removed, events will be added as all-day events. For 24-hour time formats, if users input hours of 24 or later it will default hours to 23, for example 24:30 -> 23:30).
-12. Expand the collapsible region to modify the events' guests, location, and description. (If you input just a URL for the description, text to display will be "Agenda.")
-13. Expand the collapsible region, as well, to confine the date range by modifying the start date and end date. (If either is empty, events will be added to all chosen letter days, starting from either today or ending one year from today.)
-14. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
-15. Press submit. (Requires another authorization. **_Note also that creating recurring events is subject to a [use limit](https://support.google.com/calendar/answer/37115)._**)
+11. Confine the weekly cycle range by modifying the start week and end week. (The Web app will automatically compute the minimum/current start week and maximum end week. If either is empty, events will be added to all chosen letter days within the date range of the collapsible region.)
+12. Modify the events' title, start time and end time. (If both times are removed, events will be added as all-day events. For 24-hour time formats, if users input hours of 24 or later it will default hours to 23, for example 24:30 -> 23:30).
+13. Expand the collapsible region to modify the events' guests, location, and description. (If you input just a URL for the description, text to display will be "Agenda.")
+14. Expand the collapsible region, as well, to confine the date range by modifying the start date and end date. (If either is empty, events will be added to all chosen letter days within the weekly cycle range. If either start week or end week are also empty, events will be added starting either today or ending one year from today.)
+15. Optionally perform a dry run to test the Web app before running it in production. Consult logs for output.
+16. Press submit. (Requires another authorization. **_Note also that creating recurring events is subject to a [use limit](https://support.google.com/calendar/answer/37115)._**)
 
 ## Next Steps
 
