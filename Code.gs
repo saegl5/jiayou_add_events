@@ -24,6 +24,7 @@ function getCalendarNamesAndDefault() {
   var calendarRef;
   var calendarNameRef = "";
   var query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
+  var queryEndRef = query[query.length - 1]; // "U Day"
   
   // expand query, in case weekly cycle is marked in JIAYOU calendar 
   // var queryExpand = [];
@@ -140,6 +141,7 @@ function getCalendarNamesAndDefault() {
     username: userName,
     calendars: allCalendarNames,
     defaultCal: defaultCalendarName,
+    queryEnd: queryEndRef, // will pump to addEvents()
     reference: calendarNameRef, // will pump to addEvents() instead of looping again
     conflict: howMany,
     endDate: endDate,
@@ -152,6 +154,7 @@ function getCalendarNamesAndDefault() {
 
 function addEvents(
   calendarName,
+  queryEndRef,
   calendarNameRef,
   howMany,
   query,
@@ -395,7 +398,7 @@ function addEvents(
             events.push(event);
         }
         // if ([query[query.length - 1]].some(q => event.getTitle().includes(q))) {
-        if (["U Day"].some(q => event.getTitle().includes(q))) {
+        if ([queryEndRef].some(q => event.getTitle().includes(q))) {
           week++;
           if (week > weekStop) {
             break;

@@ -65,6 +65,7 @@
                 .options.add(new Option(calendar, calendar, false, false)); // likewise, each other option will display the calendar name, and their value will be that same name; however, they are not selected by default and are not shown as selected
             // see also https://stackoverflow.com/questions/45379356/whats-the-difference-between-selected-and-defaultselected-when-constructing
         }
+        document.getElementById("queryEndRef").value = response.queryEnd;
         document.getElementById("calendarNameRef").value = response.reference;
         if (response.reference === "" && document.getElementById("chinese").checked === false)
             document.getElementById("wait").innerHTML = "No calendars contain letter days!";
@@ -453,6 +454,7 @@
         event.preventDefault(); // Prevents the form from submitting the traditional way
 
         var calendarName = document.getElementById("calendarName").value;
+        var queryEndRef = document.getElementById("queryEndRef").value;
         var calendarNameRef = document.getElementById("calendarNameRef").value;
         var howMany = document.getElementById("howMany").value;
         var query = [
@@ -496,6 +498,7 @@
         })
         .addEvents(
             calendarName,
+            queryEndRef,
             calendarNameRef,
             howMany,
             query,
