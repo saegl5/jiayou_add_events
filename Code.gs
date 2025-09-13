@@ -29,9 +29,9 @@ function getCalendarNamesAndDefault() {
   // expand query, in case weekly cycle is marked in JIAYOU calendar
   // var queryExpand = [];
   // for (var w = 1; w <= 30; w++) { // start stop not defined yet, but 30 seems safe
-    // for (var q = 0; q < query.length; q++) {
-      // queryExpand.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
-    // }
+  // for (var q = 0; q < query.length; q++) {
+  // queryExpand.push(query[q] + " (Wk " + w + ")"); // e.g., "J Day (Wk 1)"
+  // }
   // }
   // query = query.concat(queryExpand);
 
@@ -426,13 +426,13 @@ function addEvents(
           }
         }
         // if (query.includes(event.getTitle())) {
-          // may also pick up shorter titles, but it is unlikely such shorter titles may exist
-          // MORE RELIABLE THAN `{ search: query }`!
-          // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
+        // may also pick up shorter titles, but it is unlikely such shorter titles may exist
+        // MORE RELIABLE THAN `{ search: query }`!
+        // `event.getTitle() === query` could work too, must use for updating/deleting scripts though
         // }
         // if (event.getTitle() === query[queryLength - 1]) {
-          // week++;
-          // Logger.log("Week: " + week);
+        // week++;
+        // Logger.log("Week: " + week);
         // }
       }
     }
