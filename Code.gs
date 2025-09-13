@@ -4,7 +4,7 @@
 
 function doGet() {
   var template = HtmlService.createTemplateFromFile("Index"); // don't createHtmlOutputFromFile() yet
-  return template.evaluate().setTitle('Add 加油 Events');
+  return template.evaluate().setTitle("Add 加油 Events");
 }
 
 // Function to include Stylesheet and JavaScript in Index
@@ -25,8 +25,8 @@ function getCalendarNamesAndDefault() {
   var calendarNameRef = "";
   var query = ["J Day", "I Day", "A Day", "Y Day", "O Day", "U Day"]; // example
   var queryEndRef = query[query.length - 1]; // "U Day"
-  
-  // expand query, in case weekly cycle is marked in JIAYOU calendar 
+
+  // expand query, in case weekly cycle is marked in JIAYOU calendar
   // var queryExpand = [];
   // for (var w = 1; w <= 30; w++) { // start stop not defined yet, but 30 seems safe
     // for (var q = 0; q < query.length; q++) {
@@ -52,10 +52,13 @@ function getCalendarNamesAndDefault() {
       var eventFind = allCalendars[i].getEvents(now, oneYearFromNow);
       for (var j = 0; j < eventFind.length; j++) {
         var event = eventFind[j];
-        if (query.some(q => event.getTitle().includes(q))) { // substring check, case-sensitive
-          calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden 
+        if (query.some((q) => event.getTitle().includes(q))) {
+          // substring check, case-sensitive
+          calendarRef = CalendarApp.getCalendarById(allCalendars[i].getId()); // calendar is still hard-coded, but this way the ID is hidden
           calendarNameRef = String(allCalendars[i].getName());
-          allCalendarNames = allCalendarNames.filter(name => name != calendarNameRef); // comment out this line to display the reference calendar
+          allCalendarNames = allCalendarNames.filter(
+            (name) => name != calendarNameRef
+          ); // comment out this line to display the reference calendar
           found = true;
           howMany += 1;
           break;
@@ -68,7 +71,6 @@ function getCalendarNamesAndDefault() {
   }
 
   if (calendarNameRef !== "") {
-
     // Search for the last event date
     var now = new Date();
     var oneYearFromNow = new Date();
@@ -80,9 +82,13 @@ function getCalendarNamesAndDefault() {
         endDate = null;
       } else {
         var eventsAll = calendarRef.getEvents(from, to);
-        for (var i = eventsAll.length-1; i >= 0; i--) {
-          if (query.some(q => eventsAll[i].getTitle().includes(q))) { // substring check, case-sensitive
-            endDate = eventsAll[i].getStartTime().toLocaleDateString("en-US", { // else all-day recurring events may be misidentified as non-all-day events, now that checking query we could reuse getAllDayStartDate() again
+        for (var i = eventsAll.length - 1; i >= 0; i--) {
+          if (query.some((q) => eventsAll[i].getTitle().includes(q))) {
+            // substring check, case-sensitive
+            endDate = eventsAll[i]
+              .getStartTime()
+              .toLocaleDateString("en-US", {
+                // else all-day recurring events may be misidentified as non-all-day events, now that checking query we could reuse getAllDayStartDate() again
                 month: "short",
                 day: "numeric",
                 year: "numeric",
@@ -98,17 +104,23 @@ function getCalendarNamesAndDefault() {
     }
 
     // compute current week
-    var previousJuly = new Date(oneYearFromNow.getFullYear()-1, 6, 1); // previous July 1 one year from now (relative), monthIndex starts at 0
+    var previousJuly = new Date(oneYearFromNow.getFullYear() - 1, 6, 1); // previous July 1 one year from now (relative), monthIndex starts at 0
     // Search for all events between the previous July and now
     searchCurrentWeek(previousJuly, now);
     function searchCurrentWeek(from, to) {
-      if (from > to) { // might be redundant
+      if (from > to) {
+        // might be redundant
         weekStart = null; // might be redundant
       } else {
         weekStart = 1;
         var eventsAll = calendarRef.getEvents(from, to);
         for (var i = 0; i < eventsAll.length; i++) {
-          if ([query[query.length - 1]].some(q => eventsAll[i].getTitle().includes(q))) { // substring check, case-sensitive
+          if (
+            [query[query.length - 1]].some((q) =>
+              eventsAll[i].getTitle().includes(q)
+            )
+          ) {
+            // substring check, case-sensitive
             weekStart++;
           }
         }
@@ -120,13 +132,19 @@ function getCalendarNamesAndDefault() {
     // compute final week
     searchFinalWeek(now, oneYearFromNow);
     function searchFinalWeek(from, to) {
-      if (from > to) { // might be redundant
+      if (from > to) {
+        // might be redundant
         weekStop = null; // might be redundant
       } else {
         weekStop = weekStart; // from searchCurrentWeek()
         var eventsAll = calendarRef.getEvents(from, to);
         for (var i = 0; i < eventsAll.length; i++) {
-          if ([query[query.length - 1]].some(q => eventsAll[i].getTitle().includes(q))) { // substring check, case-sensitive
+          if (
+            [query[query.length - 1]].some((q) =>
+              eventsAll[i].getTitle().includes(q)
+            )
+          ) {
+            // substring check, case-sensitive
             weekStop++;
           }
         }
@@ -134,7 +152,6 @@ function getCalendarNamesAndDefault() {
       }
       return null;
     }
-
   }
 
   return {
@@ -148,7 +165,7 @@ function getCalendarNamesAndDefault() {
     startWeek: weekStart,
     referenceStartWeek: weekStartRef, // will pump to addEvents() instead of looping again
     referenceStopWeek: weekStopRef, // will pump to addEvents() instead of looping again
-    endWeek: weekStop
+    endWeek: weekStop,
   };
 }
 
@@ -171,7 +188,7 @@ function addEvents(
   end,
   startTime,
   endTime,
-  dryRun,
+  dryRun
   // chinese
 ) {
   var calendars = CalendarApp.getAllCalendars(); // Get all calendars
@@ -187,7 +204,7 @@ function addEvents(
       calendarId = String(calendars[i].getId()); // Assign the calendar ID
     }
   }
-  
+
   // Find reference calendar
   for (var k = 0; k < calendars.length; k++) {
     if (calendars[k].getName() === calendarNameRef) {
@@ -196,8 +213,7 @@ function addEvents(
   }
 
   // check frequency
-  if (frequency === "")
-    frequency = 1; // default
+  if (frequency === "") frequency = 1; // default
   // if not empty, no need to parseInt() since arithmetic will be performed on frequency (operators coerce string operands to numbers)
 
   // recheck if reference calendar doesn't exist
@@ -223,16 +239,16 @@ function addEvents(
   }
   if (
     startTime !== "" && // chinese === true &&
-    !startTime.includes(":")    
+    !startTime.includes(":")
   )
     return "Start time is missing colon!"; // for consistency, any format
   if (
     startTime !== "" &&
     startTime.includes(" ") &&
-    (!startTime.includes("AM") &&
-      !startTime.includes("am") && // relaxed requirement
-      !startTime.includes("PM") &&
-      !startTime.includes("pm")) // relaxed requirement
+    !startTime.includes("AM") &&
+    !startTime.includes("am") && // relaxed requirement
+    !startTime.includes("PM") &&
+    !startTime.includes("pm") // relaxed requirement
   )
     return "Start time is missing AM/PM!"; // for consistency, 12-hour time format
   if (
@@ -242,20 +258,20 @@ function addEvents(
       startTime.includes("PM") ||
       startTime.includes("pm")) && // relaxed requirement
     !startTime.includes(" ")
-  ) 
+  )
     return "Add finger space between start time and AM/PM!"; // for consistency, 12-hour time format
   if (
     endTime !== "" && // chinese === true &&
-    !endTime.includes(":")    
+    !endTime.includes(":")
   )
     return "End time is missing colon!"; // for consistency, any format
   if (
     endTime !== "" &&
     endTime.includes(" ") &&
-    (!endTime.includes("AM") &&
-      !endTime.includes("am") && // relaxed requirement
-      !endTime.includes("PM") &&
-      !endTime.includes("pm")) // relaxed requirement
+    !endTime.includes("AM") &&
+    !endTime.includes("am") && // relaxed requirement
+    !endTime.includes("PM") &&
+    !endTime.includes("pm") // relaxed requirement
   )
     return "End time is missing AM/PM!"; // for consistency, 12-hour time format
   if (
@@ -265,10 +281,10 @@ function addEvents(
       endTime.includes("PM") ||
       endTime.includes("pm")) && // relaxed requirement
     !endTime.includes(" ")
-  ) 
+  )
     return "Add finger space between end time and AM/PM!"; // for consistency, 12-hour time format
 
-  // expand query, in case weekly cycle is marked in JIAYOU calendar 
+  // expand query, in case weekly cycle is marked in JIAYOU calendar
   // var queryExpand = [];
   // for (var w = parseInt(weekStart); w <= parseInt(weekStop); w++) {
   //   for (var q = 0; q < query.length; q++) {
@@ -391,14 +407,19 @@ function addEvents(
         //   events.push(event);
         // else if (query.slice(0, queryLength).includes(event.getTitle()) && week >= parseInt(weekStart) && week <= parseInt(weekStop)) {
         // if (week >= weekStart && week <= weekStop) {
-        if (week >= weekStart && week <= weekStop &&
-          event.getStartTime() >= start && event.getStartTime() <= end) {
+        if (
+          week >= weekStart &&
+          week <= weekStop &&
+          event.getStartTime() >= start &&
+          event.getStartTime() <= end
+        ) {
           // comparisons between start time and date work because both are time stamps
-          if (query.some(q => event.getTitle().includes(q))) // substring check, case-sensitive
+          if (query.some((q) => event.getTitle().includes(q)))
+            // substring check, case-sensitive
             events.push(event);
         }
         // if ([query[query.length - 1]].some(q => event.getTitle().includes(q))) {
-        if ([queryEndRef].some(q => event.getTitle().includes(q))) {
+        if ([queryEndRef].some((q) => event.getTitle().includes(q))) {
           week++;
           if (week > weekStop) {
             break;
@@ -471,14 +492,14 @@ function addEvents(
 
     // Store the date in the dictionary
     date[dateKey] = true; // order is not preserved, so use Object.keys(date) below to sort dictionary keys into an array
-
   });
 
   // chain subsequent events to each first event
   var firstEvent = true;
   // get letter days from query
   var eventSeries = [];
-  for (var m = 0; m < query.length; m++) { // strings act as placeholders
+  for (var m = 0; m < query.length; m++) {
+    // strings act as placeholders
     if (query[m].includes("J")) eventSeries[m] = "eventSeriesJ";
     else if (query[m].includes("I")) eventSeries[m] = "eventSeriesI";
     else if (query[m].includes("A")) eventSeries[m] = "eventSeriesA";
@@ -502,7 +523,7 @@ function addEvents(
   // var firstDateIndex = eventSeries.length*(frequency-1); // equal to indexKeep initially but then incremented below <-- uncomment to skip first instance(s)
   var firstDateIndex = 0; // equal to indexKeep initially but then incremented below <-- comment out to skip first instance(s)
   for (var n = 0; n < eventSeries.length; n++) {
-    firstDate[n] = new Date(Object.keys(date)[firstDateIndex]); // need to sort dictionary keys into an array, select one key and cast it as a function 
+    firstDate[n] = new Date(Object.keys(date)[firstDateIndex]); // need to sort dictionary keys into an array, select one key and cast it as a function
     dateStartTime[n] = new Date(
       firstDate[n].getFullYear(),
       firstDate[n].getMonth(),
@@ -526,7 +547,8 @@ function addEvents(
   }
 
   // Iterate over the dates with events titled query and create a new event for the series at start time
-  for (var datestr in date) { // every dictionary key in date, key is ordered too
+  for (var datestr in date) {
+    // every dictionary key in date, key is ordered too
     var eventDate = new Date(datestr); // "eventDate" above is isolated in its own loop
     // if (!dryRun) { do regardless
     // Check if description includes a space
@@ -545,9 +567,13 @@ function addEvents(
     function createEvent(frequency, includesSpace, includesHttp) {
       if (eventIndex === indexKeep) {
         indexKeep++;
-        if (indexKeep % eventSeries.length === 0) // jump every eventSeries.length
-          indexKeep = indexKeep + eventSeries.length*(frequency-1);
-        if (eventIndex >= eventSeries.length + eventSeries.length*(frequency-1))
+        if (indexKeep % eventSeries.length === 0)
+          // jump every eventSeries.length
+          indexKeep = indexKeep + eventSeries.length * (frequency - 1);
+        if (
+          eventIndex >=
+          eventSeries.length + eventSeries.length * (frequency - 1)
+        )
           // could also use query.length
           firstEvent = false;
 
@@ -556,30 +582,33 @@ function addEvents(
           if (firstEvent) {
             var eventOptions = {
               location: location,
-              description: 
-                includesSpace ? description :
-                includesHttp ? `<a href="${description}" target="_blank" >Agenda</a>` :
-                description,
+              description: includesSpace
+                ? description
+                : includesHttp
+                ? `<a href="${description}" target="_blank" >Agenda</a>`
+                : description,
               guests: guests,
             };
 
             if (startTime === "" && endTime === "") {
               // make all-day event
-              eventSeries[eventIndex % eventSeries.length] = calendar.createAllDayEventSeries(
-                title,
-                firstDate[eventIndex % eventSeries.length],
-                CalendarApp.newRecurrence().addDate(eventDate),
-                eventOptions
-              );
+              eventSeries[eventIndex % eventSeries.length] =
+                calendar.createAllDayEventSeries(
+                  title,
+                  firstDate[eventIndex % eventSeries.length],
+                  CalendarApp.newRecurrence().addDate(eventDate),
+                  eventOptions
+                );
             } else {
               // make regular event
-              eventSeries[eventIndex % eventSeries.length] = calendar.createEventSeries(
-                title,
-                dateStartTime[eventIndex % eventSeries.length],
-                dateEndTime[eventIndex % eventSeries.length],
-                CalendarApp.newRecurrence().addDate(eventDate),
-                eventOptions
-              );
+              eventSeries[eventIndex % eventSeries.length] =
+                calendar.createEventSeries(
+                  title,
+                  dateStartTime[eventIndex % eventSeries.length],
+                  dateEndTime[eventIndex % eventSeries.length],
+                  CalendarApp.newRecurrence().addDate(eventDate),
+                  eventOptions
+                );
             }
             // can't set firstEvent = false yet
           } // chain subsequent event to first event
@@ -599,7 +628,7 @@ function addEvents(
           }
         }
 
-      // Log which events were added
+        // Log which events were added
         Logger.log('Created "' + title + '" on ' + eventDate + "!");
       }
       return null;
