@@ -76,6 +76,12 @@ function getCalendarNamesAndDefault() {
     }
   }
 
+  // uncomment two following lines of code, if multiple calendars contain letter days and you want to pick one of the calendars
+  // calendarNameRef = "foo";
+  // howMany = 1;
+  // replace foo with that reference calendar's name
+  // resets howMany, otherwise the web app will throw an error in addEvents()
+
   if (calendarNameRef !== "") {
     // Search for the last event date
     var now = new Date();
