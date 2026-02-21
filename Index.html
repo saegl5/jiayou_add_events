@@ -116,6 +116,10 @@
         align-items: center;
         gap: 8px;
       }
+      /* Suppress brief outline on mouse click but keep keyboard focus visible */
+      input[type="checkbox"]:focus:not(:focus-visible) {
+        outline: none !important;
+      }
       .extra {
         padding-left: 17px;
         color: var(--reference);
