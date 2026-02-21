@@ -110,6 +110,15 @@
         font-style: italic;
         font-family: unset;
       }
+      .extra-padding {
+        padding-left: 17px;
+        color: var(--reference);
+        font-style: italic;
+        font-family: unset;
+        margin-top: 3px;
+        display: block; /* allow margin to take effect */
+        margin-bottom: -18px; /* reduce space between extra and next element, since extra is now block-level */
+      }
       .days {
         padding-left: 13px;
       }
@@ -225,8 +234,8 @@
                 <!-- <option value="" disabled selected>Searching... (搜索中)</option> populate later in DOMContentLoaded event listener -->
               </select>
               <!-- <label for="calendarName">Must already exist</label> -->
-              <span name="calendarName" class="extra">Must already exist</span>
             </div>
+            <span name="calendarName" class="extra-padding">Must already exist</span>
             <br />
 
             <text id="queryEndRef" name="queryEndRef"></text>
@@ -346,10 +355,10 @@
                 placeholder="Optional"
               />
               <!-- <label for="numberInput">Every one, two or three letter days</label> -->
-              <span name="numberInput" class="extra"
-                >Every one, two, three or four letter days</span
-              >
             </div>
+            <span name="numberInput" class="extra-padding"
+              >Every one, two, three or four letter days</span
+            >
 
             <br />
 
@@ -456,7 +465,7 @@
               </div>
             </div>
             <!-- <label for="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</label> -->
-            <span name="times" class="extra">HH:MM AM/PM, HH:MM (24-hour)</span>
+            <span name="times" class="extra-padding">HH:MM AM/PM, HH:MM (24-hour)</span>
             <!-- prefilled for clarity -->
             <br /><br /><br />
             <!-- </div> -->
@@ -545,7 +554,7 @@
                     </div>
                   </div>
                   <!-- <label for="dates" class="extra">Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</label> -->
-                  <span name="dates" class="extra"
+                  <span name="dates" class="extra-padding"
                     >Mmm DD YYYY, MM/DD/YYYY, YYYY-MM-DD</span
                   >
                   <!-- Confine date range -->
