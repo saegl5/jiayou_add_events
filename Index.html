@@ -104,6 +104,14 @@
       .collapsible-header > span {
         font-family: unset;
       }
+      /* ensure checkbox labels centered vertically with the checkbox */
+      header > label,
+      .days label,
+      div[id="dry"] > label {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
       .extra {
         padding-left: 17px;
         color: var(--reference);
