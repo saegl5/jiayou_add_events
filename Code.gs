@@ -116,7 +116,10 @@ function getCalendarNamesAndDefault() {
     }
 
     // compute current week
-    var previousJuly = new Date(oneYearFromNow.getFullYear() - 1, 6, 1); // previous July 1 one year from now (relative), monthIndex starts at 0
+    if (now.getMonth() >= 6) // same year (Jul, Aug, Sep, Oct, Nov, Dec)
+      var previousJuly = new Date(oneYearFromNow.getFullYear() - 1, 6, 1); // previous July 1 one year from now (relative), monthIndex starts at 0, example: if now is Aug 2024, then previousJuly is Jul 1 2024
+    else // following year (Jan, Feb, Mar, Apr, May, Jun)
+      var previousJuly = new Date(oneYearFromNow.getFullYear() - 2, 6, 1); // second previous July 1 one year from now (relative), monthIndex starts at 0, essentially an error correction, example: if now is May 2024, then previousJuly is Jul 1 2023, not Jul 1 2024
     // Search for all events between the previous July and now
     searchCurrentWeek(previousJuly, now);
     function searchCurrentWeek(from, to) {
