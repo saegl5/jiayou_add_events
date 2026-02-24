@@ -116,6 +116,9 @@
         align-items: center;
         gap: 8px;
       }
+      label[hidden] {
+        display: none !important; /* override inline-flex */
+      }
       /* Suppress brief outline on mouse click but keep keyboard focus visible */
       input[type="checkbox"]:focus:not(:focus-visible) {
         outline: none !important;
